@@ -16,8 +16,11 @@ angular.module('dynrdfApp.controllers',[]).controller('RDFObjectListController',
     $scope.RDFobject=new RDFObject();
 
     $scope.addObject=function(){
-        $scope.RDFobject.$save(function(){
+        $scope.RDFobject.$save(function(data){
             $state.go('overview');
+        },
+        function(data){
+            alert(data.msg);
         });
     }
 

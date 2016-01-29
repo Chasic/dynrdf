@@ -5,6 +5,7 @@ import com.dynrdf.webapp.exceptions.ContainerException;
 import com.dynrdf.webapp.model.RDFObject;
 import com.dynrdf.webapp.util.Log;
 import javafx.util.Pair;
+import org.apache.jena.vocabulary.RDF;
 import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.criterion.Restrictions;
@@ -108,10 +109,7 @@ public class RDFObjectContainer{
      */
     public void createObject  ( RDFObject obj ) throws ContainerException{
 
-        // check unique uri path
-        if( !checkURiPath(obj.getUri_prefix(), null) ){
-            throw new ContainerException("Invalid URI prefix or already in use.");
-        }
+        validateObject(obj, false);
 
         Session session = factory.openSession();
         Transaction tx = null;
@@ -142,13 +140,66 @@ public class RDFObjectContainer{
     }
 
     /**
+     * Check object if is valid
+     * @param obj
+     * @throws ContainerException
+     */
+    private void validateObject( RDFObject obj, boolean updating ) throws ContainerException{
+        // check unique uri path
+        if( !checkURiPath(obj.getUri_prefix(), (updating ? obj : null) ) ){
+            throw new ContainerException("Invalid URI prefix or already in use.");
+        }
+
+        if( obj.getName() == null || obj.getName().length() == 0 ){
+            throw new ContainerException("Name is empty");
+        }
+        else if(  RDFObject.getRDFType(obj.getType()) == null ){
+            throw new ContainerException("Unknown RDF serialization number, not supported ...");
+        }
+        else if( obj.getTemplate() == null ||  obj.getTemplate().length() == 0 ){
+            throw new ContainerException("Empty template!");
+        }
+    }
+
+
+    /**
+     * Remove given object
+     * @param id
+     * @throws ContainerException if object does not exist or hibernate error occurred
+     */
+    public void removeObject( int id ) throws ContainerException{
+        if(  objects.containsKey(id) ){
+            Session session = factory.openSession();
+            Transaction tx = session.beginTransaction();
+            try {
+                RDFObject toDel = objects.get(id);
+                Log.debug(toDel.toString());
+                session.delete(toDel);
+            }
+            catch( HibernateException ex ){
+                throw new ContainerException("An error occurred during removing object from database: " + ex.getMessage());
+            }
+            finally {
+                session.flush();
+                tx.commit();
+                session.close();
+            }
+
+            objects.remove(id);
+        }
+        else{
+            throw new ContainerException("Object does not exist.");
+        }
+    }
+
+    /**
      * Check if given uri path is free and valid
      * @param uriPrefix String URI prefix to check
      * @param toCompare RDFObject Exclude from check given object(update case)
      * @return boolean true
      */
     private boolean checkURiPath(String uriPrefix, RDFObject toCompare){
-        if( uriPrefix.contains(" ") || uriPrefix.contains("/") ){
+        if( uriPrefix == null || uriPrefix.contains(" ") || uriPrefix.contains("/") ){
             return false;
         }
 
@@ -184,15 +235,17 @@ public class RDFObjectContainer{
      * @throws ContainerException
      */
     public void updateObject ( RDFObject obj ) throws ContainerException{
-        // check unique uri path
-        if( !checkURiPath(obj.getUri_prefix(), obj) ){
-            throw new ContainerException("Invalid URI prefix or already in use.");
-        }
+        validateObject(obj, true);
 
         Session session = factory.openSession();
         Transaction tx = null;
         int id = obj.getId();
         boolean err = false;
+
+        if( !objects.containsKey(id) ){
+            throw new ContainerException("Object with given id dose not exist.");
+        }
+
 
         try{
             tx = session.beginTransaction();
@@ -243,6 +296,10 @@ public class RDFObjectContainer{
         }
 
         Log.info("Loaded " + results.size() + " objects.");
+    }
+
+    private void reloadObject( RDFObject o ){
+        objects.put(o.getId(), o);
     }
 
 }

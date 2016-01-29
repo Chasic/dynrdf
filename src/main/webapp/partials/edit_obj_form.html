@@ -5,32 +5,33 @@
     </div>
 </div>
 <div class="form-group">
-    <label for="uri_path" class="col-sm-2 control-label">Object URI path</label>
+    <label for="uri_prefix" class="col-sm-2 control-label">Object URI path</label>
     <div class="col-sm-10">
-        <input type="text" ng-model="RDFobject.uriPath" class="form-control" id="uri_path" placeholder="/<object_name>"/>
+        <input type="text" ng-model="RDFobject.uri_prefix" class="form-control" id="uri_prefix" placeholder="<object_name>"/>
     </div>
 </div>
 
 <div class="form-group">
     <label for="type" class="col-sm-2 control-label">Object definition type</label>
     <div class="col-sm-10">
-        <select class="selectpicker" ng-model="RDFobject.defType" class="form-control" id="type" >
-            <option value="SPARQL">SPARQL</option>
-            <option value="TURTLE">TURTLE</option>
+        <select class="selectpicker" ng-model="RDFobject.type" class="form-control" id="type" >
+            <option value="0">TURTLE</option>
+            <option value="1">SPARQL</option>
         </select>
     </div>
 </div>
 
 <div class="form-group">
-    <label for="definition" class="col-sm-2 control-label">Object definition</label>
+    <label for="template" class="col-sm-2 control-label">Object definition</label>
     <div class="col-sm-10">
-     <textarea class="form-control" rows="10" id="definition" ng-model="RDFobject.definition"></textarea>
-        
+        <textarea class="form-control" rows="10" id="template" ng-model="RDFobject.template"></textarea>
+
     </div>
 </div>
 
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
+        <input type="text" ng-model="RDFobject.name" class="form-control" id="name" placeholder="Object name here"/>
         <input type="submit" class="btn btn-primary" value="Save"/>
     </div>
 </div>
