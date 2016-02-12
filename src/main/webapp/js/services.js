@@ -6,7 +6,8 @@ angular.module('dynrdfApp.services',[]).factory('RDFObject',function($resource){
         update: {
             method: 'PUT'
         }
-    });
+    }
+    );
 }).service('popupService',function($window){
     this.showPopup=function(message){
         return $window.confirm(message);

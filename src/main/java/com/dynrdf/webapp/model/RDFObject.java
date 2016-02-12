@@ -36,6 +36,7 @@ public class RDFObject {
         this.id = another.id;
         this.name = another.name;
         this.type = another.type;
+        this.template = another.template;
         this.uri_prefix = another.uri_prefix;
     }
 
@@ -70,8 +71,10 @@ public class RDFObject {
         return template;
     }
 
-    public void setTemplate(String template) {
+    public RDFObject setTemplate(String template) {
         this.template = template;
+
+        return this;
     }
 
     public void setType(int type) {
@@ -80,7 +83,7 @@ public class RDFObject {
 
     @Override
     public String toString() {
-        return "[id=" + id + ", name=" + name + ", uri_prefix=" + uri_prefix + ", type=" + type + "]";
+        return "[id=" + id + ", name=" + name + ", uri_prefix=" + uri_prefix + ", type=" + type + ", template=" + template + "]";
     }
 
     public String getUri_prefix() {

@@ -23,14 +23,10 @@ public class RDFObjectService {
         RDFObjectContainer container = RDFObjectContainer.getInstance();
         RDFObject o = container.getObject(id);
         if(  o != null ){
-            JSONObject obj = new JSONObject();
 
-            obj.put("id", o.getId());
-            obj.put("name", o.getName());
-            obj.put("type", o.getType());
-            obj.put("url_prefix", o.getUri_prefix());
+            String json = new Gson().toJson( o );
 
-            return Response.status(200).entity(obj.toJSONString()).build();
+            return Response.status(200).entity(json).build();
         }
 
         return Response.status(404).build();
@@ -39,7 +35,7 @@ public class RDFObjectService {
     @GET
     public Response getAllObjects() {
         RDFObjectContainer container = RDFObjectContainer.getInstance();
-        List<RDFObject> oobjects = container.getAll();
+        List<RDFObject> oobjects = container.getAllWithoutTemplate();
         String json = new Gson().toJson( oobjects );
 
         return Response.status(200).entity(json).build();
@@ -61,8 +57,8 @@ public class RDFObjectService {
 
     @PUT
     @Consumes("application/json")
+    @Path("/{id}")
     public Response updateObject(RDFObject o){
-        Log.debug("wtf - " + o.toString());
         try{
             RDFObjectContainer container = RDFObjectContainer.getInstance();
             container.updateObject(o);

@@ -81,6 +81,7 @@ public class RDFObjectContainer{
      */
     public RDFObject getObject( int id ) {
         RDFObject found = objects.get(id);
+
         if( found != null ){
             // return copy of the object
             return new RDFObject(found);
@@ -97,6 +98,18 @@ public class RDFObjectContainer{
         List<RDFObject> result = new ArrayList<>();
         for( Map.Entry<Integer, RDFObject> e : objects.entrySet() ){
             result.add( new RDFObject(e.getValue()) );
+        }
+
+        return result;
+    }
+    /**
+     * Get all objects (copies) without templates
+     * @return  List<RDFObject> all loaded objects
+     */
+    public List<RDFObject> getAllWithoutTemplate() {
+        List<RDFObject> result = new ArrayList<>();
+        for( Map.Entry<Integer, RDFObject> e : objects.entrySet() ){
+            result.add( new RDFObject(e.getValue()).setTemplate(null) );
         }
 
         return result;
@@ -258,6 +271,7 @@ public class RDFObjectContainer{
         }finally {
             session.close();
             if( !err ){
+                objects.remove(id);
                 objects.put(id, obj);
                 Log.debug("Updating object, new data: " + obj.toString());
             }
