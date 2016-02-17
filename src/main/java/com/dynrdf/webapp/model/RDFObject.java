@@ -1,9 +1,10 @@
 package com.dynrdf.webapp.model;
 
 
+import com.dynrdf.webapp.Template;
+import com.dynrdf.webapp.util.Log;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity
@@ -11,6 +12,7 @@ import java.util.List;
 public class RDFObject {
 
     private static String[] supportedRDFTypes = {"turtle", "sparql"};
+    transient private Template templateObject;
 
     @Id
     @GeneratedValue
@@ -28,6 +30,7 @@ public class RDFObject {
     @Column(name="template")
     private String template;
 
+
     public RDFObject() {
     }
 
@@ -38,6 +41,7 @@ public class RDFObject {
         this.type = another.type;
         this.template = another.template;
         this.uri_prefix = another.uri_prefix;
+        this.templateObject = another.templateObject;
     }
 
     public RDFObject(String name, String uri_prefix, int type, String template) {
@@ -110,5 +114,15 @@ public class RDFObject {
 
     public void setUri_prefix(String uri_prefix) {
         this.uri_prefix = uri_prefix;
+    }
+
+    public Template getTemplateObject(){
+        return this.templateObject;
+    }
+
+    public void preprocessTemplate(){
+        Log.debug("Preprocessing template for object: " + name );
+        templateObject = new Template(this.template);
+        templateObject.preprocess();
     }
 }

@@ -32,15 +32,21 @@ public class RDFObjectContainer{
     private static RDFObjectContainer instance = null;
 
     /**
-     * Map of loaded objects
+     * Map of loaded objects - by ID
      */
     private Map<Integer, RDFObject> objects;
+
+    /**
+     * Map of loaded objects - by uri ID
+     */
+    private Map<String, RDFObject> objectsByUriPrefix;
 
     /**
      * Protected constructor
      */
     protected RDFObjectContainer(){
         objects = new HashMap<>();
+        objectsByUriPrefix = new HashMap<>();
 
         // init hibernate
         try {
@@ -75,12 +81,28 @@ public class RDFObjectContainer{
     }
 
     /**
-     * Get RDF object from container
-     * @param id Objec id
+     * Get RDF object from container by ID
+     * @param id Object id
      * @return RDFObject, null if not found
      */
     public RDFObject getObject( int id ) {
         RDFObject found = objects.get(id);
+
+        if( found != null ){
+            // return copy of the object
+            return new RDFObject(found);
+        }
+
+        return null;
+    }
+
+    /**
+     * Get RDF object from container by URI prefix
+     * @param prefix String
+     * @return RDFObject, null if not found
+     */
+    public RDFObject getObjectByUriPrefix(String prefix){
+        RDFObject found = objectsByUriPrefix.get(prefix);
 
         if( found != null ){
             // return copy of the object
@@ -142,11 +164,11 @@ public class RDFObjectContainer{
             session.close();
             if( !err ){
                 obj.setId(id);
-                objects.put(id, obj);
+                reloadObject(obj);
                 Log.debug("Creating new object: " + obj.toString());
             }
             else{
-                throw new ContainerException("Cannot create new object, see log.");
+                throw new ContainerException("Cannot create new object, see log (Probably DB problem).");
             }
         }
 
@@ -198,6 +220,8 @@ public class RDFObjectContainer{
                 session.close();
             }
 
+            objectsByUriPrefix.remove(
+                    objects.get(id).getUri_prefix() );
             objects.remove(id);
         }
         else{
@@ -271,8 +295,7 @@ public class RDFObjectContainer{
         }finally {
             session.close();
             if( !err ){
-                objects.remove(id);
-                objects.put(id, obj);
+                reloadObject(obj);
                 Log.debug("Updating object, new data: " + obj.toString());
             }
             else{
@@ -306,14 +329,21 @@ public class RDFObjectContainer{
         }
 
         for( RDFObject o : results ){
-            objects.put(o.getId(), o);
+            reloadObject(o);
         }
 
         Log.info("Loaded " + results.size() + " objects.");
     }
 
     private void reloadObject( RDFObject o ){
+        RDFObject removed = objects.get(o.getId());
+        if(removed != null){
+            objects.remove(o.getId());
+            objectsByUriPrefix.remove(removed.getUri_prefix());
+        }
         objects.put(o.getId(), o);
+        objectsByUriPrefix.put(o.getUri_prefix(), o);
+        o.preprocessTemplate();
     }
 
 }
