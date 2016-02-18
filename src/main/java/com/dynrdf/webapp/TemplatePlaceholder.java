@@ -1,6 +1,10 @@
 package com.dynrdf.webapp;
 
-public class TemplateRecord {
+/**
+ * Class for every placeholder found in a template
+ * Contains start and end indexes of the placeholder, parameter number, regex, etc ..
+ */
+public class TemplatePlaceholder {
 
     /**
      * Number of uri parameter to insert
@@ -27,7 +31,7 @@ public class TemplateRecord {
      */
     private int end;
 
-    public TemplateRecord(int start, int end, int uriParameterNumber, String regex){
+    public TemplatePlaceholder(int start, int end, int uriParameterNumber, String regex){
         this.start = start;
         this.end = end;
         this.uriParameterNumber = uriParameterNumber;

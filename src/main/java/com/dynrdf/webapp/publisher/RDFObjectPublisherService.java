@@ -21,17 +21,63 @@ import java.util.List;
 public class RDFObjectPublisherService {
 
     @GET
-    @Produces("application/rdf")
-    public Response handleObjectRequestRDF(@PathParam("uri") String _uri) {
+    @Produces({"application/x-turtle", "text/turtle", "application/rdf+turtle",
+               "application/turtle"})
+    public Response handleObjectRequestTurtle(@Context HttpServletRequest request, @PathParam("uri") String _uri) {
 
-        List<String> uri = parseUriPath(_uri);
-
-        String output = "RDFObjectPublisherService says ";
-
-        for(String part : uri ){
-            output = output + "\n " + part;
+        Request objectRequest;
+        try{
+            objectRequest = buildObjectRequest(_uri, request, "TURTLE");
         }
-        return Response.status(200).entity(output).build();
+        catch(RequestException ex){
+            return return404();
+        }
+
+        return objectRequest.execute();
+    }
+
+    @GET
+    @Produces({"application/rdf+n3", "text/n3", "application/n3"})
+    public Response handleObjectRequestN3(@Context HttpServletRequest request, @PathParam("uri") String _uri) {
+
+        Request objectRequest;
+        try{
+            objectRequest = buildObjectRequest(_uri, request, "N-TRIPLES");
+        }
+        catch(RequestException ex){
+            return return404();
+        }
+
+        return objectRequest.execute();
+    }
+
+
+    @GET
+    @Produces("application/ld+json")
+    public Response handleObjectRequestJSONLD(@Context HttpServletRequest request, @PathParam("uri") String _uri) {
+        Request objectRequest;
+        try{
+            objectRequest = buildObjectRequest(_uri, request, "JSON-LD");
+        }
+        catch(RequestException ex){
+            return return404();
+        }
+
+        return objectRequest.execute();
+    }
+
+    @GET
+    @Produces({"application/rdf+xml", "application/xml"})
+    public Response handleObjectRequestRDFXML(@Context HttpServletRequest request, @PathParam("uri") String _uri) {
+        Request objectRequest;
+        try{
+            objectRequest = buildObjectRequest(_uri, request, "RDF/XML");
+        }
+        catch(RequestException ex){
+            return return404();
+        }
+
+        return objectRequest.execute();
     }
 
     @GET
@@ -39,7 +85,7 @@ public class RDFObjectPublisherService {
     public Response handleObjectRequestHtml(@Context HttpServletRequest request, @PathParam("uri") String _uri) {
         Request objectRequest;
         try{
-            objectRequest = buildObjectRequest(_uri, request, "text/html");
+            objectRequest = buildObjectRequest(_uri, request, "JSON-LD");
         }
         catch(RequestException ex){
             return return404();

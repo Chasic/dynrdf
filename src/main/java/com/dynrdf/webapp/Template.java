@@ -6,20 +6,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.jena.rdf.model.impl.ModelCom;
 
 /**
- * Created by honza on 2/17/16.
+ * Template class for RDF object templates with placeholders
+ * Placeholders syntax examples:
+ *  [@1, "regex"]
+ *  [  @1,      "regex"      ] - whitespaces before and after parameter index and regex
+ *  [@1] - no regex
+ *  [@0] - full url
+ *
+ *  Parameters numbers:
+ *      0 - full url
+ *      1 - first parameter after object identifier
+ *      2 - second parameter ...
+ *
+ *      Example - date entity(identifier "date") http://dynrdf.com/data/date/10-10-2015 :
+ *          @0 = http://dynrdf.com/data/date/10-10-2015
+ *          @1 = 10-10-2015
  */
 public class Template {
 
     private String template;
-    private List<TemplateRecord> records;
+    private List<TemplatePlaceholder> records;
 
 
     public Template(String template){
         this.template = template;
     }
 
+    /**
+     * Find every placeholder and prepare for later replacements
+     */
     public void preprocess(){
         records = new ArrayList<>();
         Pattern pattern =  Pattern.compile("\\[\\s*@(\\d+)\\s*(,\\s*\\\"(.*)\\\")?\\s*\\]");
@@ -40,17 +58,26 @@ public class Template {
             }
             int uriParameter = Integer.parseInt(matcher.group(1));
 
-            TemplateRecord record = new TemplateRecord(start, end, uriParameter, regex);
+            TemplatePlaceholder record = new TemplatePlaceholder(start, end, uriParameter, regex);
             records.add(record);
 
             Log.debug("Found template record: " + record);
         }
     }
 
+
+    /**
+     * Fill prepared template with parameters
+     * @param uri Full URI
+     * @param uriParameters List of URI parameters after identifier
+     * @param uriByParameter True if URI is set in GET parameter ?url
+     * @return String data from template OR null, if failed to fill
+     *         placeholders (all required parameters have to be set)
+     */
     public String fillTemplate(String uri, List<String> uriParameters, boolean uriByParameter){
         StringBuffer data = new StringBuffer();
         int leftBoundary = 0;
-        for( TemplateRecord record : records ){
+        for( TemplatePlaceholder record : records ){
             // check if parameter exists
             if( record.getUriParameterNumber() < 0 || record.getUriParameterNumber() >= uriParameters.size() )
                 return null;
@@ -102,6 +129,4 @@ public class Template {
 
         return data.toString();
     }
-
-
 }

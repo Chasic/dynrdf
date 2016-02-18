@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name="objects")
 public class RDFObject {
 
-    private static String[] supportedRDFTypes = {"turtle", "sparql"};
+    private static String[] supportedTemplateTypes = {"TURTLE", "RDF/XML", "N-TRIPLES", "JSON-LD", "SPARQL"};
     transient private Template templateObject;
 
     @Id
@@ -105,8 +105,8 @@ public class RDFObject {
      * @return RDF serialization name | null if not supported
      */
     public static String getRDFType( int typeId ){
-        if( supportedRDFTypes.length - 1 >= typeId && typeId >= 0 ){
-            return supportedRDFTypes[typeId];
+        if( supportedTemplateTypes.length - 1 >= typeId && typeId >= 0 ){
+            return supportedTemplateTypes[typeId];
         }
 
         return null;

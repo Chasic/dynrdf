@@ -1,15 +1,16 @@
 package com.dynrdf.webapp;
 
 import com.dynrdf.webapp.model.RDFObject;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
 
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 /**
- * Created by honza on 2/17/16.
+ * Represents a request for an object data
  */
 public class Request {
     private List<String> uriParameters;
@@ -27,8 +28,8 @@ public class Request {
     }
 
     /**
-     *
-     * @return
+     * Execute the request
+     * @return Response
      */
     public Response execute(){
         String data = object.getTemplateObject().fillTemplate(uri, uriParameters, uriByParameter);
@@ -37,6 +38,15 @@ public class Request {
             return Response.status(404).build();
         }
 
-        return Response.status(200).entity(data).build();
+        StringReader sr = new StringReader(data);
+
+        Model model = ModelFactory.createDefaultModel();
+        model.read(sr, null, object.getRDFType(object.getType()));
+
+
+        StringWriter out = new StringWriter();
+        model.write(out, produces);
+
+        return Response.status(200).entity(out.toString()).build();
     }
 }

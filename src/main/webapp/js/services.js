@@ -1,5 +1,13 @@
-var REST_SERVICE = "http://localhost:8080/bakalarka_war_exploded/api/";
-REST_SERVICE = "http://127.0.0.1:8080/dynrdf/api/";
+var REST_SERVICE = "";
+
+rest_service = String( window.location );
+if( rest_service.match(".*#.*") ){
+    index = rest_service.indexOf("#");
+    REST_SERVICE = rest_service.substr(0, index) + "api/";
+}
+else{
+    REST_SERVICE = rest_service + "api/";
+}
 
 angular.module('dynrdfApp.services',[]).factory('RDFObject',function($resource){
     return $resource(REST_SERVICE + 'objects/:id',{id:'@id'},{
