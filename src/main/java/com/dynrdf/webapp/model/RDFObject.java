@@ -5,6 +5,7 @@ import com.dynrdf.webapp.Template;
 import com.dynrdf.webapp.util.Log;
 
 import javax.persistence.*;
+import java.util.regex.Pattern;
 
 
 @Entity
@@ -13,6 +14,7 @@ public class RDFObject {
 
     private static String[] supportedTemplateTypes = {"TURTLE", "RDF/XML", "N-TRIPLES", "JSON-LD", "SPARQL"};
     transient private Template templateObject;
+    transient private Pattern pattern;
 
     @Id
     @GeneratedValue
@@ -21,14 +23,17 @@ public class RDFObject {
     @Column(name="name")
     private String name;
 
-    @Column(name="uri_prefix")
-    private String uri_prefix;
+    @Column(name="uriRegex")
+    private String uriRegex;
 
     @Column(name="type")
     private int type;
 
     @Column(name="template")
     private String template;
+
+    @Column(name="priority")
+    private int priority;
 
 
     public RDFObject() {
@@ -40,15 +45,17 @@ public class RDFObject {
         this.name = another.name;
         this.type = another.type;
         this.template = another.template;
-        this.uri_prefix = another.uri_prefix;
+        this.uriRegex = another.uriRegex;
         this.templateObject = another.templateObject;
+        this.priority = another.priority;
     }
 
-    public RDFObject(String name, String uri_prefix, int type, String template) {
+    public RDFObject(String name, String uriRegex, int type, String template, int priority) {
         this.name = name;
-        this.uri_prefix = uri_prefix;
+        this.uriRegex = uriRegex;
         this.type = type;
         this.template = template;
+        this.priority = priority;
     }
 
     public RDFObject setId( int id ){
@@ -87,11 +94,11 @@ public class RDFObject {
 
     @Override
     public String toString() {
-        return "[id=" + id + ", name=" + name + ", uri_prefix=" + uri_prefix + ", type=" + type + ", template=" + template + "]";
+        return "[id=" + id + ", name=" + name + ", uriRegex=" + uriRegex + ", type=" + type + ", template=" + template + ", priority=" + priority + "]";
     }
 
-    public String getUri_prefix() {
-        return uri_prefix;
+    public String getUriRegex() {
+        return uriRegex;
     }
 
     public int getType() {
@@ -112,8 +119,8 @@ public class RDFObject {
         return null;
     }
 
-    public void setUri_prefix(String uri_prefix) {
-        this.uri_prefix = uri_prefix;
+    public void setUriRegex(String uriRegex) {
+        this.uriRegex = uriRegex;
     }
 
     public Template getTemplateObject(){
@@ -125,4 +132,22 @@ public class RDFObject {
         templateObject = new Template(this.template);
         templateObject.preprocess();
     }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public void compilePattern(){
+        pattern =  Pattern.compile(uriRegex);
+    }
+
+    public Pattern getPattern() {
+        return pattern;
+    }
+
+
 }

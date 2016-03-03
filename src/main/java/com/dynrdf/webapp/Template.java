@@ -70,11 +70,10 @@ public class Template {
      * Fill prepared template with parameters
      * @param uri Full URI
      * @param uriParameters List of URI parameters after identifier
-     * @param uriByParameter True if URI is set in GET parameter ?url
      * @return String data from template OR null, if failed to fill
      *         placeholders (all required parameters have to be set)
      */
-    public String fillTemplate(String uri, List<String> uriParameters, boolean uriByParameter){
+    public String fillTemplate(String uri, List<String> uriParameters){
         StringBuffer data = new StringBuffer();
         int leftBoundary = 0;
         for( TemplatePlaceholder record : records ){
@@ -109,7 +108,7 @@ public class Template {
             else{
                 // parameters are indexed from 1
                 // "num - 1" is used if uri was set by ?url parameter
-                int parameterNum = uriByParameter ?  record.getUriParameterNumber() - 1 : record.getUriParameterNumber();
+                int parameterNum = record.getUriParameterNumber() - 1;
                 if(regex != null){
                     Matcher matcher = pattern.matcher(uriParameters.get(parameterNum));
                     if (matcher.find()){

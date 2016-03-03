@@ -17,14 +17,12 @@ public class Request {
     private RDFObject object;
     private String uri;
     private String produces;
-    private boolean uriByParameter;
 
-    public Request(RDFObject obj, String uri, List<String> uriParameters, String produces, boolean uriByParameter){
+    public Request(RDFObject obj, String uri, List<String> uriParameters, String produces){
         object = obj;
         this.uriParameters = uriParameters;
         this.uri = uri;
         this.produces = produces;
-        this.uriByParameter = uriByParameter;
     }
 
     /**
@@ -32,7 +30,7 @@ public class Request {
      * @return Response
      */
     public Response execute(){
-        String data = object.getTemplateObject().fillTemplate(uri, uriParameters, uriByParameter);
+        String data = object.getTemplateObject().fillTemplate(uri, uriParameters);
 
         if(data == null){
             return Response.status(404).build();

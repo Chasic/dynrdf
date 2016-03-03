@@ -10,10 +10,9 @@ import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.criterion.Restrictions;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Class: RDFObjectContainer
@@ -39,14 +38,14 @@ public class RDFObjectContainer{
     /**
      * Map of loaded objects - by uri ID
      */
-    private Map<String, RDFObject> objectsByUriPrefix;
+    private LinkedList<RDFObject> objectsByPriority;
 
     /**
      * Protected constructor
      */
     protected RDFObjectContainer(){
         objects = new HashMap<>();
-        objectsByUriPrefix = new HashMap<>();
+        objectsByPriority = new LinkedList<>();
 
         // init hibernate
         try {
@@ -97,16 +96,19 @@ public class RDFObjectContainer{
     }
 
     /**
-     * Get RDF object from container by URI prefix
-     * @param prefix String
+     * Get first RDF object from container by regex match
+     * @param uri String
      * @return RDFObject, null if not found
      */
-    public RDFObject getObjectByUriPrefix(String prefix){
-        RDFObject found = objectsByUriPrefix.get(prefix);
+    public RDFObject getObjectByUriRegexMatch(String uri){
+        for( RDFObject o : objectsByPriority ){
+            Log.debug("Trying to match: uri="+uri+", pattern="+o.getUriRegex()+", objectID="+o.getId());
 
-        if( found != null ){
-            // return copy of the object
-            return new RDFObject(found);
+            Pattern pattern = o.getPattern();
+            Matcher matcher = pattern.matcher(uri);
+            if (matcher.find()) {
+                return new RDFObject(o); // return copy
+            }
         }
 
         return null;
@@ -180,10 +182,6 @@ public class RDFObjectContainer{
      * @throws ContainerException
      */
     private void validateObject( RDFObject obj, boolean updating ) throws ContainerException{
-        // check unique uri path
-        if( !checkURiPath(obj.getUri_prefix(), (updating ? obj : null) ) ){
-            throw new ContainerException("Invalid URI prefix or already in use.");
-        }
 
         if( obj.getName() == null || obj.getName().length() == 0 ){
             throw new ContainerException("Name is empty");
@@ -204,6 +202,7 @@ public class RDFObjectContainer{
      */
     public void removeObject( int id ) throws ContainerException{
         if(  objects.containsKey(id) ){
+            RDFObject removed = objects.get(id);
             Session session = factory.openSession();
             Transaction tx = session.beginTransaction();
             try {
@@ -220,9 +219,8 @@ public class RDFObjectContainer{
                 session.close();
             }
 
-            objectsByUriPrefix.remove(
-                    objects.get(id).getUri_prefix() );
             objects.remove(id);
+            objectsByPriority.remove(removed);
         }
         else{
             throw new ContainerException("Object does not exist.");
@@ -235,7 +233,7 @@ public class RDFObjectContainer{
      * @param toCompare RDFObject Exclude from check given object(update case)
      * @return boolean true
      */
-    private boolean checkURiPath(String uriPrefix, RDFObject toCompare){
+    /*private boolean checkURiPath(String uriPrefix, RDFObject toCompare){
         if( uriPrefix == null || uriPrefix.contains(" ") || uriPrefix.contains("/") ){
             return false;
         }
@@ -264,7 +262,7 @@ public class RDFObjectContainer{
             return false;
         }
         return false;
-    }
+    }*/
 
     /**
      * Update object
@@ -339,10 +337,21 @@ public class RDFObjectContainer{
         RDFObject removed = objects.get(o.getId());
         if(removed != null){
             objects.remove(o.getId());
-            objectsByUriPrefix.remove(removed.getUri_prefix());
+            objectsByPriority.remove(removed);
         }
         objects.put(o.getId(), o);
-        objectsByUriPrefix.put(o.getUri_prefix(), o);
+
+        // relocate the object in priority list for regex
+        int pos = 0;
+        for( RDFObject obj : objectsByPriority ){
+            if(obj.getPriority() > o.getPriority())
+                break;
+
+            pos++;
+        }
+        objectsByPriority.add(pos,o);
+        o.compilePattern();
+
         o.preprocessTemplate();
     }
 

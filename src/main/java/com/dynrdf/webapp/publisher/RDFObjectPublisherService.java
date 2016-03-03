@@ -4,6 +4,7 @@ import com.dynrdf.webapp.Request;
 import com.dynrdf.webapp.exceptions.RequestException;
 import com.dynrdf.webapp.logic.RDFObjectContainer;
 import com.dynrdf.webapp.model.RDFObject;
+import com.dynrdf.webapp.util.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -14,20 +15,20 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by honza on 11/6/15.
+ *
  */
 
-@Path("/{uri:.+}")
+@Path("/")
 public class RDFObjectPublisherService {
 
     @GET
     @Produces({"application/x-turtle", "text/turtle", "application/rdf+turtle",
                "application/turtle"})
-    public Response handleObjectRequestTurtle(@Context HttpServletRequest request, @PathParam("uri") String _uri) {
+    public Response handleObjectRequestTurtle(@Context HttpServletRequest request) {
 
         Request objectRequest;
         try{
-            objectRequest = buildObjectRequest(_uri, request, "TURTLE");
+            objectRequest = buildObjectRequest(request, "TURTLE");
         }
         catch(RequestException ex){
             return return404();
@@ -37,12 +38,12 @@ public class RDFObjectPublisherService {
     }
 
     @GET
-    @Produces({"application/rdf+n3", "text/n3", "application/n3"})
-    public Response handleObjectRequestN3(@Context HttpServletRequest request, @PathParam("uri") String _uri) {
+    @Produces("application/n-triples")
+    public Response handleObjectRequestN3(@Context HttpServletRequest request) {
 
         Request objectRequest;
         try{
-            objectRequest = buildObjectRequest(_uri, request, "N-TRIPLES");
+            objectRequest = buildObjectRequest(request, "N-TRIPLES");
         }
         catch(RequestException ex){
             return return404();
@@ -54,10 +55,10 @@ public class RDFObjectPublisherService {
 
     @GET
     @Produces("application/ld+json")
-    public Response handleObjectRequestJSONLD(@Context HttpServletRequest request, @PathParam("uri") String _uri) {
+    public Response handleObjectRequestJSONLD(@Context HttpServletRequest request) {
         Request objectRequest;
         try{
-            objectRequest = buildObjectRequest(_uri, request, "JSON-LD");
+            objectRequest = buildObjectRequest(request, "JSON-LD");
         }
         catch(RequestException ex){
             return return404();
@@ -68,10 +69,10 @@ public class RDFObjectPublisherService {
 
     @GET
     @Produces({"application/rdf+xml", "application/xml"})
-    public Response handleObjectRequestRDFXML(@Context HttpServletRequest request, @PathParam("uri") String _uri) {
+    public Response handleObjectRequestRDFXML(@Context HttpServletRequest request) {
         Request objectRequest;
         try{
-            objectRequest = buildObjectRequest(_uri, request, "RDF/XML");
+            objectRequest = buildObjectRequest(request, "RDF/XML");
         }
         catch(RequestException ex){
             return return404();
@@ -82,10 +83,10 @@ public class RDFObjectPublisherService {
 
     @GET
     @Produces("text/html")
-    public Response handleObjectRequestHtml(@Context HttpServletRequest request, @PathParam("uri") String _uri) {
+    public Response handleObjectRequestHtml(@Context HttpServletRequest request) {
         Request objectRequest;
         try{
-            objectRequest = buildObjectRequest(_uri, request, "JSON-LD");
+            objectRequest = buildObjectRequest(request, "JSON-LD");
         }
         catch(RequestException ex){
             return return404();
@@ -94,34 +95,25 @@ public class RDFObjectPublisherService {
         return objectRequest.execute();
     }
 
-    private Request buildObjectRequest( String uri, HttpServletRequest request, String produces) throws RequestException{
-        List<String> uriParameters = parseUriPath(uri);
+    private Request buildObjectRequest(HttpServletRequest request, String produces) throws RequestException{
+        List<String> uriParameters;
         boolean uriByParameter = false;
-
-        // every object has uri prefix
-        String objectPrefix = uriParameters.get(0);
 
         String requestUri = request.getParameter("url");
         // url was set as parameter "url" : .com/?url=..
-        if(requestUri != null){
-            uriParameters = parseUriPath(requestUri);
-            uriByParameter = true;
-        }
-        else{
-            requestUri = request.getRequestURL().toString();
+        if(requestUri == null){
+            throw new RequestException("URL parameter not set");
         }
 
-        if(uriParameters.size() == 0 ){
-            throw new RequestException("Cannot identify an object!");
-        }
+        uriParameters = parseUriPath(requestUri);
 
-        RDFObject obj = RDFObjectContainer.getInstance().getObjectByUriPrefix(objectPrefix);
+        RDFObject obj = RDFObjectContainer.getInstance().getObjectByUriRegexMatch(requestUri);
         // object not found by given uri prefix
         if(obj == null){
             throw new RequestException("Object not found!");
         }
 
-        return new Request(obj, requestUri, uriParameters, produces, uriByParameter);
+        return new Request(obj, requestUri, uriParameters, produces);
     }
 
 
