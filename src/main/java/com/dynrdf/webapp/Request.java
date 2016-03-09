@@ -1,6 +1,7 @@
 package com.dynrdf.webapp;
 
 import com.dynrdf.webapp.model.RDFObject;
+import com.dynrdf.webapp.util.Log;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 
@@ -8,6 +9,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.List;
 import javax.ws.rs.core.Response;
+import org.apache.jena.query.* ;
 
 /**
  * Represents a request for an object data
@@ -30,16 +32,32 @@ public class Request {
      * @return Response
      */
     public Response execute(){
-        String data = object.getTemplateObject().fillTemplate(uri, uriParameters);
+        String filledTemplate = object.getTemplateObject().fillTemplate(uri, uriParameters);
 
-        if(data == null){
+        if(filledTemplate == null){
             return Response.status(404).build();
         }
 
-        StringReader sr = new StringReader(data);
-
         Model model = ModelFactory.createDefaultModel();
-        model.read(sr, null, object.getRDFType(object.getType()));
+
+        // execute SPARQL query
+        if(object.getRDFType(object.getType()).equals("SPARQL")){
+            try (QueryExecution qexec = QueryExecutionFactory.create(filledTemplate, model)) {
+                model = qexec.execConstruct();
+            }
+            catch(Exception e){
+                Log.debug("SPARQL exception: " + e.getMessage());
+
+                return Response.status(404).build();
+            }
+
+        }
+        else{
+            StringReader sr = new StringReader(filledTemplate);
+            model.read(sr, null, object.getRDFType(object.getType()));
+        }
+
+
 
 
         StringWriter out = new StringWriter();

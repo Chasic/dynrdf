@@ -228,43 +228,6 @@ public class RDFObjectContainer{
     }
 
     /**
-     * Check if given uri path is free and valid
-     * @param uriPrefix String URI prefix to check
-     * @param toCompare RDFObject Exclude from check given object(update case)
-     * @return boolean true
-     */
-    /*private boolean checkURiPath(String uriPrefix, RDFObject toCompare){
-        if( uriPrefix == null || uriPrefix.contains(" ") || uriPrefix.contains("/") ){
-            return false;
-        }
-
-        Session session = factory.openSession();
-        RDFObject result = null;
-        try{
-            Criteria cr = session.createCriteria(RDFObject.class);
-            cr.add(Restrictions.eq("uri_prefix", uriPrefix ));
-            result = (RDFObject) cr.uniqueResult();
-
-        }catch (HibernateException e) {
-            Log.error(e.toString());
-            return false;
-        }finally {
-            session.close();
-        }
-
-
-        if( result == null ) return true;
-
-        if( toCompare != null ){
-            if( result.getId() == toCompare.getId() ){
-                return true;
-            }
-            return false;
-        }
-        return false;
-    }*/
-
-    /**
      * Update object
      * @param obj Object to update
      * @throws ContainerException
