@@ -14,24 +14,45 @@
 <div class="form-group">
     <label for="priority" class="col-sm-2 control-label">Object priority</label>
     <div class="col-sm-10">
-        <input type="text" ng-model="RDFobject.priority" class="form-control" id="priority" placeholder="1"/>
+        <input type="text" ng-model="RDFobject.priority" class="form-control" id="priority"/>
     </div>
 </div>
 
 <div class="form-group">
     <label for="type" class="col-sm-2 control-label">Object definition type</label>
     <div class="col-sm-10">
-        <select class="selectpicker" ng-model="RDFobject.type" class="form-control" id="type" >
+        <select class="selectpicker" ng-model="RDFobject.type" class="form-control" id="type"
+                ng-change="showProxyData()">
             <option value="0">TURTLE</option>
             <option value="1">RDF/XML</option>
             <option value="2">N-TRIPLES</option>
             <option value="3">JSON-LD</option>
-            <option value="4">SPARQL</option>
+            <option value="4">SPARQL Construct</option>
+            <option value="5">SPARQL Endpoint</option>
+            <option value="6">Proxy</option>
         </select>
     </div>
 </div>
 
-<div class="form-group">
+<div class="proxyData" ng-show="proxyState">
+    <div class="form-group">
+        <label for="proxyUrl" class="col-sm-2 control-label">Proxy URL</label>
+        <div class="col-sm-10">
+            <input type="url" ng-model="RDFobject.proxyUrl" class="form-control" id="proxyUrl" ng-required="proxyState" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="proxyParam" class="col-sm-2 control-label">Proxy parameter name</label>
+        <div class="col-sm-10">
+            <input type="text" ng-model="RDFobject.proxyParam" class="form-control" id="proxyParam" placeholder="url"
+                    pattern="[a-zA-Z_0-9]+"/>
+        </div>
+    </div>
+</div>
+
+
+<div class="form-group" ng-hide="proxyState">
     <label for="template" class="col-sm-2 control-label">Object definition</label>
     <div class="col-sm-10">
      <textarea class="form-control" rows="10" id="template" ng-model="RDFobject.template"></textarea>

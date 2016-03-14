@@ -12,7 +12,8 @@ import java.util.regex.Pattern;
 @Table(name="objects")
 public class RDFObject {
 
-    private static String[] supportedTemplateTypes = {"TURTLE", "RDF/XML", "N-TRIPLES", "JSON-LD", "SPARQL"};
+    private static String[] supportedTemplateTypes = {"TURTLE", "RDF/XML", "N-TRIPLES", "JSON-LD",
+            "SPARQL_CONSTRUCT", "SPARQL_ENDPOINT", "PROXY"};
     transient private Template templateObject;
     transient private Pattern pattern;
 
@@ -35,6 +36,12 @@ public class RDFObject {
     @Column(name="priority")
     private int priority;
 
+    @Column(name="proxyUrl")
+    private String proxyUrl;
+
+    @Column(name="proxyParam")
+    private String proxyParam;
+
 
     public RDFObject() {
     }
@@ -48,14 +55,19 @@ public class RDFObject {
         this.uriRegex = another.uriRegex;
         this.templateObject = another.templateObject;
         this.priority = another.priority;
+        this.proxyParam = another.proxyParam;
+        this.proxyUrl = another.proxyUrl;
     }
 
-    public RDFObject(String name, String uriRegex, int type, String template, int priority) {
+    public RDFObject(String name, String uriRegex, int type, String template, int priority,
+                     String proxyUrl, String proxyParam) {
         this.name = name;
         this.uriRegex = uriRegex;
         this.type = type;
         this.template = template;
         this.priority = priority;
+        this.proxyParam = proxyParam;
+        this.proxyUrl = proxyUrl;
     }
 
     public RDFObject setId( int id ){
@@ -147,6 +159,22 @@ public class RDFObject {
 
     public Pattern getPattern() {
         return pattern;
+    }
+
+    public String getProxyParam() {
+        return proxyParam;
+    }
+
+    public void setProxyParam(String proxyParam) {
+        this.proxyParam = proxyParam;
+    }
+
+    public String getProxyUrl() {
+        return proxyUrl;
+    }
+
+    public void setProxyUrl(String proxyUrl) {
+        this.proxyUrl = proxyUrl;
     }
 
 

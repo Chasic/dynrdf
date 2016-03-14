@@ -4,7 +4,6 @@ import com.dynrdf.webapp.Request;
 import com.dynrdf.webapp.exceptions.RequestException;
 import com.dynrdf.webapp.logic.RDFObjectContainer;
 import com.dynrdf.webapp.model.RDFObject;
-import com.dynrdf.webapp.util.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
@@ -22,8 +21,7 @@ import java.util.List;
 public class RDFObjectPublisherService {
 
     @GET
-    @Produces({"application/x-turtle", "text/turtle", "application/rdf+turtle",
-               "application/turtle"})
+    @Produces("text/turtle")
     public Response handleObjectRequestTurtle(@Context HttpServletRequest request) {
 
         Request objectRequest;
@@ -31,7 +29,7 @@ public class RDFObjectPublisherService {
             objectRequest = buildObjectRequest(request, "TURTLE");
         }
         catch(RequestException ex){
-            return return404();
+            return return400();
         }
 
         return objectRequest.execute();
@@ -46,7 +44,7 @@ public class RDFObjectPublisherService {
             objectRequest = buildObjectRequest(request, "N-TRIPLES");
         }
         catch(RequestException ex){
-            return return404();
+            return return400();
         }
 
         return objectRequest.execute();
@@ -61,7 +59,7 @@ public class RDFObjectPublisherService {
             objectRequest = buildObjectRequest(request, "JSON-LD");
         }
         catch(RequestException ex){
-            return return404();
+            return return400();
         }
 
         return objectRequest.execute();
@@ -75,7 +73,7 @@ public class RDFObjectPublisherService {
             objectRequest = buildObjectRequest(request, "RDF/XML");
         }
         catch(RequestException ex){
-            return return404();
+            return return400();
         }
 
         return objectRequest.execute();
@@ -89,7 +87,7 @@ public class RDFObjectPublisherService {
             objectRequest = buildObjectRequest(request, "JSON-LD");
         }
         catch(RequestException ex){
-            return return404();
+            return return400();
         }
 
         return objectRequest.execute();
@@ -121,9 +119,9 @@ public class RDFObjectPublisherService {
         return new  ArrayList<String>(Arrays.asList(uriPath.split("/")));
     }
 
-    public Response return404() {
+    public Response return400() {
 
-        return Response.status(404).build();
+        return Response.status(400).build();
     }
 
 }

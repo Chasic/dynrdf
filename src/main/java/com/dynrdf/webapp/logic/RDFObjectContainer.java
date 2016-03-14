@@ -10,6 +10,8 @@ import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.criterion.Restrictions;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -189,8 +191,45 @@ public class RDFObjectContainer{
         else if(  RDFObject.getRDFType(obj.getType()) == null ){
             throw new ContainerException("Unknown RDF serialization number, not supported ...");
         }
-        else if( obj.getTemplate() == null ||  obj.getTemplate().length() == 0 ){
+        else if( (obj.getTemplate() == null ||  obj.getTemplate().length() == 0)
+                && !RDFObject.getRDFType(obj.getType()).equals("PROXY") ){ // proxy has no template
             throw new ContainerException("Empty template!");
+        }
+
+        // check for unique regex
+        Session session = factory.openSession();
+        boolean err = false;
+        RDFObject regexObj = null;
+        try{
+            regexObj = (RDFObject) session.createCriteria(RDFObject.class).add(Restrictions.eq("uriRegex", obj.getUriRegex()))
+                    .uniqueResult();
+        }catch (HibernateException e) {
+            Log.error(e.toString());
+            err = true;
+        }finally {
+            session.close();
+        }
+        if(err){
+            throw new ContainerException("Cannot check for unique regex.");
+        }
+        if( (regexObj != null && !updating) // creating object, duplicate regex
+             || ( regexObj != null && updating && regexObj.getId() != obj.getId() ) // updating object, duplicate regex with another object
+                ){
+            throw new ContainerException("An object with given regex already exists.");
+        }
+
+        // validate proxy data
+        if(RDFObject.getRDFType(obj.getType()).equals("PROXY")){
+            if(!obj.getProxyParam().matches("[a-zA-Z_0-9]+")){
+                throw new ContainerException("Bad parameter name format, expected: [a-zA-Z_0-9]+");
+            }
+            // validate url
+            try{
+                URL url = new URL(obj.getProxyUrl());
+            }
+            catch (MalformedURLException ex){
+                throw new ContainerException("Malformed url.");
+            }
         }
     }
 
@@ -241,10 +280,8 @@ public class RDFObjectContainer{
         boolean err = false;
 
         if( !objects.containsKey(id) ){
-            throw new ContainerException("Object with given id dose not exist.");
+            throw new ContainerException("Object with given id does not exist.");
         }
-
-
         try{
             tx = session.beginTransaction();
             session.update(obj);

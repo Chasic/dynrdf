@@ -33,13 +33,15 @@ public class Template {
 
     public Template(String template){
         this.template = template;
+        records = new ArrayList<>();
     }
 
     /**
      * Find every placeholder and prepare for later replacements
      */
     public void preprocess(){
-        records = new ArrayList<>();
+        if(template == null) return; // proxy
+
         Pattern pattern =  Pattern.compile("\\[\\s*@(\\d+)\\s*(,\\s*\\\"(.*)\\\")?\\s*\\]");
         /** Pattern for:
          * [ @1, "regex"]
@@ -71,9 +73,12 @@ public class Template {
      * @param uri Full URI
      * @param uriParameters List of URI parameters after identifier
      * @return String data from template OR null, if failed to fill
-     *         placeholders (all required parameters have to be set)
+     *         placeholders (all required parameters have to be set),
+     *         null if template is not set (proxy case)
      */
     public String fillTemplate(String uri, List<String> uriParameters){
+        if(template == null) return null;
+
         StringBuffer data = new StringBuffer();
         int leftBoundary = 0;
         for( TemplatePlaceholder record : records ){

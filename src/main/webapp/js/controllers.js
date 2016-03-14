@@ -24,9 +24,13 @@ angular.module('dynrdfApp.controllers',[]).controller('RDFObjectListController',
 
         $scope.RDFobject = RDFObject.get({ id: $stateParams.id },function(data) {
             $scope.RDFobject = data;
+            $scope.showProxyData();
         });
     }else{
         $scope.RDFobject=new RDFObject();
+        $scope.RDFobject.priority = 1;
+        $scope.RDFobject.proxyUrl = "http://";
+        $scope.RDFobject.proxyParam = "url";
     }
 
 
@@ -35,7 +39,7 @@ angular.module('dynrdfApp.controllers',[]).controller('RDFObjectListController',
                 $state.go('overview');
             },
             function(data){
-                alert(data.msg);
+                alert(angular.fromJson(data).data.msg);
             });
     }
 
@@ -44,8 +48,17 @@ angular.module('dynrdfApp.controllers',[]).controller('RDFObjectListController',
                 $state.go('overview');
             },
             function(data){
-                alert(data.msg);
+                alert(angular.fromJson(data).data.msg);
             });
+    }
+
+    $scope.showProxyData=function(){
+        if($scope.RDFobject.type == 6){ //proxy
+            $scope.proxyState = true;
+        }
+        else{
+            $scope.proxyState = false;
+        }
     }
 
 });
