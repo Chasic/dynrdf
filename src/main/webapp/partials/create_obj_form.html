@@ -22,7 +22,7 @@
     <label for="type" class="col-sm-2 control-label">Object definition type</label>
     <div class="col-sm-10">
         <select class="selectpicker" ng-model="RDFobject.type" class="form-control" id="type"
-                ng-change="showProxyData()">
+                ng-change="showCustomData()">
             <option value="0">TURTLE</option>
             <option value="1">RDF/XML</option>
             <option value="2">N-TRIPLES</option>
@@ -38,7 +38,7 @@
     <div class="form-group">
         <label for="proxyUrl" class="col-sm-2 control-label">Proxy URL</label>
         <div class="col-sm-10">
-            <input type="url" ng-model="RDFobject.proxyUrl" class="form-control" id="proxyUrl" ng-required="proxyState" />
+            <input type="url" ng-model="RDFobject.url" class="form-control" id="proxyUrl" ng-required="proxyState" />
         </div>
     </div>
 
@@ -47,6 +47,15 @@
         <div class="col-sm-10">
             <input type="text" ng-model="RDFobject.proxyParam" class="form-control" id="proxyParam" placeholder="url"
                     pattern="[a-zA-Z_0-9]+"/>
+        </div>
+    </div>
+</div>
+
+<div class="endpointData" ng-show="endpointState">
+    <div class="form-group">
+        <label for="endpointUrl" class="col-sm-2 control-label">Endpoint URL</label>
+        <div class="col-sm-10">
+            <input type="url" ng-model="RDFobject.url" class="form-control" id="endpointUrl" ng-required="endpointState" />
         </div>
     </div>
 </div>

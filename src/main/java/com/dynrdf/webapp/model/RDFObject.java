@@ -36,8 +36,8 @@ public class RDFObject {
     @Column(name="priority")
     private int priority;
 
-    @Column(name="proxyUrl")
-    private String proxyUrl;
+    @Column(name="url")
+    private String url;
 
     @Column(name="proxyParam")
     private String proxyParam;
@@ -56,18 +56,18 @@ public class RDFObject {
         this.templateObject = another.templateObject;
         this.priority = another.priority;
         this.proxyParam = another.proxyParam;
-        this.proxyUrl = another.proxyUrl;
+        this.url = another.url;
     }
 
     public RDFObject(String name, String uriRegex, int type, String template, int priority,
-                     String proxyUrl, String proxyParam) {
+                     String url, String proxyParam) {
         this.name = name;
         this.uriRegex = uriRegex;
         this.type = type;
         this.template = template;
         this.priority = priority;
         this.proxyParam = proxyParam;
-        this.proxyUrl = proxyUrl;
+        this.url = url;
     }
 
     public RDFObject setId( int id ){
@@ -169,12 +169,12 @@ public class RDFObject {
         this.proxyParam = proxyParam;
     }
 
-    public String getProxyUrl() {
-        return proxyUrl;
+    public String getUrl() {
+        return url;
     }
 
-    public void setProxyUrl(String proxyUrl) {
-        this.proxyUrl = proxyUrl;
+    public void setUrl(String proxyUrl) {
+        this.url = proxyUrl;
     }
 
 

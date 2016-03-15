@@ -1,21 +1,18 @@
 package com.dynrdf.webapp;
 
+import com.dynrdf.webapp.exceptions.RequestException;
 import com.dynrdf.webapp.model.RDFObject;
 import com.dynrdf.webapp.util.Log;
-import org.apache.http.client.HttpClient;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 
-import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import javax.ws.rs.core.Response;
 import org.apache.jena.query.* ;
-import org.json.simple.JSONObject;
 
 /**
  * Represents a request for an object data
@@ -89,7 +86,7 @@ public class Request {
     }
 
     private Response executeProxy(Model model){
-        String url = object.getProxyUrl();
+        String url = object.getUrl();
 
         // construct request url
         if(url.contains("?")){
@@ -125,10 +122,29 @@ public class Request {
         return Response.status(200).entity(out.toString()).build();
     }
 
-    private Response executeSparqlEndpoint(String filledTemplate){
+    private Response executeSparqlEndpoint (String filledTemplate){
+        String sparqlEndpoint = object.getUrl();
+        String sparqlQuery = filledTemplate;
+        Query query = QueryFactory.create(sparqlQuery);
+        QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query);
+        Model model;
 
-        //todo
-        return Response.status(200).entity("a").build();
+        if(org.apache.commons.lang3.StringUtils.containsIgnoreCase(sparqlQuery, "construct")){
+            // execute construct
+            model = qexec.execConstruct();
+        }
+        else if(org.apache.commons.lang3.StringUtils.containsIgnoreCase(sparqlQuery, "describe")){
+            model = qexec.execDescribe();
+        }
+        else{
+            // neither construct nor describe
+            return Response.status(400).build();
+        }
+
+        StringWriter out = new StringWriter();
+        model.write(out, produces);
+
+        return Response.status(200).entity(out.toString()).build();
     }
 
     private Response return404(){

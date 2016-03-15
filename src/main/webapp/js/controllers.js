@@ -24,7 +24,7 @@ angular.module('dynrdfApp.controllers',[]).controller('RDFObjectListController',
 
         $scope.RDFobject = RDFObject.get({ id: $stateParams.id },function(data) {
             $scope.RDFobject = data;
-            $scope.showProxyData();
+            $scope.showCustomData();
         });
     }else{
         $scope.RDFobject=new RDFObject();
@@ -52,12 +52,19 @@ angular.module('dynrdfApp.controllers',[]).controller('RDFObjectListController',
             });
     }
 
-    $scope.showProxyData=function(){
+    $scope.showCustomData=function(){
         if($scope.RDFobject.type == 6){ //proxy
             $scope.proxyState = true;
         }
         else{
             $scope.proxyState = false;
+        }
+
+        if($scope.RDFobject.type == 5){ //sparql endpoint
+            $scope.endpointState = true;
+        }
+        else{
+            $scope.endpointState = false;
         }
     }
 

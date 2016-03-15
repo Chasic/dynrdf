@@ -4,8 +4,6 @@ package com.dynrdf.webapp.logic;
 import com.dynrdf.webapp.exceptions.ContainerException;
 import com.dynrdf.webapp.model.RDFObject;
 import com.dynrdf.webapp.util.Log;
-import javafx.util.Pair;
-import org.apache.jena.vocabulary.RDF;
 import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.criterion.Restrictions;
@@ -225,7 +223,7 @@ public class RDFObjectContainer{
             }
             // validate url
             try{
-                URL url = new URL(obj.getProxyUrl());
+                URL url = new URL(obj.getUrl());
             }
             catch (MalformedURLException ex){
                 throw new ContainerException("Malformed url.");
