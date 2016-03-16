@@ -84,18 +84,21 @@ public class RDFObjectPublisherService {
     public Response handleObjectRequestHtml(@Context HttpServletRequest request) {
         Request objectRequest;
         try{
-            objectRequest = buildObjectRequest(request, "JSON-LD");
+            objectRequest = buildObjectRequest(request, "HTML");
         }
         catch(RequestException ex){
             return return400();
         }
 
-        return objectRequest.execute();
+        RDFObject o = objectRequest.getObject();
+        String html = o.getHtmlTemplateObject().fillTemplate(objectRequest.getUri(), objectRequest.getUriParameters());
+
+
+        return Response.status(200).entity(html).build();
     }
 
     private Request buildObjectRequest(HttpServletRequest request, String produces) throws RequestException{
         List<String> uriParameters;
-        boolean uriByParameter = false;
 
         String requestUri = request.getParameter("url");
         // url was set as parameter "url" : .com/?url=..

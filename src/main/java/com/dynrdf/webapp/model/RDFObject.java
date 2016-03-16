@@ -14,7 +14,8 @@ public class RDFObject {
 
     private static String[] supportedTemplateTypes = {"TURTLE", "RDF/XML", "N-TRIPLES", "JSON-LD",
             "SPARQL_CONSTRUCT", "SPARQL_ENDPOINT", "PROXY"};
-    transient private Template templateObject;
+    transient private Template rdfTemplateObject;
+    transient private Template htmlTemplateObject;
     transient private Pattern pattern;
 
     @Id
@@ -42,6 +43,9 @@ public class RDFObject {
     @Column(name="proxyParam")
     private String proxyParam;
 
+    @Column(name="htmlTemplate")
+    private String htmlTemplate;
+
 
     public RDFObject() {
     }
@@ -53,14 +57,16 @@ public class RDFObject {
         this.type = another.type;
         this.template = another.template;
         this.uriRegex = another.uriRegex;
-        this.templateObject = another.templateObject;
+        this.rdfTemplateObject = another.rdfTemplateObject;
+        this.htmlTemplateObject = another.htmlTemplateObject;
         this.priority = another.priority;
         this.proxyParam = another.proxyParam;
         this.url = another.url;
+        this.htmlTemplate = another.htmlTemplate;
     }
 
     public RDFObject(String name, String uriRegex, int type, String template, int priority,
-                     String url, String proxyParam) {
+                     String url, String proxyParam, String htmlTemplate) {
         this.name = name;
         this.uriRegex = uriRegex;
         this.type = type;
@@ -68,6 +74,7 @@ public class RDFObject {
         this.priority = priority;
         this.proxyParam = proxyParam;
         this.url = url;
+        this.htmlTemplate = htmlTemplate;
     }
 
     public RDFObject setId( int id ){
@@ -135,14 +142,25 @@ public class RDFObject {
         this.uriRegex = uriRegex;
     }
 
-    public Template getTemplateObject(){
-        return this.templateObject;
+    public Template getRdfTemplateObject(){
+        return this.rdfTemplateObject;
     }
 
+    public Template getHtmlTemplateObject() {
+        return htmlTemplateObject;
+    }
+
+
     public void preprocessTemplate(){
-        Log.debug("Preprocessing template for object: " + name );
-        templateObject = new Template(this.template);
-        templateObject.preprocess();
+        // RDF template
+        Log.debug("Preprocessing RDF template for object: " + name );
+        rdfTemplateObject = new Template(this.template);
+        rdfTemplateObject.preprocess();
+
+        // HTML template
+        Log.debug("Preprocessing HTML template for object: " + name );
+        htmlTemplateObject = new Template(this.htmlTemplate);
+        htmlTemplateObject.preprocess();
     }
 
     public int getPriority() {
@@ -177,5 +195,11 @@ public class RDFObject {
         this.url = proxyUrl;
     }
 
+    public String getHtmlTemplate() {
+        return htmlTemplate;
+    }
 
+    public void setHtmlTemplate(String htmlTemplate) {
+        this.htmlTemplate = htmlTemplate;
+    }
 }

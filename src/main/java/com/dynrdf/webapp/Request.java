@@ -1,6 +1,5 @@
 package com.dynrdf.webapp;
 
-import com.dynrdf.webapp.exceptions.RequestException;
 import com.dynrdf.webapp.model.RDFObject;
 import com.dynrdf.webapp.util.Log;
 import org.apache.jena.rdf.model.Model;
@@ -41,7 +40,7 @@ public class Request {
             return executeProxy(model);
         }
 
-        String filledTemplate = object.getTemplateObject().fillTemplate(uri, uriParameters);
+        String filledTemplate = object.getRdfTemplateObject().fillTemplate(uri, uriParameters);
 
         if(filledTemplate == null){
             return Response.status(404).build();
@@ -150,5 +149,21 @@ public class Request {
     private Response return404(){
 
         return Response.status(404).build();
+    }
+
+    public List<String> getUriParameters() {
+        return uriParameters;
+    }
+
+    public RDFObject getObject() {
+        return object;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public String getProduces() {
+        return produces;
     }
 }
