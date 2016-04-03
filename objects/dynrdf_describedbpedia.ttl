@@ -1,0 +1,15 @@
+@prefix def:   <http://dynrdf.com/objects#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix dynrdf: <http://dynrdf.com/objects.rdfs#> .
+
+def:dynrdf_describe_dbpedia
+        a                      dynrdf:Object ;
+        dynrdf:htmlTemplate    "" ;
+        dynrdf:name            "describe dbpedia" ;
+        dynrdf:objectTemplate  "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\nPREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n\nDESCRIBE ?x WHERE {\n  ?x rdf:type skos:Concept .\n  FILTER EXISTS { ?x skos:prefLabel ?prefLabel }\n}\nLIMIT 100" ;
+        dynrdf:priority        1 ;
+        dynrdf:proxyParam      "url" ;
+        dynrdf:regex           "describe\\/dbpedia" ;
+        dynrdf:type            "SPARQL-ENDPOINT" ;
+        dynrdf:url             "http://dbpedia.org/sparql" ;
+        dynrdf:vendor          "dynrdf" .

@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.vocabulary.RDF;
 import org.json.simple.JSONObject;
 
 import java.io.StringReader;
@@ -42,7 +43,8 @@ public class RDFObjectService {
     }
 
     @GET
-    public Response getAllObjects() {
+    @Produces("application/json")
+    public Response getAllObjectsJson() {
         RDFObjectContainer container = RDFObjectContainer.getInstance();
         List<RDFObject> oobjects = container.getAll();
         String json = new Gson().toJson( oobjects );
@@ -219,5 +221,71 @@ public class RDFObjectService {
         }
 
         return Response.status(404).build();
+    }
+
+    // ####### get ALL objects by content-negotiation
+    @GET
+    @Produces("text/turtle")
+    public Response getAllObjectsTurtle() {
+        Model model = ModelFactory.createDefaultModel();
+        setModelFromAllObjects(model);
+
+        StringWriter out = new StringWriter();
+        model.write(out, "TURTLE");
+
+        return Response.status(200).entity(out.toString()).build();
+    }
+
+    @GET
+    @Produces({"application/rdf+xml", "application/xml"})
+    public Response getAllObjectsXML() {
+        Model model = ModelFactory.createDefaultModel();
+        setModelFromAllObjects(model);
+
+        StringWriter out = new StringWriter();
+        model.write(out, "RDF/XML");
+
+        return Response.status(200).entity(out.toString()).build();
+    }
+
+    @GET
+    @Produces("application/ld+json")
+    public Response getAllObjectsLDJson() {
+        Model model = ModelFactory.createDefaultModel();
+        setModelFromAllObjects(model);
+
+        StringWriter out = new StringWriter();
+        model.write(out, "JSON-LD");
+
+        return Response.status(200).entity(out.toString()).build();
+    }
+
+    @GET
+    @Produces("application/n-triples")
+    public Response getAllObjectsNTriples() {
+        Model model = ModelFactory.createDefaultModel();
+        setModelFromAllObjects(model);
+
+        StringWriter out = new StringWriter();
+        model.write(out, "N-TRIPLES");
+
+        return Response.status(200).entity(out.toString()).build();
+    }
+
+
+
+    /**
+     * Create model from all TTL Definitions
+     * @param model
+     */
+    private void setModelFromAllObjects(Model model){
+        RDFObjectContainer container = RDFObjectContainer.getInstance();
+        List<RDFObject> oobjects = container.getAll();
+        String ttl = "";
+        for(RDFObject o : oobjects){
+            ttl += "\n" + o.getDefinitionTTL();
+        }
+        StringReader sr = new StringReader(ttl);
+        model.read(sr, null, "TURTLE");
     }
 }
