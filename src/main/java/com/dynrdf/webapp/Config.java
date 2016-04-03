@@ -3,7 +3,6 @@ package com.dynrdf.webapp;
 
 import com.dynrdf.webapp.exceptions.InitException;
 import com.dynrdf.webapp.util.Log;
-import com.sun.org.apache.xml.internal.security.Init;
 import org.apache.log4j.PropertyConfigurator;
 
 import java.io.IOException;

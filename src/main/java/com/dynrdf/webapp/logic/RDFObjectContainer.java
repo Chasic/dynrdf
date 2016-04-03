@@ -224,6 +224,21 @@ public class RDFObjectContainer{
         }
     }
 
+    /**
+     * Removes all objects
+     */
+    public void removeAll(){
+        List<RDFObject> objects = new ArrayList<>(objectsByPriority);
+        for( RDFObject obj : objects ){
+            try{
+                removeObject(obj.getFullName(), false);
+            }
+            catch(ContainerException ex){
+                // do nothing
+            }
+        }
+    }
+
 
     /**
      * Remove given object
@@ -358,11 +373,28 @@ public class RDFObjectContainer{
         reloadObject(o);
     }
 
+    /**
+     * Initialize container
+     * Load stored definitions
+     * @throws InitException
+     */
     public static void init() throws InitException{
         RDFObjectContainer container = RDFObjectContainer.getInstance();
         List<File> definitions = container.findObjectsDefinitionFiles();
         container.loadObjects(definitions);
 
+    }
+
+    /**
+     * Reload container
+     * Reload definitions
+     * @throws InitException
+     */
+    public static void reload() throws InitException{
+        RDFObjectContainer container = RDFObjectContainer.getInstance();
+        container.removeAll();
+        List<File> definitions = container.findObjectsDefinitionFiles();
+        container.loadObjects(definitions);
     }
 
     private List<File> findObjectsDefinitionFiles() throws InitException {
@@ -420,6 +452,11 @@ public class RDFObjectContainer{
         }
     }
 
+    /**
+     * Reload object
+     * Create/Update case
+     * @param o
+     */
     private void reloadObject( RDFObject o ){
         RDFObject removed = objects.get(o.getFullName());
         if(removed != null){
