@@ -10,9 +10,20 @@ angular.module('dynrdfApp.controllers',[]).controller('RDFObjectListController',
 
     $scope.deleteRDFObject=function(RDFObject){
         RDFObject.id = RDFObject.fullName;
+        toHide = RDFObject.fullName;
         if(popupService.showPopup('Really delete this?')){
+            var index = -1;
+            var objArr = eval( $scope.rdfobjects );
+            for( var i = 0; i < objArr.length; i++ ) {
+                if( objArr[i].fullName === toHide ) {
+                    index = i;
+                    break;
+                }
+            }
+
+            $scope.rdfobjects.splice( index, 1 );
             RDFObject.$delete(function(){
-                $window.location.href='';
+               // window.location.href='';
             });
         }
     };

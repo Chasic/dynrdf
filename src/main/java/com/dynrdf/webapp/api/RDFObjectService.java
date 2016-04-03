@@ -46,18 +46,17 @@ public class RDFObjectService {
 
     @POST
     @Consumes("application/json")
-    public Response createObject(RDFObject o, @Context HttpServletRequest request){
+    public Response createObject(RDFObject o){
         try{
             RDFObjectContainer container = RDFObjectContainer.getInstance();
 
-            o.createTurtleDefinition(request.getRequestURL().toString());
-            container.createObject(o, request);
+            container.createObject(o);
         }
-        catch( ContainerException ex ){
+        catch( Exception ex ){
             return returnError(ex.getMessage());
         }
 
-        return returnOK("Object created!");
+        return returnOK("Created.");
     }
 
     @PUT

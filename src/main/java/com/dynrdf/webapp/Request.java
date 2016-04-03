@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.List;
 import javax.ws.rs.core.Response;
 import org.apache.jena.query.* ;
+import org.apache.jena.sparql.engine.http.QueryEngineHTTP;
 
 /**
  * Represents a request for an object data
@@ -122,23 +123,33 @@ public class Request {
     }
 
     private Response executeSparqlEndpoint (String filledTemplate){
-        String sparqlEndpoint = object.getUrl();
-        String sparqlQuery = filledTemplate;
-        Query query = QueryFactory.create(sparqlQuery);
-        QueryExecution qexec = QueryExecutionFactory.sparqlService(sparqlEndpoint, query);
         Model model;
+        try{
+            String sparqlEndpoint = object.getUrl();
+            String sparqlQuery = filledTemplate;
+            Query query = QueryFactory.create(sparqlQuery);
+            QueryEngineHTTP qexec = (QueryEngineHTTP) QueryExecutionFactory.sparqlService(sparqlEndpoint, query);
 
-        if(org.apache.commons.lang3.StringUtils.containsIgnoreCase(sparqlQuery, "construct")){
-            // execute construct
-            model = qexec.execConstruct();
+            // some sparql endpoint have problem with current ttl version - bad characters
+            qexec.setModelContentType("application/ld+json");
+
+            if(org.apache.commons.lang3.StringUtils.containsIgnoreCase(sparqlQuery, "construct")){
+                // execute construct
+                model = qexec.execConstruct();
+            }
+            else if(org.apache.commons.lang3.StringUtils.containsIgnoreCase(sparqlQuery, "describe")){
+                model = qexec.execDescribe();
+            }
+            else{
+                // neither construct nor describe
+                return Response.status(400).build();
+            }
         }
-        else if(org.apache.commons.lang3.StringUtils.containsIgnoreCase(sparqlQuery, "describe")){
-            model = qexec.execDescribe();
+        catch( Exception ex){
+            Log.error("Error in sparql endpoint - ObjectFullName= " + object.getFullName() +":"+ ex.getMessage());
+            return Response.status(500).build();
         }
-        else{
-            // neither construct nor describe
-            return Response.status(400).build();
-        }
+
 
         StringWriter out = new StringWriter();
         model.write(out, produces);

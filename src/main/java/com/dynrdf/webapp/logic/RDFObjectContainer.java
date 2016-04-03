@@ -157,10 +157,16 @@ public class RDFObjectContainer{
         if( obj.getName() == null || obj.getName().length() == 0 ){
             throw new ContainerException("Name is empty");
         }
-        else if( !RDFObject.isValidObjectType(obj.getType()) ){
+        if( obj.getVendor() == null || obj.getVendor().length() == 0 ){
+            throw new ContainerException("Vendor is empty");
+        }
+        if( obj.getUriRegex() == null || obj.getUriRegex().length() == 0 ){
+            throw new ContainerException("Uri regex is empty");
+        }
+        if( !RDFObject.isValidObjectType(obj.getType()) ){
             throw new ContainerException("Invalid definition type");
         }
-        else if( (obj.getTemplate() == null ||  obj.getTemplate().length() == 0)
+        if( (obj.getTemplate() == null ||  obj.getTemplate().length() == 0)
                     && !obj.getType().equals("PROXY")  // proxy has no template
                  ){
             throw new ContainerException("Empty template!");
@@ -172,18 +178,9 @@ public class RDFObjectContainer{
         boolean contains = usedRegex.contains(obj.getUriRegex());
 
         if( updating ){
-            Log.debug("--------------------");
-            Log.debug("Contains: " + Boolean.toString(contains));
-            Log.debug("updatingObj.getUriRegex: " + updatingObj.getUriRegex());
-            Log.debug("obj.getUriRegex: " + obj.getUriRegex());
-            Log.debug("updatingObj.getFullName(): " + updatingObj.getFullName());
-            Log.debug("obj.getFullName(): " + obj.getFullName());
-            Log.debug("--------------------");
-
             if( contains && !updatingObj.getUriRegex().equals(obj.getUriRegex()) ){
                 throw new ContainerException("An object with given regex already exists.");
             }
-
 
             if(!updatingObj.getFullName().equals(obj.getFullName()) && found != null ){
                 throw new ContainerException("Duplicate full name");
@@ -258,19 +255,6 @@ public class RDFObjectContainer{
     }
 
     /**
-     * Update object
-     * @param obj Object to update
-     * @param request To generate object IRI
-     * @throws ContainerException
-     */
-    public void updateObject ( RDFObject obj, HttpServletRequest request ) throws ContainerException{
-        /*validateObject(obj, true);
-
-        reloadObject(obj);
-        Log.debug("Updating object, new data: " + obj.toString());*/
-    }
-
-    /**
      * Update object, given TTL in request body
      * @param request
      * @throws ContainerException
@@ -282,6 +266,20 @@ public class RDFObjectContainer{
         model.read(body, null, "TTL");
 
         updateObjectFromModel(model, originalFilePath, updatingObj);
+    }
+
+    /**
+     * Register RDFObject
+     * @param o
+     */
+    public void createObject(RDFObject o)throws Exception{
+        String objTTL = o.createTTL();
+
+        InputStream is = new ByteArrayInputStream(objTTL.getBytes());
+        Model model = ModelFactory.createDefaultModel();
+        model.read(is, null, "TTL");
+
+        createObjectFromModel(model);
     }
 
     /**
@@ -303,6 +301,13 @@ public class RDFObjectContainer{
         updateObjectFromModel(model, originalFilePath, updatingObj);
     }
 
+    /**
+     * Update RDFObject from TTL model
+     * @param model
+     * @param originalFilePath
+     * @param updatingObj
+     * @throws Exception
+     */
     private void updateObjectFromModel(Model model, String originalFilePath, RDFObject updatingObj) throws Exception{
         RDFLoader loader = new RDFLoader(model);
         RDFObject o = loader.createObject(true, updatingObj);
@@ -324,6 +329,33 @@ public class RDFObjectContainer{
         if(!o.getFullName().equals(updatingObj.getFullName())){
             removeObject(updatingObj.getFullName(), false);
         }
+    }
+
+    /**
+     * Create RDFObject from TTL model
+     * @param model
+     * @throws Exception
+     */
+    private void createObjectFromModel(Model model) throws Exception{
+        RDFLoader loader = new RDFLoader(model);
+        RDFObject o = loader.createObject(false, null);
+
+        String filename = o.getFullName().replace("/", "_");
+        String filePath = Config.objectsPath + "/" + filename + ".ttl";
+        o.setFilePath(filePath);
+
+        // save def into file
+        File file = new File(filePath);
+        FileWriter objWriter = new FileWriter(file, false);
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        model.write(os, "TTL") ;
+        String content = new String(os.toByteArray());
+
+        objWriter.write(content);
+        objWriter.close();
+
+        reloadObject(o);
     }
 
     public static void init() throws InitException{

@@ -270,11 +270,16 @@ public class RDFObject {
     }
 
     public String createTTL(){
+        if(uriRegex == null) uriRegex = "";
+        if(template == null) template = "";
+        if(htmlTemplate == null) htmlTemplate = "";
+        if(fullName == null) fullName = "";
+
         definitionTTL = "@prefix dynrdf: <"+Config.ObjectRDFS+"> .\n" +
                 "@prefix def: <"+Config.ObjectBaseUrl+"> .\n" +
                 "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n" +
                 "\n" +
-                "def:" + fullName.replace("/", "_") + "\n" +
+                "def:" + fullName.replace("/", "_").replace(" ", "_") + "\n" +
                 "    a               dynrdf:Object ;\n" +
                 "    dynrdf:type     \""+type+"\"^^xsd:string ;\n" +
                 "    dynrdf:name     \""+name+"\"^^xsd:string ;\n" +
