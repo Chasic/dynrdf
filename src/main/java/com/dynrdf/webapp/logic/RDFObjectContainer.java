@@ -172,9 +172,19 @@ public class RDFObjectContainer{
         boolean contains = usedRegex.contains(obj.getUriRegex());
 
         if( updating ){
-            if( contains && !updatingObj.getUriRegex().equals(obj.getUriRegex())  && !updatingObj.getFullName().equals(obj.getFullName()) ){
+            Log.debug("--------------------");
+            Log.debug("Contains: " + Boolean.toString(contains));
+            Log.debug("updatingObj.getUriRegex: " + updatingObj.getUriRegex());
+            Log.debug("obj.getUriRegex: " + obj.getUriRegex());
+            Log.debug("updatingObj.getFullName(): " + updatingObj.getFullName());
+            Log.debug("obj.getFullName(): " + obj.getFullName());
+            Log.debug("--------------------");
+
+            if( contains && !updatingObj.getUriRegex().equals(obj.getUriRegex()) ){
                 throw new ContainerException("An object with given regex already exists.");
             }
+
+
             if(!updatingObj.getFullName().equals(obj.getFullName()) && found != null ){
                 throw new ContainerException("Duplicate full name");
             }
@@ -261,7 +271,7 @@ public class RDFObjectContainer{
     }
 
     /**
-     * Update object, given TTL
+     * Update object, given TTL in request body
      * @param request
      * @throws ContainerException
      */
@@ -270,6 +280,30 @@ public class RDFObjectContainer{
         Model model = ModelFactory.createDefaultModel();
         InputStream body = request.getInputStream();
         model.read(body, null, "TTL");
+
+        updateObjectFromModel(model, originalFilePath, updatingObj);
+    }
+
+    /**
+     * Update given object
+     * Create TTL def and thenupdateObjectFromModel()
+     * @param o
+     * @param originalFilePath
+     * @param updatingObj
+     * @throws Exception
+     */
+    public void updateObject (RDFObject o, String originalFilePath, RDFObject updatingObj ) throws Exception{
+
+        String objTTL = o.createTTL();
+
+        InputStream is = new ByteArrayInputStream(objTTL.getBytes());
+        Model model = ModelFactory.createDefaultModel();
+        model.read(is, null, "TTL");
+
+        updateObjectFromModel(model, originalFilePath, updatingObj);
+    }
+
+    private void updateObjectFromModel(Model model, String originalFilePath, RDFObject updatingObj) throws Exception{
         RDFLoader loader = new RDFLoader(model);
         RDFObject o = loader.createObject(true, updatingObj);
 
@@ -359,7 +393,7 @@ public class RDFObjectContainer{
         if(removed != null){
             objects.remove(o.getFullName());
             objectsByPriority.remove(removed);
-            usedRegex.remove(removed.getFullName());
+            usedRegex.remove(removed.getUriRegex());
         }
         objects.put(o.getFullName(), o);
 

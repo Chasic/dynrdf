@@ -268,4 +268,29 @@ public class RDFObject {
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
+
+    public String createTTL(){
+        definitionTTL = "@prefix dynrdf: <"+Config.ObjectRDFS+"> .\n" +
+                "@prefix def: <"+Config.ObjectBaseUrl+"> .\n" +
+                "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n" +
+                "\n" +
+                "def:" + fullName.replace("/", "_") + "\n" +
+                "    a               dynrdf:Object ;\n" +
+                "    dynrdf:type     \""+type+"\"^^xsd:string ;\n" +
+                "    dynrdf:name     \""+name+"\"^^xsd:string ;\n" +
+                "    dynrdf:vendor   \""+vendor+"\"^^xsd:string ;\n" +
+                "    dynrdf:regex    \""+uriRegex.replace("\\/", "\\\\/")+"\"^^xsd:string ;\n" +
+                "    dynrdf:priority \""+priority+"\"^^xsd:integer ;\n" +
+                "    dynrdf:objectTemplate \"\"\""+template.replace("\\/", "\\\\/")+"\"\"\"^^xsd:string ;\n" +
+                "    dynrdf:htmlTemplate \""+htmlTemplate.replace("\\/", "\\\\/")+"\"^^xsd:string ;\n" +
+                "    dynrdf:url \""+url+"\"^^xsd:string ;\n" +
+                "    dynrdf:proxyParam \""+proxyParam+"\"^^xsd:string .\n" +
+                "\n";
+
+        Log.debug("------------");
+        Log.debug(definitionTTL);
+        Log.debug("------------");
+
+        return definitionTTL;
+    }
 }

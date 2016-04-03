@@ -13,6 +13,7 @@ public class Config {
 
     public static String objectsPath;
     public static String ObjectRDFS;
+    public static String ObjectBaseUrl;
 
     public static void init() throws InitException{
 
@@ -38,6 +39,13 @@ public class Config {
         if(ObjectRDFS == null){
             Log.error("Missing parameter 'ObjectRDFS' in config!");
             throw new InitException("Missing parameter 'ObjectRDFS' in config!");
+        }
+
+        ObjectBaseUrl = p.getProperty("ObjectBaseUrl");
+
+        if(ObjectBaseUrl == null){
+            Log.error("Missing parameter 'ObjectBaseUrl' in config!");
+            throw new InitException("Missing parameter 'ObjectBaseUrl' in config!");
         }
 
         Log.info("Config initialized!");

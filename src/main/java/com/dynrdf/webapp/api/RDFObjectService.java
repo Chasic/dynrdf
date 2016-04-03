@@ -38,7 +38,7 @@ public class RDFObjectService {
     @GET
     public Response getAllObjects() {
         RDFObjectContainer container = RDFObjectContainer.getInstance();
-        List<RDFObject> oobjects = container.getAllWithoutTemplate();
+        List<RDFObject> oobjects = container.getAll();
         String json = new Gson().toJson( oobjects );
 
         return Response.status(200).entity(json).build();
@@ -61,13 +61,19 @@ public class RDFObjectService {
     }
 
     @PUT
+    @Path("/{fullName:.+}")
     @Consumes("application/json")
-    public Response updateObjectJson(RDFObject o, @Context HttpServletRequest request){
+    public Response updateObjectJson(RDFObject obj, @Context HttpServletRequest request, @PathParam("fullName") String fullName){
+        fullName = fullName.replace("%2F", "/");
         try{
             RDFObjectContainer container = RDFObjectContainer.getInstance();
-            container.updateObject(o, request);
+            RDFObject o = container.getObject(fullName);
+            if(o == null){
+                return returnError("Object not found.");
+            }
+            container.updateObject(obj, o.getFilePath(), o);
         }
-        catch( ContainerException ex ){
+        catch( Exception ex ){
             return returnError(ex.getMessage());
         }
 
@@ -78,7 +84,7 @@ public class RDFObjectService {
     @Path("/{fullName:.+}")
     @Consumes("text/turtle")
     public Response updateObjectTurtle(@Context HttpServletRequest request, @PathParam("fullName") String fullName){
-
+        fullName = fullName.replace("%2F", "/");
         try{
             RDFObjectContainer container = RDFObjectContainer.getInstance();
             RDFObject o = container.getObject(fullName);
