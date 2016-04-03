@@ -14,12 +14,10 @@ import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.criterion.Restrictions;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -145,7 +143,7 @@ public class RDFObjectContainer{
     public void createObject  ( RDFObject obj, HttpServletRequest request ) throws ContainerException{
         Log.debug("Creating new object: " + obj.toString());
 
-        validateObject(obj, false);
+        validateObject(obj, false, null);
         reloadObject(obj);
     }
 
@@ -155,8 +153,7 @@ public class RDFObjectContainer{
      * @param updating Boolean True if updating(PUT)
      * @throws ContainerException
      */
-    public void validateObject( RDFObject obj, boolean updating ) throws ContainerException{
-
+    public void validateObject( RDFObject obj, boolean updating, RDFObject updatingObj ) throws ContainerException{
         if( obj.getName() == null || obj.getName().length() == 0 ){
             throw new ContainerException("Name is empty");
         }
@@ -169,14 +166,17 @@ public class RDFObjectContainer{
             throw new ContainerException("Empty template!");
         }
 
-        // try to find existing object
-        RDFObject foundObj = objects.get(obj.getFullName());
+        RDFObject found = objects.get(obj.getFullName());
+
         // check for unique regex
         boolean contains = usedRegex.contains(obj.getUriRegex());
 
         if( updating ){
-            if( contains && !foundObj.getFullName().equals(obj.getFullName()) ){
+            if( contains && !updatingObj.getUriRegex().equals(obj.getUriRegex())  && !updatingObj.getFullName().equals(obj.getFullName()) ){
                 throw new ContainerException("An object with given regex already exists.");
+            }
+            if(!updatingObj.getFullName().equals(obj.getFullName()) && found != null ){
+                throw new ContainerException("Duplicate full name");
             }
         }
         else{
@@ -187,8 +187,25 @@ public class RDFObjectContainer{
 
         // validate proxy data
         if(obj.getType().equals("PROXY")){
+            if(obj.getProxyParam() == null || obj.getUrl() == null){
+                throw new ContainerException("Missing PROXY mandatory parameters.");
+            }
+
             if(!obj.getProxyParam().matches("[a-zA-Z_0-9]+")){
                 throw new ContainerException("Bad parameter name format, expected: [a-zA-Z_0-9]+");
+            }
+            // validate url
+            try{
+                URL url = new URL(obj.getUrl());
+            }
+            catch (MalformedURLException ex){
+                throw new ContainerException("Malformed url.");
+            }
+        }
+        // endpoint validate
+        if(obj.getType().equals("SPARQL-ENDPOINT")){
+            if( obj.getUrl() == null){
+                throw new ContainerException("Missing endpoint url for SPARQL-ENDPOINT type.");
             }
             // validate url
             try{
@@ -206,21 +223,23 @@ public class RDFObjectContainer{
      * @param fullName String
      * @throws ContainerException if object does not exist
      */
-    public void removeObject( String fullName ) throws ContainerException{
+    public void removeObject( String fullName, boolean removeTTLFile ) throws ContainerException{
         if(  objects.containsKey(fullName) ){
             RDFObject removed = objects.get(fullName);
             objects.remove(fullName);
             objectsByPriority.remove(removed);
             usedRegex.remove(removed.getUriRegex());
             // remove file
-            try{
-                File file = new File(removed.getFilePath());
-                if(!file.delete()){
-                    Log.info("Failed to remove " + file.getAbsolutePath());
+            if(removeTTLFile){
+                try{
+                    File file = new File(removed.getFilePath());
+                    if(!file.delete()){
+                        Log.info("Failed to remove " + file.getAbsolutePath());
+                    }
                 }
-            }
-            catch(Exception e){
-                Log.info("Failed to remove " + removed.getUriRegex() + ", Exception: " + e.getMessage());
+                catch(Exception e){
+                    Log.info("Failed to remove " + removed.getUriRegex() + ", Exception: " + e.getMessage());
+                }
             }
         }
         else{
@@ -235,10 +254,42 @@ public class RDFObjectContainer{
      * @throws ContainerException
      */
     public void updateObject ( RDFObject obj, HttpServletRequest request ) throws ContainerException{
-        validateObject(obj, true);
+        /*validateObject(obj, true);
 
         reloadObject(obj);
-        Log.debug("Updating object, new data: " + obj.toString());
+        Log.debug("Updating object, new data: " + obj.toString());*/
+    }
+
+    /**
+     * Update object, given TTL
+     * @param request
+     * @throws ContainerException
+     */
+    public void updateObject (HttpServletRequest request, String originalFilePath, RDFObject updatingObj ) throws Exception{
+
+        Model model = ModelFactory.createDefaultModel();
+        InputStream body = request.getInputStream();
+        model.read(body, null, "TTL");
+        RDFLoader loader = new RDFLoader(model);
+        RDFObject o = loader.createObject(true, updatingObj);
+
+        o.setFilePath(originalFilePath);
+
+        // save def into file
+        File file = new File(originalFilePath);
+        FileWriter objWriter = new FileWriter(file, false);
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        model.write(os, "TTL") ;
+        String content = new String(os.toByteArray());
+
+        objWriter.write(content);
+        objWriter.close();
+
+        reloadObject(o);
+        if(!o.getFullName().equals(updatingObj.getFullName())){
+            removeObject(updatingObj.getFullName(), false);
+        }
     }
 
     public static void init() throws InitException{
@@ -294,7 +345,7 @@ public class RDFObjectContainer{
             try{
                 model.read(new FileInputStream(file.getAbsolutePath()), null, "TTL");
                 RDFLoader loader = new RDFLoader(model, file.getAbsolutePath());
-                RDFObject o = loader.createObject();
+                RDFObject o = loader.createObject(false, null);
                 reloadObject(o);
             }
             catch(Exception ex){

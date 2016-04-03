@@ -1,6 +1,7 @@
 package com.dynrdf.webapp.logic;
 
 import com.dynrdf.webapp.Config;
+import com.dynrdf.webapp.exceptions.ContainerException;
 import com.dynrdf.webapp.model.RDFObject;
 import com.dynrdf.webapp.util.Log;
 import org.apache.jena.query.*;
@@ -35,7 +36,7 @@ public class RDFLoader {
         this.filePath = ""; // will be set (POST request)
     }
 
-    public RDFObject createObject() throws Exception{
+    public RDFObject createObject(boolean updating, RDFObject updatingObject) throws Exception{
         Log.debug("Creating object");
         obj = new RDFObject();
         try{
@@ -44,10 +45,10 @@ public class RDFLoader {
 
             // check data
             RDFObjectContainer container = RDFObjectContainer.getInstance();
-            container.validateObject(obj, false);
+            container.validateObject(obj, updating, updatingObject);
         }
-        catch( Exception ex ){
-            throw new Exception("Cannot load mandatory data for " + filePath + ", msg: " + ex.getMessage());
+        catch( ContainerException ex ){
+            throw new Exception("Cannot load mandatory data, msg: " + ex.getMessage());
         }
 
         // set file path and TTL def to object

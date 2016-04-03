@@ -20,8 +20,9 @@ public class RDFObjectService {
 
 
     @GET
-    @Path("/{fullName}")
+    @Path("/{fullName:.+}")
     public Response getObject(@PathParam("fullName") String fullName) {
+        fullName = fullName.replace("%2F", "/");
         RDFObjectContainer container = RDFObjectContainer.getInstance();
         RDFObject o = container.getObject(fullName);
         if(  o != null ){
@@ -61,7 +62,7 @@ public class RDFObjectService {
 
     @PUT
     @Consumes("application/json")
-    public Response updateObject(RDFObject o, @Context HttpServletRequest request){
+    public Response updateObjectJson(RDFObject o, @Context HttpServletRequest request){
         try{
             RDFObjectContainer container = RDFObjectContainer.getInstance();
             container.updateObject(o, request);
@@ -73,11 +74,32 @@ public class RDFObjectService {
         return returnOK("Updated.");
     }
 
-    @DELETE
-    @Path("/{fullName}")
-    public Response removeObject(@PathParam("fullName") String fullName){
+    @PUT
+    @Path("/{fullName:.+}")
+    @Consumes("text/turtle")
+    public Response updateObjectTurtle(@Context HttpServletRequest request, @PathParam("fullName") String fullName){
+
         try{
-            RDFObjectContainer.getInstance().removeObject(fullName);
+            RDFObjectContainer container = RDFObjectContainer.getInstance();
+            RDFObject o = container.getObject(fullName);
+            if(o == null){
+                return returnError("Object not found.");
+            }
+            container.updateObject(request, o.getFilePath(), o);
+        }
+        catch( Exception ex ){
+            return returnError(ex.getMessage());
+        }
+
+        return returnOK("Updated.");
+    }
+
+    @DELETE
+    @Path("/{fullName:.+}")
+    public Response removeObject(@PathParam("fullName") String fullName){
+        fullName = fullName.replace("%2F", "/");
+        try{
+            RDFObjectContainer.getInstance().removeObject(fullName, true);
         }catch( ContainerException ex ){
             return returnError(ex.getMessage());
         }

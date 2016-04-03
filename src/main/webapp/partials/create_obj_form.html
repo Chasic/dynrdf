@@ -22,14 +22,14 @@
     <label for="type" class="col-sm-2 control-label">Object definition type</label>
     <div class="col-sm-10">
         <select class="selectpicker" ng-model="RDFobject.type" class="form-control" id="type"
-                ng-change="showCustomData()">
-            <option value="0">TURTLE</option>
-            <option value="1">RDF/XML</option>
-            <option value="2">N-TRIPLES</option>
-            <option value="3">JSON-LD</option>
-            <option value="4">SPARQL Construct</option>
-            <option value="5">SPARQL Endpoint</option>
-            <option value="6">Proxy</option>
+                ng-change="showCustomData()" >
+            <option value="TURTLE">TURTLE</option>
+            <option value="RDF/XML">RDF/XML</option>
+            <option value="N-TRIPLES">N-TRIPLES</option>
+            <option value="JSON-LD">JSON-LD</option>
+            <option value="SPARQL-CONSTRUCT">SPARQL Construct</option>
+            <option value="SPARQL-ENDPOINT">SPARQL Endpoint</option>
+            <option value="PROXY">Proxy</option>
         </select>
     </div>
 </div>

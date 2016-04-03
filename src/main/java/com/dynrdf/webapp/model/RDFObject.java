@@ -61,6 +61,7 @@ public class RDFObject {
         this.definitionTTL = another.definitionTTL;
         this.fullName = another.fullName;
         this.vendor = another.vendor;
+        this.filePath = another.filePath;
     }
 
     public RDFObject(String name, String uriRegex, String type, String template, int priority,
