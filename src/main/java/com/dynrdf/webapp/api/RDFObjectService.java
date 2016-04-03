@@ -9,8 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
 import org.json.simple.JSONObject;
 
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.List;
 
 
@@ -21,7 +26,8 @@ public class RDFObjectService {
 
     @GET
     @Path("/{fullName:.+}")
-    public Response getObject(@PathParam("fullName") String fullName) {
+    @Produces("application/json")
+    public Response getObjectJson(@PathParam("fullName") String fullName) {
         fullName = fullName.replace("%2F", "/");
         RDFObjectContainer container = RDFObjectContainer.getInstance();
         RDFObject o = container.getObject(fullName);
@@ -138,5 +144,80 @@ public class RDFObjectService {
         obj.put("msg", msg);
 
         return Response.status(200).entity(obj.toJSONString()).build();
+    }
+
+    // ####### get objects by content-negotiation
+    @GET
+    @Path("/{fullName:.+}")
+    @Produces("text/turtle")
+    public Response getObjectTurtle(@PathParam("fullName") String fullName) {
+        fullName = fullName.replace("%2F", "/");
+        RDFObjectContainer container = RDFObjectContainer.getInstance();
+        RDFObject o = container.getObject(fullName);
+        if(  o != null ){
+            return Response.status(200).entity(o.getDefinitionTTL()).build();
+        }
+
+        return Response.status(404).build();
+    }
+
+    @GET
+    @Path("/{fullName:.+}")
+    @Produces("application/n-triples")
+    public Response getObjectNTriples(@PathParam("fullName") String fullName) {
+        fullName = fullName.replace("%2F", "/");
+        RDFObjectContainer container = RDFObjectContainer.getInstance();
+        RDFObject o = container.getObject(fullName);
+        if(  o != null ){
+            Model model = ModelFactory.createDefaultModel();
+            StringReader sr = new StringReader(o.getDefinitionTTL());
+            model.read(sr, null, "TURTLE");
+            StringWriter out = new StringWriter();
+            model.write(out, "N-TRIPLES");
+
+            return Response.status(200).entity(out.toString()).build();
+        }
+
+        return Response.status(404).build();
+    }
+
+    @GET
+    @Path("/{fullName:.+}")
+    @Produces("application/ld+json")
+    public Response getObjectLDJson(@PathParam("fullName") String fullName) {
+        fullName = fullName.replace("%2F", "/");
+        RDFObjectContainer container = RDFObjectContainer.getInstance();
+        RDFObject o = container.getObject(fullName);
+        if(  o != null ){
+            Model model = ModelFactory.createDefaultModel();
+            StringReader sr = new StringReader(o.getDefinitionTTL());
+            model.read(sr, null, "TURTLE");
+            StringWriter out = new StringWriter();
+            model.write(out, "JSON-LD");
+
+            return Response.status(200).entity(out.toString()).build();
+        }
+
+        return Response.status(404).build();
+    }
+
+    @GET
+    @Path("/{fullName:.+}")
+    @Produces({"application/rdf+xml", "application/xml"})
+    public Response getObjectXML(@PathParam("fullName") String fullName) {
+        fullName = fullName.replace("%2F", "/");
+        RDFObjectContainer container = RDFObjectContainer.getInstance();
+        RDFObject o = container.getObject(fullName);
+        if(  o != null ){
+            Model model = ModelFactory.createDefaultModel();
+            StringReader sr = new StringReader(o.getDefinitionTTL());
+            model.read(sr, null, "TURTLE");
+            StringWriter out = new StringWriter();
+            model.write(out, "RDF/XML");
+
+            return Response.status(200).entity(out.toString()).build();
+        }
+
+        return Response.status(404).build();
     }
 }
