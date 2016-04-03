@@ -1,50 +1,46 @@
 package com.dynrdf.webapp.model;
 
 
+import com.dynrdf.webapp.Config;
 import com.dynrdf.webapp.Template;
 import com.dynrdf.webapp.util.Log;
 
-import javax.persistence.*;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 
-
-@Entity
-@Table(name="objects")
 public class RDFObject {
 
-    private static String[] supportedTemplateTypes = {"TURTLE", "RDF/XML", "N-TRIPLES", "JSON-LD",
-            "SPARQL_CONSTRUCT", "SPARQL_ENDPOINT", "PROXY"};
+    private static List<String> supportedTemplateTypes = Arrays.asList("TURTLE", "RDF/XML", "N-TRIPLES", "JSON-LD",
+            "SPARQL-CONSTRUCT", "SPARQL-ENDPOINT", "PROXY");
     transient private Template rdfTemplateObject;
     transient private Template htmlTemplateObject;
     transient private Pattern pattern;
 
-    @Id
-    @GeneratedValue
-    private int id;
-
-    @Column(name="name")
     private String name;
 
-    @Column(name="uriRegex")
     private String uriRegex;
 
-    @Column(name="type")
-    private int type;
+    private String type;
 
-    @Column(name="template")
     private String template;
 
-    @Column(name="priority")
     private int priority;
 
-    @Column(name="url")
     private String url;
 
-    @Column(name="proxyParam")
     private String proxyParam;
 
-    @Column(name="htmlTemplate")
     private String htmlTemplate;
+
+    private String vendor;
+
+    private String fullName;
+
+    private String definitionTTL;
+
+    // absolute path to definition
+    private String filePath;
 
 
     public RDFObject() {
@@ -52,7 +48,6 @@ public class RDFObject {
 
 
     public RDFObject( RDFObject another ) {
-        this.id = another.id;
         this.name = another.name;
         this.type = another.type;
         this.template = another.template;
@@ -63,10 +58,13 @@ public class RDFObject {
         this.proxyParam = another.proxyParam;
         this.url = another.url;
         this.htmlTemplate = another.htmlTemplate;
+        this.definitionTTL = another.definitionTTL;
+        this.fullName = another.fullName;
+        this.vendor = another.vendor;
     }
 
-    public RDFObject(String name, String uriRegex, int type, String template, int priority,
-                     String url, String proxyParam, String htmlTemplate) {
+    public RDFObject(String name, String uriRegex, String type, String template, int priority,
+                     String url, String proxyParam, String htmlTemplate, String definitionTTL) {
         this.name = name;
         this.uriRegex = uriRegex;
         this.type = type;
@@ -75,21 +73,14 @@ public class RDFObject {
         this.proxyParam = proxyParam;
         this.url = url;
         this.htmlTemplate = htmlTemplate;
+        this.definitionTTL = definitionTTL;
     }
 
-    public RDFObject setId( int id ){
-        this.id = id;
-
-        return this;
-    }
-
-    public int getId(){
-        return id;
-    }
 
     public RDFObject setName( String name ){
         this.name = name;
 
+        setFullName();
         return this;
     }
 
@@ -107,35 +98,50 @@ public class RDFObject {
         return this;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setType(String type) throws Exception{
+        if(isValidObjectType(type)){
+            this.type = type;
+        }
+        else throw new Exception("Unknown object type");
     }
 
     @Override
     public String toString() {
-        return "[id=" + id + ", name=" + name + ", uriRegex=" + uriRegex + ", type=" + type + ", template=" + template + ", priority=" + priority + "]";
+        return "RDFObject{" +
+                "rdfTemplateObject=" + rdfTemplateObject +
+                ", htmlTemplateObject=" + htmlTemplateObject +
+                ", pattern=" + pattern +
+                ", name='" + name + '\'' +
+                ", uriRegex='" + uriRegex + '\'' +
+                ", type='" + type + '\'' +
+                ", template='" + template + '\'' +
+                ", priority=" + priority +
+                ", url='" + url + '\'' +
+                ", proxyParam='" + proxyParam + '\'' +
+                ", htmlTemplate='" + htmlTemplate + '\'' +
+                ", vendor='" + vendor + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", definitionTTL='" + definitionTTL + '\'' +
+                ", filePath='" + filePath + '\'' +
+                '}';
     }
 
     public String getUriRegex() {
         return uriRegex;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
 
     /**
-     * Get RDF serialization by id
-     * @param typeId
-     * @return RDF serialization name | null if not supported
+     * Check if is valid object type
+     * @param type String
+     * @return boolean true if valid | false if invalid
      */
-    public static String getRDFType( int typeId ){
-        if( supportedTemplateTypes.length - 1 >= typeId && typeId >= 0 ){
-            return supportedTemplateTypes[typeId];
-        }
-
-        return null;
+    public static boolean isValidObjectType( String type ){
+        return supportedTemplateTypes.contains(type);
     }
 
     public void setUriRegex(String uriRegex) {
@@ -199,7 +205,66 @@ public class RDFObject {
         return htmlTemplate;
     }
 
-    public void setHtmlTemplate(String htmlTemplate) {
+    public RDFObject setHtmlTemplate(String htmlTemplate) {
         this.htmlTemplate = htmlTemplate;
+
+        return this;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+        setFullName();
+    }
+
+    public String getFullName(){
+        return fullName;
+    }
+
+    public void setFullName(){
+        fullName = vendor;
+        fullName += "/" + name;
+    }
+
+
+    /**
+     * Create turtle definition
+     * @param serverUrl Server URL to generate object IRI
+     */
+    public void createTurtleDefinition(String serverUrl){
+        if(serverUrl.charAt(serverUrl.length()-1) != '/' ){
+            serverUrl += "/";
+        }
+
+        String def =    "@base <" + serverUrl + "> ." +
+                        "@prefix objectRDFS  <" + Config.ObjectRDFS + "> ." +
+                        "\n" +
+                        ":" + getFullName() + " a objectRDFS:Object ;" +
+                        "   objectRDFS:type \"" + getType() + "\"^^xsd:string ;" +
+                        "   "
+
+
+                ;
+    }
+
+    public String getDefinitionTTL() {
+        return definitionTTL;
+    }
+
+    public RDFObject setDefinitionTTL(String definitionTTL) {
+        this.definitionTTL = definitionTTL;
+
+        return this;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }

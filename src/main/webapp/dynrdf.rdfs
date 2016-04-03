@@ -1,0 +1,82 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dynrdf: <http://dynrdf.com/objects.rdfs#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<>
+  rdf:type owl:Ontology ;
+  rdfs:label "An ontology for definitions of dynamic RDF objects." ;
+  dcterms:date "2016-03-22"^^xsd:date .
+
+dynrdf:Object
+        rdf:type rdfs:Class;
+        rdfs:label "Object";
+        rdfs:comment "Class for all dynamic objects.".
+
+dynrdf:type
+        rdf:type owl:ObjectProperty;
+        rdfs:label "type";
+        rdfs:comment "Type of the object definition. Basic RDF serializations; SPARQL-CONSTRUCT for local construct using bind(); SPARQL-ENDPOINT for describe/construct at endpoint; PROXY to resend request to another web service.";
+        rdfs:domain dynrdf:Object;
+        rdfs:range [
+                    a owl:DataRange;
+                    owl:oneOf ( "TURTLE"^^xsd:string 
+                                "RDF/XML"^^xsd:string 
+                                "N-TRIPLES"^^xsd:string 
+                                "JSON-LD"^^xsd:string 
+                                "SPARQL-CONSTRUCT"^^xsd:string 
+                                "SPARQL-ENDPOINT"^^xsd:string
+                                "PROXY"^^xsd:string 
+                                )
+                    ].
+
+dynrdf:name
+        rdf:type owl:ObjectProperty;
+        rdfs:label "name";
+        rdfs:comment "Unique name of the object";
+        rdfs:domain dynrdf:Object.
+
+dynrdf:vendor
+        rdf:type owl:ObjectProperty;
+        rdfs:label "vendor";
+        rdfs:comment "Name of the vendor";
+        rdfs:domain dynrdf:Object.
+
+dynrdf:regex
+        rdf:type owl:ObjectProperty;
+        rdfs:label "regex";
+        rdfs:comment "Regular expression to identify an object";
+        rdfs:domain dynrdf:Object.
+
+dynrdf:priority
+        rdf:type owl:ObjectProperty;
+        rdfs:label "priority";
+        rdfs:comment "Priority when trying to match an object definition from URL";
+        rdfs:domain dynrdf:Object.
+
+dynrdf:objectTemplate
+        rdf:type owl:ObjectProperty;
+        rdfs:label "template";
+        rdfs:comment "Object template";
+        rdfs:domain dynrdf:Object.
+
+dynrdf:htmlTemplate
+        rdf:type owl:ObjectProperty;
+        rdfs:label "HTML template";
+        rdfs:comment "HTML template";
+        rdfs:domain dynrdf:Object.
+
+dynrdf:url
+        rdf:type owl:ObjectProperty;
+        rdfs:label "url";
+        rdfs:comment "URL for PROXY and SPARQL-ENDPOINT types";
+        rdfs:domain dynrdf:Object.
+
+dynrdf:proxyParam
+        rdf:type owl:ObjectProperty;
+        rdfs:label "proxy parameter name";
+        rdfs:comment "Name of the GET parameter to set the requested URL for PROXY type";
+        rdfs:domain dynrdf:Object.
+

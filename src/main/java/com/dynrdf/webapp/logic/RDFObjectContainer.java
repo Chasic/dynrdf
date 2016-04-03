@@ -1,13 +1,23 @@
 package com.dynrdf.webapp.logic;
 
 
+import com.dynrdf.webapp.Config;
 import com.dynrdf.webapp.exceptions.ContainerException;
+import com.dynrdf.webapp.exceptions.InitException;
 import com.dynrdf.webapp.model.RDFObject;
 import com.dynrdf.webapp.util.Log;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.vocabulary.RDF;
 import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.criterion.Restrictions;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
@@ -31,14 +41,19 @@ public class RDFObjectContainer{
     private static RDFObjectContainer instance = null;
 
     /**
-     * Map of loaded objects - by ID
+     * Map of loaded objects - by full name (vendor/name)
      */
-    private Map<Integer, RDFObject> objects;
+    private Map<String, RDFObject> objects;
 
     /**
-     * Map of loaded objects - by uri ID
+     * List of loaded objects - by priority
      */
     private LinkedList<RDFObject> objectsByPriority;
+
+    /**
+     * List of objects' regexp
+     */
+    private List<String> usedRegex;
 
     /**
      * Protected constructor
@@ -46,25 +61,7 @@ public class RDFObjectContainer{
     protected RDFObjectContainer(){
         objects = new HashMap<>();
         objectsByPriority = new LinkedList<>();
-
-        // init hibernate
-        try {
-            factory = new AnnotationConfiguration()
-                    .configure().buildSessionFactory();
-        } catch (Throwable ex) {
-            Log.fatal(ex.getMessage());
-            throw new ExceptionInInitializerError(ex);
-        }
-    }
-
-    /**
-     * Get Hibernate Session
-     * @return Session
-     * @throws HibernateException
-     */
-    public static Session getSession()
-            throws HibernateException {
-        return factory.openSession();
+        usedRegex = new ArrayList<>();
     }
 
     /**
@@ -80,12 +77,12 @@ public class RDFObjectContainer{
     }
 
     /**
-     * Get RDF object from container by ID
-     * @param id Object id
+     * Get RDF object from container by full name
+     * @param fullName Object full name
      * @return RDFObject, null if not found
      */
-    public RDFObject getObject( int id ) {
-        RDFObject found = objects.get(id);
+    public RDFObject getObject( String fullName ) {
+        RDFObject found = objects.get(fullName);
 
         if( found != null ){
             // return copy of the object
@@ -102,7 +99,7 @@ public class RDFObjectContainer{
      */
     public RDFObject getObjectByUriRegexMatch(String uri){
         for( RDFObject o : objectsByPriority ){
-            Log.debug("Trying to match: uri="+uri+", pattern="+o.getUriRegex()+", objectID="+o.getId());
+            Log.debug("Trying to match: uri="+uri+", pattern="+o.getUriRegex()+", objectFullName="+o.getFullName());
 
             Pattern pattern = o.getPattern();
             Matcher matcher = pattern.matcher(uri);
@@ -120,7 +117,7 @@ public class RDFObjectContainer{
      */
     public List<RDFObject> getAll() {
         List<RDFObject> result = new ArrayList<>();
-        for( Map.Entry<Integer, RDFObject> e : objects.entrySet() ){
+        for( Map.Entry<String, RDFObject> e : objects.entrySet() ){
             result.add( new RDFObject(e.getValue()) );
         }
 
@@ -132,8 +129,8 @@ public class RDFObjectContainer{
      */
     public List<RDFObject> getAllWithoutTemplate() {
         List<RDFObject> result = new ArrayList<>();
-        for( Map.Entry<Integer, RDFObject> e : objects.entrySet() ){
-            result.add( new RDFObject(e.getValue()).setTemplate(null) );
+        for( Map.Entry<String, RDFObject> e : objects.entrySet() ){
+            result.add( new RDFObject(e.getValue()).setTemplate(null).setDefinitionTTL(null).setHtmlTemplate(null) );
         }
 
         return result;
@@ -142,82 +139,54 @@ public class RDFObjectContainer{
     /**
      * Save given object into the container
      * @param obj Object to save
+     * @param request HttpServletRequest to generate object IRI
      * @throws ContainerException when cannot create new object
      */
-    public void createObject  ( RDFObject obj ) throws ContainerException{
+    public void createObject  ( RDFObject obj, HttpServletRequest request ) throws ContainerException{
+        Log.debug("Creating new object: " + obj.toString());
 
         validateObject(obj, false);
-
-        Session session = factory.openSession();
-        Transaction tx = null;
-        Integer id = null;
-        boolean err = false;
-
-
-        try{
-            tx = session.beginTransaction();
-            id = (Integer) session.save(obj);
-            tx.commit();
-        }catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
-            Log.error(e.toString());
-            err = true;
-        }finally {
-            session.close();
-            if( !err ){
-                obj.setId(id);
-                reloadObject(obj);
-                Log.debug("Creating new object: " + obj.toString());
-            }
-            else{
-                throw new ContainerException("Cannot create new object, see log (Probably DB problem).");
-            }
-        }
-
+        reloadObject(obj);
     }
 
     /**
      * Check object if is valid
-     * @param obj
+     * @param obj RDFObject
+     * @param updating Boolean True if updating(PUT)
      * @throws ContainerException
      */
-    private void validateObject( RDFObject obj, boolean updating ) throws ContainerException{
+    public void validateObject( RDFObject obj, boolean updating ) throws ContainerException{
 
         if( obj.getName() == null || obj.getName().length() == 0 ){
             throw new ContainerException("Name is empty");
         }
-        else if(  RDFObject.getRDFType(obj.getType()) == null ){
-            throw new ContainerException("Unknown RDF serialization number, not supported ...");
+        else if( !RDFObject.isValidObjectType(obj.getType()) ){
+            throw new ContainerException("Invalid definition type");
         }
         else if( (obj.getTemplate() == null ||  obj.getTemplate().length() == 0)
-                && !RDFObject.getRDFType(obj.getType()).equals("PROXY") ){ // proxy has no template
+                    && !obj.getType().equals("PROXY")  // proxy has no template
+                 ){
             throw new ContainerException("Empty template!");
         }
 
+        // try to find existing object
+        RDFObject foundObj = objects.get(obj.getFullName());
         // check for unique regex
-        Session session = factory.openSession();
-        boolean err = false;
-        RDFObject regexObj = null;
-        try{
-            regexObj = (RDFObject) session.createCriteria(RDFObject.class).add(Restrictions.eq("uriRegex", obj.getUriRegex()))
-                    .uniqueResult();
-        }catch (HibernateException e) {
-            Log.error(e.toString());
-            err = true;
-        }finally {
-            session.close();
+        boolean contains = usedRegex.contains(obj.getUriRegex());
+
+        if( updating ){
+            if( contains && !foundObj.getFullName().equals(obj.getFullName()) ){
+                throw new ContainerException("An object with given regex already exists.");
+            }
         }
-        if(err){
-            throw new ContainerException("Cannot check for unique regex.");
-        }
-        if( (regexObj != null && !updating) // creating object, duplicate regex
-             || ( regexObj != null && updating && regexObj.getId() != obj.getId() ) // updating object, duplicate regex with another object
-                ){
-            throw new ContainerException("An object with given regex already exists.");
+        else{
+            if( contains ){
+                throw new ContainerException("An object with given regex already exists.");
+            }
         }
 
         // validate proxy data
-        if(RDFObject.getRDFType(obj.getType()).equals("PROXY")){
+        if(obj.getType().equals("PROXY")){
             if(!obj.getProxyParam().matches("[a-zA-Z_0-9]+")){
                 throw new ContainerException("Bad parameter name format, expected: [a-zA-Z_0-9]+");
             }
@@ -234,30 +203,25 @@ public class RDFObjectContainer{
 
     /**
      * Remove given object
-     * @param id
-     * @throws ContainerException if object does not exist or hibernate error occurred
+     * @param fullName String
+     * @throws ContainerException if object does not exist
      */
-    public void removeObject( int id ) throws ContainerException{
-        if(  objects.containsKey(id) ){
-            RDFObject removed = objects.get(id);
-            Session session = factory.openSession();
-            Transaction tx = session.beginTransaction();
-            try {
-                RDFObject toDel = objects.get(id);
-                Log.debug(toDel.toString());
-                session.delete(toDel);
-            }
-            catch( HibernateException ex ){
-                throw new ContainerException("An error occurred during removing object from database: " + ex.getMessage());
-            }
-            finally {
-                session.flush();
-                tx.commit();
-                session.close();
-            }
-
-            objects.remove(id);
+    public void removeObject( String fullName ) throws ContainerException{
+        if(  objects.containsKey(fullName) ){
+            RDFObject removed = objects.get(fullName);
+            objects.remove(fullName);
             objectsByPriority.remove(removed);
+            usedRegex.remove(removed.getUriRegex());
+            // remove file
+            try{
+                File file = new File(removed.getFilePath());
+                if(!file.delete()){
+                    Log.info("Failed to remove " + file.getAbsolutePath());
+                }
+            }
+            catch(Exception e){
+                Log.info("Failed to remove " + removed.getUriRegex() + ", Exception: " + e.getMessage());
+            }
         }
         else{
             throw new ContainerException("Object does not exist.");
@@ -267,77 +231,86 @@ public class RDFObjectContainer{
     /**
      * Update object
      * @param obj Object to update
+     * @param request To generate object IRI
      * @throws ContainerException
      */
-    public void updateObject ( RDFObject obj ) throws ContainerException{
+    public void updateObject ( RDFObject obj, HttpServletRequest request ) throws ContainerException{
         validateObject(obj, true);
 
-        Session session = factory.openSession();
-        Transaction tx = null;
-        int id = obj.getId();
-        boolean err = false;
-
-        if( !objects.containsKey(id) ){
-            throw new ContainerException("Object with given id does not exist.");
-        }
-        try{
-            tx = session.beginTransaction();
-            session.update(obj);
-            tx.commit();
-        }catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
-            Log.error(e.toString());
-            err = true;
-        }finally {
-            session.close();
-            if( !err ){
-                reloadObject(obj);
-                Log.debug("Updating object, new data: " + obj.toString());
-            }
-            else{
-                throw new ContainerException("Cannot update given object, see log.");
-            }
-        }
+        reloadObject(obj);
+        Log.debug("Updating object, new data: " + obj.toString());
     }
 
-    public static void init(){
+    public static void init() throws InitException{
         RDFObjectContainer container = RDFObjectContainer.getInstance();
-        container.loadObjects();
+        List<File> definitions = container.findObjectsDefinitionFiles();
+        container.loadObjects(definitions);
 
+    }
+
+    private List<File> findObjectsDefinitionFiles() throws InitException {
+        File currentDir = new File(Config.objectsPath);
+        List<File> definitions;
+        try{
+            definitions = findObjectsDefinitionsRec(currentDir);
+        }
+        catch (IOException ex){
+            throw new InitException(ex.getMessage());
+        }
+        return definitions;
+    }
+
+    private static List<File> findObjectsDefinitionsRec(File dir) throws IOException{
+        List<File> definitions = new ArrayList<>();
+        File[] files = dir.listFiles();
+        if(files != null){
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    definitions.addAll(findObjectsDefinitionsRec(file));
+                } else {
+                    String name = file.getName();
+                    if(name.matches("^.*\\.ttl$")){
+                        Log.debug("Found ttl: " + file.getAbsolutePath());
+                        definitions.add(file);
+                    }
+                }
+            }
+        }
+        else{
+            throw new IOException("Cannot read directory: " + dir.getAbsolutePath());
+        }
+
+        return definitions;
     }
 
     /**
      * Loads all objects from DB
      */
-    private void loadObjects(){
+    private void loadObjects(List<File> files){
         Log.info("Loading objects ...");
-        Session session = factory.openSession();
-        List<RDFObject> results = null;
-        try{
-            Criteria cr = session.createCriteria(RDFObject.class);
-            results = cr.list();
-
-        }catch (HibernateException e) {
-            Log.error(e.toString());
-            Log.error("Cannot load objects ...");
-        }finally {
-            session.close();
+        Model model;
+        for(File file : files ){
+            model = ModelFactory.createDefaultModel();
+            try{
+                model.read(new FileInputStream(file.getAbsolutePath()), null, "TTL");
+                RDFLoader loader = new RDFLoader(model, file.getAbsolutePath());
+                RDFObject o = loader.createObject();
+                reloadObject(o);
+            }
+            catch(Exception ex){
+                continue; // try to load other objects
+            }
         }
-
-        for( RDFObject o : results ){
-            reloadObject(o);
-        }
-
-        Log.info("Loaded " + results.size() + " objects.");
     }
 
     private void reloadObject( RDFObject o ){
-        RDFObject removed = objects.get(o.getId());
+        RDFObject removed = objects.get(o.getFullName());
         if(removed != null){
-            objects.remove(o.getId());
+            objects.remove(o.getFullName());
             objectsByPriority.remove(removed);
+            usedRegex.remove(removed.getFullName());
         }
-        objects.put(o.getId(), o);
+        objects.put(o.getFullName(), o);
 
         // relocate the object in priority list for regex
         int pos = 0;
@@ -348,9 +321,20 @@ public class RDFObjectContainer{
             pos++;
         }
         objectsByPriority.add(pos,o);
-        o.compilePattern();
+        usedRegex.add(o.getUriRegex());
 
+        saveDefinition(o);
+
+        o.compilePattern();
         o.preprocessTemplate();
+    }
+
+    private void saveDefinition(RDFObject obj){
+        String path = Config.objectsPath;
+        path += "/" + obj.getFullName() + ".ttl";
+
+
+
     }
 
 }

@@ -1,5 +1,6 @@
 package com.dynrdf.webapp.util;
 
+import com.dynrdf.webapp.exceptions.InitException;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -16,7 +17,7 @@ public class Log {
     static Logger logger;
 
 
-    public static void init(){
+    public static void init() throws InitException{
 
         logger = Logger.getLogger(Log.class);
         Properties p = new Properties();
@@ -25,7 +26,7 @@ public class Log {
             p.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("log4j.properties"));
             PropertyConfigurator.configure(p);
         } catch (IOException e) {
-            throw new ExceptionInInitializerError("Cannot open log4j config file.");
+            throw new InitException("Cannot open log4j config file.");
         }
 
     }

@@ -33,7 +33,7 @@ public class Request {
      * Represents a request for an object data
      */
     public Response execute(){
-        String type = RDFObject.getRDFType(object.getType());
+        String type = object.getType();
         Model model = ModelFactory.createDefaultModel();
 
         if(type.equals("PROXY")){
@@ -49,9 +49,9 @@ public class Request {
 
 
         switch(type){
-            case "SPARQL_CONSTRUCT":
+            case "SPARQL-CONSTRUCT":
                 return executeConstruct(model, filledTemplate);
-            case "SPARQL_ENDPOINT":
+            case "SPARQL-ENDPOINT":
                 return executeSparqlEndpoint(filledTemplate);
             default:
                 return executeRDFTemplate(model, filledTemplate);
@@ -61,7 +61,7 @@ public class Request {
 
     private Response executeRDFTemplate(Model model, String filledTemplate){
         StringReader sr = new StringReader(filledTemplate);
-        model.read(sr, null, RDFObject.getRDFType(object.getType()));
+        model.read(sr, null, object.getType());
         StringWriter out = new StringWriter();
         model.write(out, produces);
 

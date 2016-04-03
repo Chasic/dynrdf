@@ -9,6 +9,7 @@ angular.module('dynrdfApp.controllers',[]).controller('RDFObjectListController',
 
 
     $scope.deleteRDFObject=function(RDFObject){
+        RDFObject.id = RDFObject.fullName;
         if(popupService.showPopup('Really delete this?')){
             RDFObject.$delete(function(){
                 $window.location.href='';

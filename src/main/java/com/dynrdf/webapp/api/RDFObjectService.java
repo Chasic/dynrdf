@@ -5,7 +5,9 @@ import com.dynrdf.webapp.model.RDFObject;
 import com.dynrdf.webapp.util.Log;
 import com.google.gson.Gson;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import org.json.simple.JSONObject;
 
@@ -18,10 +20,10 @@ public class RDFObjectService {
 
 
     @GET
-    @Path("/{id}")
-    public Response getObject(@PathParam("id") int id) {
+    @Path("/{fullName}")
+    public Response getObject(@PathParam("fullName") String fullName) {
         RDFObjectContainer container = RDFObjectContainer.getInstance();
-        RDFObject o = container.getObject(id);
+        RDFObject o = container.getObject(fullName);
         if(  o != null ){
 
             String json = new Gson().toJson( o );
@@ -43,10 +45,12 @@ public class RDFObjectService {
 
     @POST
     @Consumes("application/json")
-    public Response createObject(RDFObject o){
+    public Response createObject(RDFObject o, @Context HttpServletRequest request){
         try{
             RDFObjectContainer container = RDFObjectContainer.getInstance();
-            container.createObject(o);
+
+            o.createTurtleDefinition(request.getRequestURL().toString());
+            container.createObject(o, request);
         }
         catch( ContainerException ex ){
             return returnError(ex.getMessage());
@@ -57,11 +61,10 @@ public class RDFObjectService {
 
     @PUT
     @Consumes("application/json")
-    @Path("/{id}")
-    public Response updateObject(RDFObject o){
+    public Response updateObject(RDFObject o, @Context HttpServletRequest request){
         try{
             RDFObjectContainer container = RDFObjectContainer.getInstance();
-            container.updateObject(o);
+            container.updateObject(o, request);
         }
         catch( ContainerException ex ){
             return returnError(ex.getMessage());
@@ -71,10 +74,10 @@ public class RDFObjectService {
     }
 
     @DELETE
-    @Path("/{id}")
-    public Response removeObject(@PathParam("id") int id){
+    @Path("/{fullName}")
+    public Response removeObject(@PathParam("fullName") String fullName){
         try{
-            RDFObjectContainer.getInstance().removeObject(id);
+            RDFObjectContainer.getInstance().removeObject(fullName);
         }catch( ContainerException ex ){
             return returnError(ex.getMessage());
         }
