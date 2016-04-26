@@ -1,0 +1,42 @@
+@MANUAL{british_ti,
+    title = "data.gov.uk Time Intervals {[online]}",
+    organization = "Datahub",
+    url = "https://datahub.io/tr/dataset/data-gov-uk-time-intervals",
+    note = "[cit. 2016-04-16]",
+    key = "svg"
+}
+@MANUAL{content_negotiation,
+    title = "data.gov.uk Time Intervals {[online]}",
+    organization = "Datahub",
+    url = "https://datahub.io/tr/dataset/data-gov-uk-time-intervals",
+    note = "[cit. 2011-07-07]",
+    key = "svg"
+}
+@MANUAL{content_negotiation,
+    title = "data.gov.uk Time Intervals {[online]}",
+    organization = "Datahub",
+    url = "https://datahub.io/tr/dataset/data-gov-uk-time-intervals",
+    note = "[cit. 2011-07-07]",
+    key = "svg"
+}
+
+@BOOK{b_t_i,
+	title = "Praktick{\' a} typografie",
+	author = "Pavel Ko{\v c}i{\v c}ka and Filip Bla{\v z}ek",
+	publisher = "Brno: Computer Press",
+	year = "2004"
+}
+
+@BOOK{british_ti,
+	title = "LaTeX pro za\v c\'ate\v cn\'\i{}ky",
+	author = "Ji{\v r}{\' i} Rybi{\v c}ka",
+	isbn = "80-7302-049-1",
+	publisher = "Brno: Konvoj",
+	edition = "3"
+}
+
+@MANUAL{iso690,
+	organization = "\'U\v rad pro technickou normalizaci, metrologii a st\'atn\'\i{} zku\v sebnictv\'\i{}",
+	title = "\v CSN ISO 690 Informace a dokumentace -- Pravidla pro bibliografick\'e odkazy a citace informa\v cn\'\i{}ch zdroj{\r u}",
+	year = "2011"
+}

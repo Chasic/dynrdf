@@ -1,0 +1,3 @@
+#dynrdf
+Text bakalářské práce
+

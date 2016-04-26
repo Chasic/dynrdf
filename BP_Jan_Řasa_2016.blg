@@ -1,0 +1,61 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: BP_Jan_Řasa_2016.aux
+The style file: csn690.bst
+Database file #1: mybibliographyfile.bib
+Repeated entry---line 72 of file mybibliographyfile.bib
+ : @book{british_ti
+ :                 ,
+I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "linked_data"
+Warning--I didn't find a database entry for "JSON"
+Warning--I didn't find a database entry for "turtle"
+Warning--I didn't find a database entry for "rdf_xml"
+Warning--I didn't find a database entry for "json_ld"
+Warning--I didn't find a database entry for "n_triples"
+Warning--I didn't find a database entry for "sparql_construct"
+Warning--I didn't find a database entry for "sparql_describe"
+Warning--I didn't find a database entry for "sparql_endpoint"
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+You've used 9 entries,
+            3151 wiz_defined-function locations,
+            701 strings with 6699 characters,
+and the built_in function-call counts, 2470 in all, are:
+= -- 185
+> -- 15
+< -- 0
++ -- 12
+- -- 2
+* -- 120
+:= -- 224
+add.period$ -- 18
+call.type$ -- 9
+change.case$ -- 35
+chr.to.int$ -- 0
+cite$ -- 9
+duplicate$ -- 287
+empty$ -- 292
+format.name$ -- 2
+if$ -- 555
+int.to.chr$ -- 0
+int.to.str$ -- 9
+missing$ -- 67
+newline$ -- 45
+num.names$ -- 2
+pop$ -- 161
+preamble$ -- 1
+purify$ -- 27
+quote$ -- 0
+skip$ -- 85
+stack$ -- 0
+substring$ -- 70
+swap$ -- 111
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 34
+warning$ -- 0
+while$ -- 2
+width$ -- 10
+write$ -- 81
+(There was 1 error message)
