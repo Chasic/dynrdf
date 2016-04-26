@@ -67,6 +67,21 @@ public class RDFObjectService {
         return returnOK("Created.");
     }
 
+    @POST
+    @Consumes("text/turtle")
+    public Response createObjectTurtle(@Context HttpServletRequest request){
+        try{
+            RDFObjectContainer container = RDFObjectContainer.getInstance();
+
+            container.createObject(request);
+        }
+        catch( Exception ex ){
+            return returnError(ex.getMessage());
+        }
+
+        return returnOK("Created.");
+    }
+
     @PUT
     @Path("/{fullName:.+}")
     @Consumes("application/json")

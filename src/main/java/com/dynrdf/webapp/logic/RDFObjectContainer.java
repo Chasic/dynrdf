@@ -276,6 +276,19 @@ public class RDFObjectContainer{
     }
 
     /**
+     * Create object from turtle
+     * @param request
+     * @throws Exception
+     */
+    public void createObject (HttpServletRequest request) throws Exception{
+        Model model = ModelFactory.createDefaultModel();
+        InputStream body = request.getInputStream();
+        model.read(body, null, "TTL");
+
+        createObjectFromModel(model);
+    }
+
+    /**
      * Register RDFObject
      * @param o
      */
