@@ -2,7 +2,6 @@ package com.dynrdf.webapp.model;
 
 
 import com.dynrdf.webapp.Config;
-import com.dynrdf.webapp.Template;
 import com.dynrdf.webapp.util.Log;
 
 import java.util.Arrays;
@@ -259,6 +258,7 @@ public class RDFObject {
         if(fullName == null) fullName = "";
         if(group == null) group = "";
         if(url == null) url = "";
+        if(proxyParam == null) proxyParam = "";
 
         definitionTTL = "@prefix dynrdf: <"+Config.ObjectRDFS+"> .\n" +
                 "@prefix def: <"+Config.ObjectBaseUrl+"> .\n" +

@@ -1,6 +1,5 @@
 package com.dynrdf.webapp.publisher;
 
-import com.dynrdf.webapp.Request;
 import com.dynrdf.webapp.exceptions.RequestException;
 import com.dynrdf.webapp.logic.RDFObjectContainer;
 import com.dynrdf.webapp.model.RDFObject;

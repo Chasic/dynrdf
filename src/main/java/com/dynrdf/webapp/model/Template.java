@@ -1,4 +1,4 @@
-package com.dynrdf.webapp;
+package com.dynrdf.webapp.model;
 
 import com.dynrdf.webapp.util.Log;
 
@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.jena.rdf.model.impl.ModelCom;
 
 /**
  * Template class for RDF object templates with placeholders

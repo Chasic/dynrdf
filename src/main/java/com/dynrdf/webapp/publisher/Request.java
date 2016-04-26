@@ -1,4 +1,4 @@
-package com.dynrdf.webapp;
+package com.dynrdf.webapp.publisher;
 
 import com.dynrdf.webapp.model.RDFObject;
 import com.dynrdf.webapp.util.Log;

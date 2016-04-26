@@ -9,4 +9,4 @@ def:dynrdf_construct  a        dynrdf:SPARQLConstruct ;
         dynrdf:objectTemplate  "PREFIX : <http://example.com/>\nCONSTRUCT { :test a ?s . }\nWHERE {\n    BIND ( \"[@2]\" AS ?s)\n}" ;
         dynrdf:priority        1 ;
         dynrdf:regex           "construct" ;
-        dcterms:title          "construct_title" .
+        dcterms:title          "construct" .

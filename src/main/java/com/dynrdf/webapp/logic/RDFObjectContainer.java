@@ -280,6 +280,12 @@ public class RDFObjectContainer{
      * @param o
      */
     public void createObject(RDFObject o)throws Exception{
+        // set RDF type from txpe before generating ttl
+        int index = RDFObject.supportedTemplateTypes.indexOf(o.getType());
+        if(index == -1){
+            throw new Exception("Unknown type");
+        }
+        o.setRdfType(RDFObject.supportedTemplateTypesRdf.get(index));
         String objTTL = o.createTTL();
 
         InputStream is = new ByteArrayInputStream(objTTL.getBytes());

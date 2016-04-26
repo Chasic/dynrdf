@@ -1,4 +1,4 @@
-package com.dynrdf.webapp;
+package com.dynrdf.webapp.model;
 
 /**
  * Class for every placeholder found in a template
