@@ -8,16 +8,10 @@ import com.dynrdf.webapp.model.RDFObject;
 import com.dynrdf.webapp.util.Log;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.vocabulary.RDF;
-import org.hibernate.*;
-import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.criterion.Restrictions;
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,9 +23,6 @@ import java.util.regex.Pattern;
  * RDFObjectContainer handles all RDF object models.
  */
 public class RDFObjectContainer{
-
-
-    private static SessionFactory factory;
 
     /**
      * Singleton instance
@@ -157,9 +148,10 @@ public class RDFObjectContainer{
         if( obj.getName() == null || obj.getName().length() == 0 ){
             throw new ContainerException("Name is empty");
         }
-        if( obj.getVendor() == null || obj.getVendor().length() == 0 ){
-            throw new ContainerException("Vendor is empty");
-        }
+        /*
+        if( obj.getGroup() == null || obj.getGroup().length() == 0 ){
+            throw new ContainerException("Group is empty");
+        }*/
         if( obj.getUriRegex() == null || obj.getUriRegex().length() == 0 ){
             throw new ContainerException("Uri regex is empty");
         }
@@ -306,8 +298,16 @@ public class RDFObjectContainer{
      * @throws Exception
      */
     public void updateObject (RDFObject o, String originalFilePath, RDFObject updatingObj ) throws Exception{
+        // set RDF type from txpe before generating ttl
+        int index = RDFObject.supportedTemplateTypes.indexOf(o.getType());
+        if(index == -1){
+            throw new Exception("Unknown type");
+        }
+        o.setRdfType(RDFObject.supportedTemplateTypesRdf.get(index));
 
         String objTTL = o.createTTL();
+
+        Log.debug(objTTL);
 
         InputStream is = new ByteArrayInputStream(objTTL.getBytes());
         Model model = ModelFactory.createDefaultModel();
@@ -315,6 +315,7 @@ public class RDFObjectContainer{
 
         updateObjectFromModel(model, originalFilePath, updatingObj);
     }
+
 
     /**
      * Update RDFObject from TTL model
@@ -382,7 +383,6 @@ public class RDFObjectContainer{
         RDFObjectContainer container = RDFObjectContainer.getInstance();
         List<File> definitions = container.findObjectsDefinitionFiles();
         container.loadObjects(definitions);
-
     }
 
     /**
@@ -446,8 +446,8 @@ public class RDFObjectContainer{
                 RDFObject o = loader.createObject(false, null);
                 reloadObject(o);
             }
-            catch(Exception ex){
-                continue; // try to load other objects
+            catch(Exception ignored){
+                // try to load other objects
             }
         }
     }
@@ -477,18 +477,7 @@ public class RDFObjectContainer{
         objectsByPriority.add(pos,o);
         usedRegex.add(o.getUriRegex());
 
-        saveDefinition(o);
-
         o.compilePattern();
         o.preprocessTemplate();
     }
-
-    private void saveDefinition(RDFObject obj){
-        String path = Config.objectsPath;
-        path += "/" + obj.getFullName() + ".ttl";
-
-
-
-    }
-
 }

@@ -151,7 +151,7 @@ public class RDFObjectService {
     // ####### get objects by content-negotiation
     @GET
     @Path("/{fullName:.+}")
-    @Produces("text/turtle")
+    // @Produces("text/turtle")
     public Response getObjectTurtle(@PathParam("fullName") String fullName) {
         fullName = fullName.replace("%2F", "/");
         RDFObjectContainer container = RDFObjectContainer.getInstance();
@@ -225,7 +225,7 @@ public class RDFObjectService {
 
     // ####### get ALL objects by content-negotiation
     @GET
-    @Produces("text/turtle")
+    // default turtle @Produces("text/turtle")
     public Response getAllObjectsTurtle() {
         Model model = ModelFactory.createDefaultModel();
         setModelFromAllObjects(model);

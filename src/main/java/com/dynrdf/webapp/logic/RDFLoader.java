@@ -9,11 +9,7 @@ import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.shared.JenaException;
-
 import java.io.ByteArrayOutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 
 /**
@@ -47,7 +43,8 @@ public class RDFLoader {
             RDFObjectContainer container = RDFObjectContainer.getInstance();
             container.validateObject(obj, updating, updatingObject);
         }
-        catch( ContainerException ex ){
+        catch( Exception ex ){
+            Log.error("Cannot load mandatory data, msg: " + ex.getMessage());
             throw new Exception("Cannot load mandatory data, msg: " + ex.getMessage());
         }
 
@@ -70,12 +67,15 @@ public class RDFLoader {
                              "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
                              "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
                              "PREFIX owl:  <http://www.w3.org/2002/07/owl#>" +
-                             "SELECT ?res  \n" +
+                             "PREFIX dcterms: <http://purl.org/dc/terms/>" +
+                             "SELECT ?res ?type  \n" +
                              "WHERE \n" +
-                             "  { ?res a dynrdf:Object }" ;
+                             "  { ?res a ?type  }" ;
+
         Query query = QueryFactory.create(queryString) ;
         try (QueryExecution qexec = QueryExecutionFactory.create(query, model)) {
             ResultSet results = qexec.execSelect() ;
+            Log.debug("Prepare: " + (results.hasNext() ? 1 : 0));
             boolean resSet = false;
             for ( ; results.hasNext() ; ) {
                 if(resSet){
@@ -83,12 +83,33 @@ public class RDFLoader {
                 }
                 QuerySolution soln = results.nextSolution() ;
                 Resource r = soln.getResource("res") ; // Get a result variable - must be a resource
-
                 resource = r.toString();
+
+                Resource typeR = soln.getResource("type") ; // Get a result variable - must be a resource
+                String type = typeR.toString();
+                setType(type);
+
                 resSet = true;
             }
         }
+    }
 
+    /**
+     * Set type of the definition
+     * @param typeRes String
+     * @throws  Exception if invalid type
+     */
+    private void setType(String typeRes) throws Exception{
+        typeRes = typeRes.substring(typeRes.indexOf("#")+1);
+        Log.debug("Setting type: " + typeRes);
+        int index = RDFObject.supportedTemplateTypesRdf.indexOf(typeRes);
+        if(index != -1){
+            obj.setType(RDFObject.supportedTemplateTypes.get(index));
+            obj.setRdfType(typeRes);
+        }
+        else{
+            throw new Exception("Unknown type");
+        }
     }
 
     /**
@@ -100,6 +121,7 @@ public class RDFLoader {
                 "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n" +
                 "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
                 "PREFIX owl:  <http://www.w3.org/2002/07/owl#>" +
+                "PREFIX dcterms: <http://purl.org/dc/terms/>" +
                 "SELECT ?type ?value  \n" +
                 "WHERE \n" +
                 "  { <" + resource + "> ?type ?value }" ;
@@ -110,9 +132,14 @@ public class RDFLoader {
                 QuerySolution soln = results.nextSolution() ;
 
                 RDFNode n = soln.get("value") ; // all values are not resources
-                if ( n.isResource() ) continue; // skip resources ( dynrdf:Object etc. )
+                String val;
+                if(n.isResource()){
+                    val = n.asResource().toString();
+                }
+                else{
+                    val = ((Literal)n).getLexicalForm();
+                }
 
-                String val = ((Literal)n).getLexicalForm();
                 Resource typeRes = soln.getResource("type") ;
                 String type = typeRes.toString();
 
@@ -124,11 +151,6 @@ public class RDFLoader {
                     throw new Exception("Exception during reading and setting parameters of the RDFObject: " + ex.getMessage());
                 }
             }
-
-            /*ByteArrayOutputStream os = new ByteArrayOutputStream();
-            ResultSetFormatter.out(os, results, query) ;
-            String res = new String(os.toByteArray(),"UTF-8");
-            Log.debug(res);*/
         }
     }
 
@@ -139,22 +161,15 @@ public class RDFLoader {
      * @throws Exception
      */
     private void setParam(String param, String val) throws Exception{
+        if(param.matches(".*/dc/terms.*title")){
+            obj.setName(val);
+            return;
+        }
         String objParam = param.substring(param.indexOf("#")+1);
         Log.debug("Setting: param=" + objParam + ", val=" + val);
         switch(objParam){
-            case "name":
-                obj.setName(val);
-                break;
-            case "type":
-                try{
-                    obj.setType(val);
-                }
-                catch (Exception ex){
-                    throw ex;
-                }
-                break;
-            case "vendor":
-                obj.setVendor(val);
+            case "group":
+                obj.setGroup(val);
                 break;
             case "regex":
                 obj.setUriRegex(val);

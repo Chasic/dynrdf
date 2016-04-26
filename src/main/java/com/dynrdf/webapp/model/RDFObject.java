@@ -11,11 +11,15 @@ import java.util.regex.Pattern;
 
 public class RDFObject {
 
-    private static List<String> supportedTemplateTypes = Arrays.asList("TURTLE", "RDF/XML", "N-TRIPLES", "JSON-LD",
+    public static List<String> supportedTemplateTypes = Arrays.asList("TURTLE", "RDF/XML", "N-TRIPLES", "JSON-LD",
             "SPARQL-CONSTRUCT", "SPARQL-ENDPOINT", "PROXY");
+    // rdf types, same indexes
+    public static List<String> supportedTemplateTypesRdf = Arrays.asList("Turtle", "RDFXML", "NTriples", "JSONLD",
+            "SPARQLConstruct", "SPARQLEndpoint", "Proxy");
     transient private Template rdfTemplateObject;
     transient private Template htmlTemplateObject;
     transient private Pattern pattern;
+    transient private String rdfType;
 
     private String name;
 
@@ -33,7 +37,7 @@ public class RDFObject {
 
     private String htmlTemplate;
 
-    private String vendor;
+    private String group;
 
     private String fullName;
 
@@ -60,7 +64,7 @@ public class RDFObject {
         this.htmlTemplate = another.htmlTemplate;
         this.definitionTTL = another.definitionTTL;
         this.fullName = another.fullName;
-        this.vendor = another.vendor;
+        this.group = another.group;
         this.filePath = another.filePath;
     }
 
@@ -120,7 +124,7 @@ public class RDFObject {
                 ", url='" + url + '\'' +
                 ", proxyParam='" + proxyParam + '\'' +
                 ", htmlTemplate='" + htmlTemplate + '\'' +
-                ", vendor='" + vendor + '\'' +
+                ", group='" + group + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", definitionTTL='" + definitionTTL + '\'' +
                 ", filePath='" + filePath + '\'' +
@@ -212,12 +216,12 @@ public class RDFObject {
         return this;
     }
 
-    public String getVendor() {
-        return vendor;
+    public String getGroup() {
+        return group;
     }
 
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
+    public void setGroup(String group) {
+        this.group = group;
         setFullName();
     }
 
@@ -226,29 +230,8 @@ public class RDFObject {
     }
 
     public void setFullName(){
-        fullName = vendor;
+        fullName = group;
         fullName += "/" + name;
-    }
-
-
-    /**
-     * Create turtle definition
-     * @param serverUrl Server URL to generate object IRI
-     */
-    public void createTurtleDefinition(String serverUrl){
-        if(serverUrl.charAt(serverUrl.length()-1) != '/' ){
-            serverUrl += "/";
-        }
-
-        String def =    "@base <" + serverUrl + "> ." +
-                        "@prefix objectRDFS  <" + Config.ObjectRDFS + "> ." +
-                        "\n" +
-                        ":" + getFullName() + " a objectRDFS:Object ;" +
-                        "   objectRDFS:type \"" + getType() + "\"^^xsd:string ;" +
-                        "   "
-
-
-                ;
     }
 
     public String getDefinitionTTL() {
@@ -274,22 +257,30 @@ public class RDFObject {
         if(template == null) template = "";
         if(htmlTemplate == null) htmlTemplate = "";
         if(fullName == null) fullName = "";
+        if(group == null) group = "";
+        if(url == null) url = "";
 
         definitionTTL = "@prefix dynrdf: <"+Config.ObjectRDFS+"> .\n" +
                 "@prefix def: <"+Config.ObjectBaseUrl+"> .\n" +
                 "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n" +
+                "@prefix dcterms: <http://purl.org/dc/terms/> .\n" +
                 "\n" +
                 "def:" + fullName.replace("/", "_").replace(" ", "_") + "\n" +
-                "    a               dynrdf:Object ;\n" +
-                "    dynrdf:type     \""+type+"\"^^xsd:string ;\n" +
-                "    dynrdf:name     \""+name+"\"^^xsd:string ;\n" +
-                "    dynrdf:vendor   \""+vendor+"\"^^xsd:string ;\n" +
+                "    a               dynrdf:"+rdfType+" ;\n" +
+                "    dcterms:title     \""+name+"\"^^xsd:string ;\n" +
+                (group.length() > 0 ?
+                "    dynrdf:group   \""+ group +"\"^^xsd:string ;\n"
+                : "") +
                 "    dynrdf:regex    \""+uriRegex.replace("\\/", "\\\\/")+"\"^^xsd:string ;\n" +
                 "    dynrdf:priority \""+priority+"\"^^xsd:integer ;\n" +
                 "    dynrdf:objectTemplate \"\"\""+template.replace("\\/", "\\\\/")+"\"\"\"^^xsd:string ;\n" +
                 "    dynrdf:htmlTemplate \""+htmlTemplate.replace("\\/", "\\\\/")+"\"^^xsd:string ;\n" +
-                "    dynrdf:url \""+url+"\"^^xsd:string ;\n" +
-                "    dynrdf:proxyParam \""+proxyParam+"\"^^xsd:string .\n" +
+                (url.length() > 0 ?
+                "    dynrdf:url <"+url+"> ;\n"
+                : "") +
+                (proxyParam.length() > 0 ?
+                "    dynrdf:proxyParam \""+proxyParam+"\"^^xsd:string .\n"
+                : "") +
                 "\n";
 
         Log.debug("------------");
@@ -297,5 +288,13 @@ public class RDFObject {
         Log.debug("------------");
 
         return definitionTTL;
+    }
+
+    public String getRdfType() {
+        return rdfType;
+    }
+
+    public void setRdfType(String rdfType) {
+        this.rdfType = rdfType;
     }
 }

@@ -15,33 +15,45 @@ dynrdf:Object
         rdfs:label "Object";
         rdfs:comment "Class for all dynamic objects.".
 
-dynrdf:type
-        rdf:type owl:ObjectProperty;
-        rdfs:label "type";
-        rdfs:comment "Type of the object definition. Basic RDF serializations; SPARQL-CONSTRUCT for local construct using bind(); SPARQL-ENDPOINT for describe/construct at endpoint; PROXY to resend request to another web service.";
-        rdfs:domain dynrdf:Object;
-        rdfs:range [
-                    a owl:DataRange;
-                    owl:oneOf ( "TURTLE"^^xsd:string 
-                                "RDF/XML"^^xsd:string 
-                                "N-TRIPLES"^^xsd:string 
-                                "JSON-LD"^^xsd:string 
-                                "SPARQL-CONSTRUCT"^^xsd:string 
-                                "SPARQL-ENDPOINT"^^xsd:string
-                                "PROXY"^^xsd:string 
-                                )
-                    ].
+dynrdf:Turtle
+    rdfs:subClassOf dynrdf:Object;
+    rdfs:label "Turtle format";
+    rdfs:comment "Class for all dynamic objects defined as Turtle type.".
 
-dynrdf:name
-        rdf:type owl:ObjectProperty;
-        rdfs:label "name";
-        rdfs:comment "Unique name of the object";
-        rdfs:domain dynrdf:Object.
+dynrdf:RDFXML
+    rdfs:subClassOf dynrdf:Object;
+    rdfs:label "RDF.XML format";
+    rdfs:comment "Class for all dynamic objects defined as RDF.XML type.".
 
-dynrdf:vendor
+dynrdf:NTriples
+    rdfs:subClassOf dynrdf:Object;
+    rdfs:label "N-Triples format";
+    rdfs:comment "Class for all dynamic objects defined as N-Triples type.".
+
+dynrdf:JSONLD
+    rdfs:subClassOf dynrdf:Object;
+    rdfs:label "JSON-LD format";
+    rdfs:comment "Class for all dynamic objects defined as JSON-LD type.".
+
+dynrdf:Proxy
+    rdfs:subClassOf dynrdf:Object;
+    rdfs:label "Proxy";
+    rdfs:comment "Class for all dynamic objects defined as Proxy type.".
+
+dynrdf:SPARQLConstruct
+    rdfs:subClassOf dynrdf:Object;
+    rdfs:label "SPARQLConstruct type";
+    rdfs:comment "Class for all dynamic objects defined as SPARQLConstruct type.".
+
+dynrdf:SPARQLEndpoint
+    rdfs:subClassOf dynrdf:Object;
+    rdfs:label "SPARQLEndpoint type";
+    rdfs:comment "Class for all dynamic objects defined as SPARQLEndpoint type.".
+
+dynrdf:group
         rdf:type owl:ObjectProperty;
-        rdfs:label "vendor";
-        rdfs:comment "Name of the vendor";
+        rdfs:label "group";
+        rdfs:comment "Name of the group";
         rdfs:domain dynrdf:Object.
 
 dynrdf:regex

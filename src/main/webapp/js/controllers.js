@@ -39,7 +39,7 @@ angular.module('dynrdfApp.controllers',[]).controller('RDFObjectListController',
             $scope.RDFobject = data;
             $scope.showCustomData();
 
-            loadedObjVendor = $scope.RDFobject.vendor;
+            loadedObjVendor = $scope.RDFobject.group;
             loadedObjName = $scope.RDFobject.name;
 
         });
