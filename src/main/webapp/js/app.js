@@ -1,6 +1,6 @@
 
 
-angular.module('dynrdfApp',['ui.router','ngResource','dynrdfApp.controllers','dynrdfApp.services']);
+angular.module('dynrdfApp',['ui.router','ngResource','dynrdfApp.controllers','dynrdfApp.services'/*, 'ngMaterial'*/]);
 
 angular.module('dynrdfApp').config(function($stateProvider,$httpProvider){
     $stateProvider.state('overview',{

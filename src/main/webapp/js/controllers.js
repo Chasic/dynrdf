@@ -31,6 +31,7 @@ angular.module('dynrdfApp.controllers',[]).controller('RDFObjectListController',
 
 }).controller('RDFObjectEntityController',function($scope,$state,$stateParams,RDFObject){
 
+    $scope.generatedUrl = "";
     var loadedObjVendor;
     var loadedObjName;
     if (typeof $stateParams.id !== 'undefined') {
@@ -84,6 +85,23 @@ angular.module('dynrdfApp.controllers',[]).controller('RDFObjectListController',
         else{
             $scope.endpointState = false;
         }
-    }
+    };
+
+    $scope.regexChange=function(){
+        var exp = $scope.RDFobject.uriRegex;
+        var randExp = new RandExp(exp);
+        randExp.max = 15;
+        var generated = randExp.gen();
+        var url = "";
+        if(exp.indexOf("http") == -1){
+            url = "http://";
+            if(exp.indexOf("\\.") == -1){
+                url = url + "dynrdf.com/";
+            }
+        }
+
+        $scope.generatedUrl = url + generated;
+
+    };
 
 });
