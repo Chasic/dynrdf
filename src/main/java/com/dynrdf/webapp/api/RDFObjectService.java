@@ -24,6 +24,11 @@ import java.util.List;
 @Path("/objects")
 public class RDFObjectService {
 
+    @GET
+    @Path("test")
+    public Response hello(){
+        return Response.status(200).build();
+    }
 
     @GET
     @Path("/{fullName:.+}")

@@ -1,0 +1,12 @@
+@prefix def:   <http://dynrdf.com/objects#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dynrdf: <http://dynrdf.com/objects.rdfs#> .
+
+def:dynrdf_construct  a        dynrdf:SPARQLConstruct ;
+        dynrdf:group           "dynrdf" ;
+        dynrdf:htmlTemplate    "" ;
+        dynrdf:objectTemplate  "PREFIX : <http://example.com/>\nCONSTRUCT { :test a ?s . }\nWHERE {\n    BIND ( \"[@2]\" AS ?s)\n}" ;
+        dynrdf:priority        1 ;
+        dynrdf:regex           "construct" ;
+        dcterms:title          "construct" .

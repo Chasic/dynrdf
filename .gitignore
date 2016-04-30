@@ -2,3 +2,4 @@
 db/*
 target/*
 dynrdf.log
+dynrdf_test.log
