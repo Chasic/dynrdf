@@ -5,7 +5,16 @@ import com.dynrdf.webapp.util.Log;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.riot.RiotException;
 import org.junit.*;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Tests basic api requests.
@@ -155,5 +164,91 @@ public class ApiTest extends RestTest {
         RDFObject oUpdated = resGet.readEntity(RDFObject.class);
         Assert.assertEquals(200, resGet.getStatusInfo().getStatusCode());
         Assert.assertEquals("testobjttlUpdateRegexx", oUpdated.getUriRegex());
+    }
+
+    // ###### Content negotiation tests
+    // ###### Single definitions
+
+    @Test
+    public void testGetTurtle(){
+        // api should return ttl by default
+        final Response resGet = target("objects/tests/contentNegotiation").request().get();
+        Assert.assertEquals(200, resGet.getStatusInfo().getStatusCode());
+
+        String ttl = resGet.readEntity(String.class);
+        Model model = ModelFactory.createDefaultModel();
+
+        InputStream is = new ByteArrayInputStream(ttl.getBytes(StandardCharsets.UTF_8));
+        boolean ok = true;
+        try{
+            model.read(is, null, "TURTLE");
+        }
+        catch (RiotException ex){
+            ok = false;
+        }
+        Assert.assertEquals(ok, true);
+    }
+
+    @Test
+    public void testGetRDFXML(){
+        // api should return ttl by default
+        final Response resGet = target("objects/tests/contentNegotiation")
+                .request(MediaType.valueOf("application/rdf+xml")).get();
+        Assert.assertEquals(200, resGet.getStatusInfo().getStatusCode());
+
+        String ttl = resGet.readEntity(String.class);
+        Model model = ModelFactory.createDefaultModel();
+
+        InputStream is = new ByteArrayInputStream(ttl.getBytes(StandardCharsets.UTF_8));
+        boolean ok = true;
+        try{
+            model.read(is, null, "RDF/XML");
+        }
+        catch (RiotException ex){
+            ok = false;
+        }
+        Assert.assertEquals(ok, true);
+    }
+
+    @Test
+    public void testGetJSONLD(){
+        // api should return ttl by default
+        final Response resGet = target("objects/tests/contentNegotiation")
+                .request(MediaType.valueOf("application/ld+json")).get();
+        Assert.assertEquals(200, resGet.getStatusInfo().getStatusCode());
+
+        String ttl = resGet.readEntity(String.class);
+        Model model = ModelFactory.createDefaultModel();
+
+        InputStream is = new ByteArrayInputStream(ttl.getBytes(StandardCharsets.UTF_8));
+        boolean ok = true;
+        try{
+            model.read(is, null, "JSON-LD");
+        }
+        catch (RiotException ex){
+            ok = false;
+        }
+        Assert.assertEquals(ok, true);
+    }
+
+    @Test
+    public void testGetNTRiples(){
+        // api should return ttl by default
+        final Response resGet = target("objects/tests/contentNegotiation")
+                .request(MediaType.valueOf("application/n-triples")).get();
+        Assert.assertEquals(200, resGet.getStatusInfo().getStatusCode());
+
+        String ttl = resGet.readEntity(String.class);
+        Model model = ModelFactory.createDefaultModel();
+
+        InputStream is = new ByteArrayInputStream(ttl.getBytes(StandardCharsets.UTF_8));
+        boolean ok = true;
+        try{
+            model.read(is, null, "N-TRIPLES");
+        }
+        catch (RiotException ex){
+            ok = false;
+        }
+        Assert.assertEquals(ok, true);
     }
 }

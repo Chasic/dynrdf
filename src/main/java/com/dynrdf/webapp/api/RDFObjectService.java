@@ -4,30 +4,20 @@ import com.dynrdf.webapp.logic.RDFObjectContainer;
 import com.dynrdf.webapp.model.RDFObject;
 import com.dynrdf.webapp.util.Log;
 import com.google.gson.Gson;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.vocabulary.RDF;
 import org.json.simple.JSONObject;
-
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.List;
 
 
-
 @Path("/objects")
 public class RDFObjectService {
-
-    /*@POST
-    public Response hello(){
-        return Response.status(200).build();
-    }*/
 
     @GET
     @Path("/{fullName:.+}")
@@ -75,10 +65,6 @@ public class RDFObjectService {
     @POST
     @Consumes("text/turtle")
     public Response createObjectTurtle(@Context HttpServletRequest request){
-        if(request == null){
-            Log.debug("NULL");
-            //return returnError("asd");
-        }
         try{
             RDFObjectContainer container = RDFObjectContainer.getInstance();
 
@@ -146,7 +132,7 @@ public class RDFObjectService {
 
     /**
      * Return 400 error with given message
-     * @param msg
+     * @param msg Error message
      * @return Response
      */
     private Response returnError(String msg){
@@ -160,7 +146,7 @@ public class RDFObjectService {
 
     /**
      * Return 400 error with given message
-     * @param msg
+     * @param msg Ok message
      * @return Response
      */
     private Response returnOK(String msg){

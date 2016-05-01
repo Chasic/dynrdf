@@ -47,6 +47,8 @@ public class RDFObject {
 
 
     public RDFObject() {
+        this.url = "";
+        this.proxyParam = "";
     }
 
 
@@ -65,6 +67,7 @@ public class RDFObject {
         this.fullName = another.fullName;
         this.group = another.group;
         this.filePath = another.filePath;
+        this.rdfType = another.rdfType;
     }
 
     public RDFObject(String name, String group, String uriRegex, String type, String template, int priority,
@@ -82,6 +85,27 @@ public class RDFObject {
         setFullName();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RDFObject rdfObject = (RDFObject) o;
+
+        if (priority != rdfObject.priority) return false;
+        if (rdfType != null ? !rdfType.equals(rdfObject.rdfType) : rdfObject.rdfType != null) return false;
+        if (name != null ? !name.equals(rdfObject.name) : rdfObject.name != null) return false;
+        if (uriRegex != null ? !uriRegex.equals(rdfObject.uriRegex) : rdfObject.uriRegex != null) return false;
+        if (type != null ? !type.equals(rdfObject.type) : rdfObject.type != null) return false;
+        if (template != null ? !template.equals(rdfObject.template) : rdfObject.template != null) return false;
+        if (url != null ? !url.equals(rdfObject.url) : rdfObject.url != null) return false;
+        if (proxyParam != null ? !proxyParam.equals(rdfObject.proxyParam) : rdfObject.proxyParam != null) return false;
+        if (htmlTemplate != null ? !htmlTemplate.equals(rdfObject.htmlTemplate) : rdfObject.htmlTemplate != null)
+            return false;
+        if (group != null ? !group.equals(rdfObject.group) : rdfObject.group != null) return false;
+        return !(fullName != null ? !fullName.equals(rdfObject.fullName) : rdfObject.fullName != null);
+
+    }
 
     public RDFObject setName( String name ){
         this.name = name;
@@ -221,9 +245,10 @@ public class RDFObject {
         return group;
     }
 
-    public void setGroup(String group) {
+    public RDFObject setGroup(String group) {
         this.group = group;
         setFullName();
+        return this;
     }
 
     public String getFullName(){

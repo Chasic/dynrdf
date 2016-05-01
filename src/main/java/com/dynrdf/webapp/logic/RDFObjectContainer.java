@@ -316,10 +316,10 @@ public class RDFObjectContainer{
 
     /**
      * Update given object
-     * Create TTL def and thenupdateObjectFromModel()
-     * @param o
-     * @param originalFilePath
-     * @param updatingObj
+     * Create TTL def and then updateObjectFromModel()
+     * @param o Object in request body
+     * @param originalFilePath File path of found object
+     * @param updatingObj RDFObject found in container
      * @throws Exception
      */
     public void updateObject (RDFObject o, String originalFilePath, RDFObject updatingObj ) throws Exception{
@@ -344,9 +344,9 @@ public class RDFObjectContainer{
 
     /**
      * Update RDFObject from TTL model
-     * @param model
-     * @param originalFilePath
-     * @param updatingObj
+     * @param model Model
+     * @param originalFilePath Definition file of the updating object
+     * @param updatingObj Definition to update, found in the container before
      * @throws Exception
      */
     private void updateObjectFromModel(Model model, String originalFilePath, RDFObject updatingObj) throws Exception{
@@ -374,7 +374,7 @@ public class RDFObjectContainer{
 
     /**
      * Create RDFObject from TTL model
-     * @param model
+     * @param model Model
      * @throws Exception
      */
     private void createObjectFromModel(Model model) throws Exception{

@@ -48,10 +48,8 @@ public class ServerApiTest extends RestTest {
         Assert.assertEquals(200, resGet.getStatusInfo().getStatusCode());
 
         // there should be reload test object in container
-        Assert.assertEquals(2, container.getAll().size());
+        Assert.assertTrue(container.getAll().size() >= 2);
         Assert.assertNotNull(container.getObject("tests/reload1"));
         Assert.assertNotNull(container.getObject("tests/reload2"));
     }
-
-
 }
