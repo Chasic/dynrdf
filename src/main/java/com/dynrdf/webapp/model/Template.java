@@ -20,14 +20,22 @@ import java.util.regex.Pattern;
  *      1 - first parameter after object identifier
  *      2 - second parameter ...
  *
- *      Example - date entity(identifier "date") http://dynrdf.com/data/date/10-10-2015 :
- *          @0 = http://dynrdf.com/data/date/10-10-2015
- *          @1 = 10-10-2015
+ *      Example - date entity http://dynrdf.com/data/?url=http://company.com/rdf/date/10-10-2015 :
+ *          @0 = http://company.com/rdf/date/10-10-2015
+ *          @6 = 10-10-2015
  */
 public class Template {
 
     private String template;
     private List<TemplatePlaceholder> records;
+
+
+    /**
+     * Pattern for:
+     * [ @1, "regex"]
+     * [@2]
+     */
+    private static Pattern templatePattern = Pattern.compile("\\[\\s*@(\\d+)\\s*(,\\s*\\\"(.*)\\\")?\\s*\\]");
 
 
     public Template(String template){
@@ -40,13 +48,7 @@ public class Template {
      */
     public void preprocess(){
         if(template == null) return; // proxy
-
-        Pattern pattern =  Pattern.compile("\\[\\s*@(\\d+)\\s*(,\\s*\\\"(.*)\\\")?\\s*\\]");
-        /** Pattern for:
-         * [ @1, "regex"]
-         * [@2]
-         */
-        Matcher matcher = pattern.matcher(template);
+        Matcher matcher = templatePattern.matcher(template);
         while (matcher.find()) {
             int start = matcher.start();
             int end = matcher.end();
@@ -78,12 +80,13 @@ public class Template {
     public String fillTemplate(String uri, List<String> uriParameters){
         if(template == null) return null;
 
-        StringBuffer data = new StringBuffer();
+        StringBuilder data = new StringBuilder();
         int leftBoundary = 0;
         for( TemplatePlaceholder record : records ){
             // check if parameter exists
-            if( record.getUriParameterNumber() < 0 || record.getUriParameterNumber() >= uriParameters.size() )
+            if( record.getUriParameterNumber() < 0 || record.getUriParameterNumber() -1 >= uriParameters.size() ){
                 return null;
+            }
 
             // fill template text to the left
             data.append(template.substring(leftBoundary, record.getStart()));
@@ -93,7 +96,7 @@ public class Template {
             Pattern pattern = null;
             String regex = record.getRegex();
             if (regex != null){
-                pattern = pattern.compile(regex);
+                pattern = Pattern.compile(regex);
             }
 
             // fill full uri
@@ -131,5 +134,13 @@ public class Template {
         data.append(template.substring(leftBoundary));
 
         return data.toString();
+    }
+
+    public String getTemplate() {
+        return template;
+    }
+
+    public List<TemplatePlaceholder> getRecords() {
+        return records;
     }
 }

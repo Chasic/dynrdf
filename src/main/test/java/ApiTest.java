@@ -24,6 +24,7 @@ import java.nio.charset.StandardCharsets;
  *  3) Delete: Create object & get object & delete object & get object again (404 failed)
  *  4) Update with JSON: Create & update & get & compare
  *  5) Update with TTL definition: Create & update & get & compare
+ *  6) Test get objects using content negotiation
  *
  */
 public class ApiTest extends RestTest {
