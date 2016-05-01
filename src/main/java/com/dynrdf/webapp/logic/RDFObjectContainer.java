@@ -218,12 +218,13 @@ public class RDFObjectContainer{
 
     /**
      * Removes all objects
+     * @param removeTTL Boolean true if you want to remove TTL files
      */
-    public void removeAll(){
+    public void removeAll(boolean removeTTL){
         List<RDFObject> objects = new ArrayList<>(objectsByPriority);
         for( RDFObject obj : objects ){
             try{
-                removeObject(obj.getFullName(), false);
+                removeObject(obj.getFullName(), removeTTL);
             }
             catch(ContainerException ex){
                 // do nothing
@@ -411,7 +412,7 @@ public class RDFObjectContainer{
      */
     public static void reload() throws InitException{
         RDFObjectContainer container = RDFObjectContainer.getInstance();
-        container.removeAll();
+        container.removeAll(false);
         List<File> definitions = container.findObjectsDefinitionFiles();
         container.loadObjects(definitions);
     }

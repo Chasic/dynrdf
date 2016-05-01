@@ -24,11 +24,10 @@ import java.util.List;
 @Path("/objects")
 public class RDFObjectService {
 
-    @GET
-    @Path("test")
+    /*@POST
     public Response hello(){
         return Response.status(200).build();
-    }
+    }*/
 
     @GET
     @Path("/{fullName:.+}")
@@ -59,11 +58,12 @@ public class RDFObjectService {
 
     @POST
     @Consumes("application/json")
-    public Response createObject(RDFObject o){
+    @Produces("application/json")
+    public Response createObject(String o){
         try{
             RDFObjectContainer container = RDFObjectContainer.getInstance();
 
-            container.createObject(o);
+            container.createObject(new Gson().fromJson(o, RDFObject.class));
         }
         catch( Exception ex ){
             return returnError(ex.getMessage());
@@ -75,6 +75,10 @@ public class RDFObjectService {
     @POST
     @Consumes("text/turtle")
     public Response createObjectTurtle(@Context HttpServletRequest request){
+        if(request == null){
+            Log.debug("NULL");
+            //return returnError("asd");
+        }
         try{
             RDFObjectContainer container = RDFObjectContainer.getInstance();
 

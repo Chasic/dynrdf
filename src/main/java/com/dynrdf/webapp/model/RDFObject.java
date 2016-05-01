@@ -67,7 +67,7 @@ public class RDFObject {
         this.filePath = another.filePath;
     }
 
-    public RDFObject(String name, String uriRegex, String type, String template, int priority,
+    public RDFObject(String name, String group, String uriRegex, String type, String template, int priority,
                      String url, String proxyParam, String htmlTemplate, String definitionTTL) {
         this.name = name;
         this.uriRegex = uriRegex;
@@ -78,6 +78,8 @@ public class RDFObject {
         this.url = url;
         this.htmlTemplate = htmlTemplate;
         this.definitionTTL = definitionTTL;
+        this.group = group;
+        setFullName();
     }
 
 
