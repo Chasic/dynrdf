@@ -246,6 +246,10 @@ public class RDFObjectContainer{
             usedRegex.remove(removed.getUriRegex());
             // remove file
             if(removeTTLFile){
+                if(removed.getFilePath().contains("/.tests_")){
+                    Log.debug("Remove TTL def: skipping test file " + removed.getFilePath() + "  ...");
+                    return;
+                }
                 try{
                     File file = new File(removed.getFilePath());
                     if(!file.delete()){
@@ -294,6 +298,7 @@ public class RDFObjectContainer{
      * @param o
      */
     public void createObject(RDFObject o)throws Exception{
+        o.setFullName(); // jackson build does not set generated fullName
         // set RDF type from txpe before generating ttl
         int index = RDFObject.supportedTemplateTypes.indexOf(o.getType());
         if(index == -1){
