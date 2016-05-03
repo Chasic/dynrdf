@@ -194,6 +194,9 @@ public class RDFObjectContainer{
             if( contains ){
                 throw new ContainerException("An object with given regex already exists.");
             }
+            if( found != null ){
+                throw new ContainerException("Duplicate full name");
+            }
         }
 
         // validate proxy data
@@ -251,7 +254,6 @@ public class RDFObjectContainer{
      * Remove given object
      * @param fullName String
      * @param removeTTLFile True if you want to remove ttl definition file
-     * @param removingAll True if you reinitialize groupPriority map after removing all objects
      * @throws ContainerException if object does not exist
      */
     public void removeObject( String fullName, boolean removeTTLFile) throws ContainerException{
@@ -286,7 +288,9 @@ public class RDFObjectContainer{
 
     /**
      * Update object, given TTL in request body
-     * @param request
+     * @param request Client request
+     * @param originalFilePath String file path of the definition of the updating object
+     * @param updatingObj object to be updated
      * @throws ContainerException
      */
     public void updateObject (HttpServletRequest request, String originalFilePath, RDFObject updatingObj ) throws Exception{
@@ -300,7 +304,7 @@ public class RDFObjectContainer{
 
     /**
      * Create object from turtle
-     * @param request
+     * @param request Client request
      * @throws Exception
      */
     public void createObject (HttpServletRequest request) throws Exception{
@@ -313,7 +317,7 @@ public class RDFObjectContainer{
 
     /**
      * Register RDFObject
-     * @param o
+     * @param o An object to register and sav into the container
      */
     public void createObject(RDFObject o)throws Exception{
         o.setFullName(); // jackson build does not set generated fullName
@@ -503,7 +507,7 @@ public class RDFObjectContainer{
     /**
      * Reload object
      * Create/Update case
-     * @param o
+     * @param o An object to reload
      */
     private void reloadObject( RDFObject o ){
         RDFObject removed = objects.get(o.getFullName());

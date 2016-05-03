@@ -254,10 +254,50 @@ public class RDFObjectContainerTest {
     @Test(expected = ContainerException.class)
     public void validateEndpointEmptyUrl() throws ContainerException{
         RDFObjectContainer container = RDFObjectContainer.getInstance();
-        // missing protocol - URL validator is set to check protocol
         RDFObject o = new RDFObject("name", "tests", "validations", "SPARQL-ENDPOINT", "empty template", 1,
                 null, null, "html", null);
 
         container.validateObject(o, false, null);
+    }
+
+    @Test(expected = ContainerException.class)
+    public void validateDuplicateName() throws ContainerException{
+        RDFObjectContainer container = RDFObjectContainer.getInstance();
+        // dynrdf/loggerTurtle is in test objects
+        RDFObject o = new RDFObject("loggerTurtle", "dynrdf", "validations", "TURTLE", "empty template", 1,
+                null, null, "html", null);
+        System.out.println(o.getFullName());
+
+        container.validateObject(o, false, null);
+    }
+
+    @Test(expected = ContainerException.class)
+    public void validateDuplicateRegex() throws ContainerException{
+        RDFObjectContainer container = RDFObjectContainer.getInstance();
+        // dynrdf/loggerTurtle is in test objects
+        RDFObject o = new RDFObject("loggerTurtle", "testGroup", "loggerTurtle", "TURTLE", "empty template", 1,
+                null, null, "html", null);
+        System.out.println(o.getFullName());
+
+        container.validateObject(o, false, null);
+    }
+
+    @Test
+    public void validateDuplicateThingsAllowedInUpdate(){
+        RDFObjectContainer container = RDFObjectContainer.getInstance();
+        RDFObject dummy = container.getObject("tests/dummy"); // in test objects
+        if(dummy == null){
+            Assert.assertEquals("Missing test definitions ..", 1, 0);
+            return;
+        }
+        // dynrdf/loggerTurtle is in test objects
+        RDFObject dummyCopy = new RDFObject(dummy);
+        try{
+            container.validateObject(dummyCopy, true, dummy);
+        }
+        catch(ContainerException ex){
+
+            Assert.assertEquals("Validation the same definition for update failed", 1, 0);
+        }
     }
 }
