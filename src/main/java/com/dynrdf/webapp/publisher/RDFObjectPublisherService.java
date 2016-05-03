@@ -3,11 +3,14 @@ package com.dynrdf.webapp.publisher;
 import com.dynrdf.webapp.exceptions.RequestException;
 import com.dynrdf.webapp.logic.RDFObjectContainer;
 import com.dynrdf.webapp.model.RDFObject;
+import com.dynrdf.webapp.util.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -100,6 +103,12 @@ public class RDFObjectPublisherService {
         List<String> uriParameters;
 
         String requestUri = request.getParameter("url");
+        try{
+            requestUri = URLDecoder.decode(requestUri, "UTF-8");
+        }
+        catch(UnsupportedEncodingException ex){
+            Log.error("Decoding problem: " + ex.getMessage());
+        }
         // url was set as parameter "url" : .com/?url=..
         if(requestUri == null){
             throw new RequestException("URL parameter not set");
@@ -118,7 +127,7 @@ public class RDFObjectPublisherService {
 
 
     private List<String> parseUriPath( String uriPath ){
-        return new  ArrayList<String>(Arrays.asList(uriPath.split("/")));
+        return new  ArrayList<>(Arrays.asList(uriPath.split("/")));
     }
 
     public Response return400() {
