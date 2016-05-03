@@ -162,7 +162,6 @@ public class RequestTest {
 
         Assert.assertEquals(200, r.getStatus());
         String result = (String)r.getEntity();
-        System.out.println(result);
 
         StringReader sr = new StringReader(result);
         Model model = ModelFactory.createDefaultModel();
@@ -185,7 +184,6 @@ public class RequestTest {
 
         Assert.assertEquals(200, r.getStatus());
         String result = (String)r.getEntity();
-        System.out.println(result);
 
         StringReader sr = new StringReader(result);
         Model model = ModelFactory.createDefaultModel();

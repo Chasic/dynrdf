@@ -1,0 +1,13 @@
+# example: http://logservice.com/data/loggerXML/42/2016-05-01/10:00:23/org.dynrdf.Request/some exception msg
+@prefix def:   <http://dynrdf.com/objects#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dynrdf: <http://dynrdf.com/objects.rdfs#> .
+
+def:dynrdf_loggerXML  a        dynrdf:RDFXML ;
+        dynrdf:group           "dynrdf" ;
+        dynrdf:htmlTemplate    "<!doctype html>\n\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Logger</title>\n  <meta name=\"description\" content=\"Dynrdf logger example\">\n</head>\n\n<body>\n  Log record: [@10] <br />\n  Log ID: #[@6] <br />\n  Level: Warn <br />\n  Time: [@7] [@8] <br />\n  Class name: [@9]\n</body>\n</html>" ;
+        dynrdf:objectTemplate  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rdf:RDF\n\txmlns:rlog=\"http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#\"\n\txmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n\txmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n\n<rdf:Description rdf:about=\"[  @0,  \"^([^/]*\\/[^/]*\\/[^/]*\\/[^/]*\\/[^/]*)\\/\"]#[@6]\">\n\t<rdf:type rdf:resource=\"http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#Entry\"/>\n\t<rlog:className>[@9]</rlog:className>\n\t<rlog:date rdf:datatype=\"http://www.w3.org/2001/XMLSchema#dateTime\">[@7]T[@8]Z</rlog:date>\n\t<rlog:level rdf:resource=\"http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#WARN\"/>\n\t<rlog:message>[@10]</rlog:message>\n</rdf:Description>\n\n</rdf:RDF>" ;
+        dynrdf:priority        0 ;
+        dynrdf:regex           "loggerXML" ;
+        dcterms:title          "loggerXML" .

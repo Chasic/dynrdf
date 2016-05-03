@@ -1,0 +1,42 @@
+# example: http://logservice.com/data/loggerJSONLD/42/2016-05-01/10:00:23/org.dynrdf.Request/some exception msg
+
+@prefix dynrdf: <http://dynrdf.com/objects.rdfs#> .
+@prefix def: <http://dynrdf.com/objects#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+def:dynrdf_loggerJSONLD
+        a                      dynrdf:JSONLD ;
+        dynrdf:group           "dynrdf" ;
+        dynrdf:htmlTemplate    "<!doctype html>  <html lang=\"en\"> <head>   <meta charset=\"utf-8\">   <title>Logger<  title>   <meta name=\"description\" content=\"Dynrdf logger example\"> <  head>  <body>   Log record: [@10] <br   >   Log ID: #[@6] <br   >   Level: Warn <br   >   Time: [@7] [@8] <br   >   Class name: [@9] <  body> <  html>" ;
+        dynrdf:objectTemplate  """{ "@id" : "[  @0,  \"^([^/]*\\/[^/]*\\/[^/]*\\/[^/]*\\/[^/]*)\\/\"]#[@6]",
+                                    "@type" : "rlog:Entry",
+                                    "rlog:className" : "org.dynrdf.Request",
+                                    "date" : "2016-05-01T10:00:23Z",
+                                    "level" : "rlog:WARN",
+                                    "rlog:message" : "some exception msg",
+                                    "@context" : {
+                                      "className" : {
+                                        "@id" : "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#className",
+                                        "@type" : "http://www.w3.org/2001/XMLSchema#string"
+                                      },
+                                      "date" : {
+                                        "@id" : "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#date",
+                                        "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+                                      },
+                                      "level" : {
+                                        "@id" : "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#level",
+                                        "@type" : "@id"
+                                      },
+                                      "message" : {
+                                        "@id" : "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#message",
+                                        "@type" : "http://www.w3.org/2001/XMLSchema#string"
+                                      },
+                                      "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+                                      "rlog" : "http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#",
+                                      "xsd" : "http://www.w3.org/2001/XMLSchema#"
+                                    }
+                                  }""";
+        dynrdf:priority        1 ;
+        dynrdf:regex           "loggerJSONLD" ;
+        dcterms:title          "loggerJSONLD" .
