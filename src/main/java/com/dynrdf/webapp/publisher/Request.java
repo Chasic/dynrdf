@@ -41,13 +41,12 @@ public class Request {
             return executeProxy(model);
         }
 
+        Log.debug("uri: " + uri);
         String filledTemplate = object.getRdfTemplateObject().fillTemplate(uri, uriParameters);
 
         if(filledTemplate == null){
             return Response.status(404).build();
         }
-
-
 
         switch(type){
             case "SPARQL-CONSTRUCT":
@@ -61,6 +60,9 @@ public class Request {
     }
 
     private Response executeRDFTemplate(Model model, String filledTemplate){
+        Log.debug("Filled template:");
+        Log.debug(filledTemplate);
+        Log.debug("--------------");
         StringReader sr = new StringReader(filledTemplate);
         model.read(sr, null, object.getType());
         StringWriter out = new StringWriter();

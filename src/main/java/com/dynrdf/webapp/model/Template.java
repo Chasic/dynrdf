@@ -35,7 +35,7 @@ public class Template {
      * [ @1, "regex"]
      * [@2]
      */
-    private static Pattern templatePattern = Pattern.compile("\\[\\s*@(\\d+)\\s*(,\\s*\\\"(.*)\\\")?\\s*\\]");
+    private static Pattern templatePattern = Pattern.compile("\\[\\s*@(\\d+)\\s*(,\\s*[\\\"|\\\\\"](.*)[\\\"|\\\\\"])?\\s*\\]");
 
 
     public Template(String template){

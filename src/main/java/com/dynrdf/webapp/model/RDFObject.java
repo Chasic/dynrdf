@@ -3,7 +3,6 @@ package com.dynrdf.webapp.model;
 
 import com.dynrdf.webapp.Config;
 import com.dynrdf.webapp.util.Log;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -301,7 +300,7 @@ public class RDFObject {
                 "    dynrdf:regex    \""+uriRegex.replace("\\/", "\\\\/")+"\"^^xsd:string ;\n" +
                 "    dynrdf:priority \""+priority+"\"^^xsd:integer ;\n" +
                 "    dynrdf:objectTemplate \"\"\""+template.replace("\\/", "\\\\/")+"\"\"\"^^xsd:string ;\n" +
-                "    dynrdf:htmlTemplate \""+htmlTemplate.replace("\\/", "\\\\/")+"\"^^xsd:string ;\n" +
+                "    dynrdf:htmlTemplate \"\"\""+htmlTemplate.replace("\\/", "\\\\/")+"\"\"\"^^xsd:string ;\n" +
                 (url.length() > 0 ?
                 "    dynrdf:url <"+url+"> ;\n"
                 : "") +

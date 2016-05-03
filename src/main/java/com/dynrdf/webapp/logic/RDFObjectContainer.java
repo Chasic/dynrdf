@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -464,14 +465,17 @@ public class RDFObjectContainer{
         Log.info("Loading objects ...");
         Model model;
         for(File file : files ){
+
             model = ModelFactory.createDefaultModel();
             try{
+
                 model.read(new FileInputStream(file.getAbsolutePath()), null, "TTL");
                 RDFLoader loader = new RDFLoader(model, file.getAbsolutePath());
                 RDFObject o = loader.createObject(false, null);
                 reloadObject(o);
             }
             catch(Exception ignored){
+
                 // try to load other objects
             }
         }

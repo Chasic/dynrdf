@@ -1,0 +1,41 @@
+# example: http://logservice.com/data/loggerTurtle/42/2016-05-01/10:00:23/org.dynrdf.Request/some exception msg
+@prefix dynrdf: <http://dynrdf.com/objects.rdfs#> .
+@prefix def: <http://dynrdf.com/objects#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+def:dynrdf_loggerTurtle
+    a               dynrdf:Turtle ;
+    dcterms:title     "loggerTurtle"^^xsd:string ;
+    dynrdf:group   "dynrdf"^^xsd:string ;
+    dynrdf:regex    "loggerTurtle"^^xsd:string ;
+    dynrdf:priority "1"^^xsd:integer ;
+    dynrdf:objectTemplate """# example: http://logservice.com/data/logger/42/2016-05-01/10:00:23/org.dynrdf.Request/some exception msg
+# "^([^/]*\\/){5}"
+@base <[  @0,  "^([^/]*\\/[^/]*\\/[^/]*\\/[^/]*\\/[^/]*)\\/"]> .
+@prefix rlog: <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<#[@6]> # log id 
+	a rlog:Entry ;
+  	rlog:level rlog:WARN ;
+	rlog:date "[@7]T[@8]Z"^^xsd:dateTime ;
+	rlog:className "[@9]";
+	rlog:message "[@10]"."""^^xsd:string ;
+    dynrdf:htmlTemplate """<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Logger</title>
+  <meta name="description" content="Dynrdf logger example">
+</head>
+
+<body>
+  Log record: [@10] <br />
+  Log ID: #[@6] <br />
+  Level: Warn <br />
+  Time: [@7] [@8] <br />
+  Class name: [@9]
+</body>
+</html>"""^^xsd:string .
