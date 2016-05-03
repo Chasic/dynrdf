@@ -139,19 +139,6 @@ public class RDFObjectContainer{
     }
 
     /**
-     * Save given object into the container
-     * @param obj Object to save
-     * @param request HttpServletRequest to generate object IRI
-     * @throws ContainerException when cannot create new object
-     */
-    public void createObject  ( RDFObject obj, HttpServletRequest request ) throws ContainerException{
-        Log.debug("Creating new object: " + obj.toString());
-
-        validateObject(obj, false, null);
-        reloadObject(obj);
-    }
-
-    /**
      * Check object if is valid
      * @param obj RDFObject
      * @param updating Boolean True if updating(PUT)
