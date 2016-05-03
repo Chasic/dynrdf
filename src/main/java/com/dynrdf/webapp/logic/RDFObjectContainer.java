@@ -38,11 +38,6 @@ public class RDFObjectContainer{
     private Map<String, RDFObject> objects;
 
     /**
-     * List of loaded objects - by priority
-     */
-    //private LinkedList<RDFObject> objectsByPriority;
-
-    /**
      * List of objects' regexp
      */
     private List<String> usedRegex;
