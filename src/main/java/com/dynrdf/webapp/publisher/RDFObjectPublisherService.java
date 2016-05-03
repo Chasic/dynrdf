@@ -31,7 +31,7 @@ public class RDFObjectPublisherService {
             objectRequest = buildObjectRequest(request, "TURTLE");
         }
         catch(RequestException ex){
-            return return400();
+            return return4xx(ex.getMessage());
         }
 
         return objectRequest.execute();
@@ -46,7 +46,7 @@ public class RDFObjectPublisherService {
             objectRequest = buildObjectRequest(request, "N-TRIPLES");
         }
         catch(RequestException ex){
-            return return400();
+            return return4xx(ex.getMessage());
         }
 
         return objectRequest.execute();
@@ -61,7 +61,7 @@ public class RDFObjectPublisherService {
             objectRequest = buildObjectRequest(request, "JSON-LD");
         }
         catch(RequestException ex){
-            return return400();
+            return return4xx(ex.getMessage());
         }
 
         return objectRequest.execute();
@@ -75,7 +75,7 @@ public class RDFObjectPublisherService {
             objectRequest = buildObjectRequest(request, "RDF/XML");
         }
         catch(RequestException ex){
-            return return400();
+            return return4xx(ex.getMessage());
         }
 
         return objectRequest.execute();
@@ -89,7 +89,7 @@ public class RDFObjectPublisherService {
             objectRequest = buildObjectRequest(request, "HTML");
         }
         catch(RequestException ex){
-            return return400();
+            return return4xx(ex.getMessage());
         }
 
         RDFObject o = objectRequest.getObject();
@@ -113,10 +113,15 @@ public class RDFObjectPublisherService {
         if(requestUri == null){
             throw new RequestException("URL parameter not set");
         }
+        String group = "";
+        String groupVal = request.getParameter("group");
+        if(groupVal != null){
+            group = groupVal;
+        }
 
         uriParameters = parseUriPath(requestUri);
 
-        RDFObject obj = RDFObjectContainer.getInstance().getObjectByUriRegexMatch(requestUri);
+        RDFObject obj = RDFObjectContainer.getInstance().getObjectByUriRegexMatch(requestUri, group);
         // object not found by given uri prefix
         if(obj == null){
             throw new RequestException("Object not found!");
@@ -130,9 +135,12 @@ public class RDFObjectPublisherService {
         return new  ArrayList<>(Arrays.asList(uriPath.split("/")));
     }
 
-    public Response return400() {
-
-        return Response.status(400).build();
+    public Response return4xx(String msg) {
+        int code = 400; // url param not set
+        if(msg.equals("Object not found!")){
+            code = 404;
+        }
+        return Response.status(code).entity(msg).build();
     }
 
 }

@@ -8,6 +8,8 @@ import com.dynrdf.webapp.model.RDFObject;
 import com.dynrdf.webapp.util.Log;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.vocabulary.RDF;
+
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.MalformedURLException;
@@ -38,7 +40,7 @@ public class RDFObjectContainer{
     /**
      * List of loaded objects - by priority
      */
-    private LinkedList<RDFObject> objectsByPriority;
+    //private LinkedList<RDFObject> objectsByPriority;
 
     /**
      * List of objects' regexp
@@ -46,11 +48,17 @@ public class RDFObjectContainer{
     private List<String> usedRegex;
 
     /**
+     * Map of objects by priority in groups
+     * Performance optimization
+     */
+    private Map<String, LinkedList<RDFObject>> groupPriority;
+
+    /**
      * Protected constructor
      */
     protected RDFObjectContainer(){
         objects = new HashMap<>();
-        objectsByPriority = new LinkedList<>();
+        groupPriority = new HashMap<>();
         usedRegex = new ArrayList<>();
     }
 
@@ -87,8 +95,12 @@ public class RDFObjectContainer{
      * @param uri String
      * @return RDFObject, null if not found
      */
-    public RDFObject getObjectByUriRegexMatch(String uri){
-        for( RDFObject o : objectsByPriority ){
+    public RDFObject getObjectByUriRegexMatch(String uri, String group){
+        if(groupPriority.get(group) == null){
+            // unknown group
+            return null;
+        }
+        for( RDFObject o : groupPriority.get(group) ){
             Log.debug("Trying to match: uri="+uri+", pattern="+o.getUriRegex()+", objectFullName="+o.getFullName());
 
             Pattern pattern = o.getPattern();
@@ -149,10 +161,9 @@ public class RDFObjectContainer{
         if( obj.getName() == null || obj.getName().length() == 0 ){
             throw new ContainerException("Name is empty");
         }
-        /*
         if( obj.getGroup() == null || obj.getGroup().length() == 0 ){
             throw new ContainerException("Group is empty");
-        }*/
+        }
         if( obj.getUriRegex() == null || obj.getUriRegex().length() == 0 ){
             throw new ContainerException("Uri regex is empty");
         }
@@ -222,8 +233,8 @@ public class RDFObjectContainer{
      * @param removeTTL Boolean true if you want to remove TTL files
      */
     public void removeAll(boolean removeTTL){
-        List<RDFObject> objects = new ArrayList<>(objectsByPriority);
-        for( RDFObject obj : objects ){
+        List<RDFObject> toRemove = new ArrayList<>(objects.values());
+        for( RDFObject obj : toRemove ){
             try{
                 removeObject(obj.getFullName(), removeTTL);
             }
@@ -231,19 +242,25 @@ public class RDFObjectContainer{
                 // do nothing
             }
         }
+        objects = new HashMap<>();
+        groupPriority = new HashMap<>();
     }
 
 
     /**
      * Remove given object
      * @param fullName String
+     * @param removeTTLFile True if you want to remove ttl definition file
+     * @param removingAll True if you reinitialize groupPriority map after removing all objects
      * @throws ContainerException if object does not exist
      */
-    public void removeObject( String fullName, boolean removeTTLFile ) throws ContainerException{
-        if(  objects.containsKey(fullName) ){
+    public void removeObject( String fullName, boolean removeTTLFile) throws ContainerException{
+        if(objects.containsKey(fullName)){
             RDFObject removed = objects.get(fullName);
             objects.remove(fullName);
-            objectsByPriority.remove(removed);
+            groupPriority.get("").remove(removed);
+            groupPriority.get(removed.getGroup()).remove(removed);
+
             usedRegex.remove(removed.getUriRegex());
             // remove file
             if(removeTTLFile){
@@ -305,12 +322,14 @@ public class RDFObjectContainer{
         if(index == -1){
             throw new Exception("Unknown type");
         }
+
         o.setRdfType(RDFObject.supportedTemplateTypesRdf.get(index));
         String objTTL = o.createTTL();
 
         InputStream is = new ByteArrayInputStream(objTTL.getBytes());
         Model model = ModelFactory.createDefaultModel();
         model.read(is, null, "TTL");
+
 
         createObjectFromModel(model);
     }
@@ -488,22 +507,42 @@ public class RDFObjectContainer{
      */
     private void reloadObject( RDFObject o ){
         RDFObject removed = objects.get(o.getFullName());
+        if(groupPriority.get("") == null){
+            groupPriority.put("", new LinkedList<>());
+        }
+        if(groupPriority.get(o.getGroup()) == null){
+            groupPriority.put(o.getGroup(), new LinkedList<>());
+        }
         if(removed != null){
             objects.remove(o.getFullName());
-            objectsByPriority.remove(removed);
+            groupPriority.get("").remove(removed);
+            groupPriority.get(removed.getGroup()).remove(removed);
             usedRegex.remove(removed.getUriRegex());
         }
         objects.put(o.getFullName(), o);
 
         // relocate the object in priority list for regex
         int pos = 0;
-        for( RDFObject obj : objectsByPriority ){
+        for( RDFObject obj : groupPriority.get("") ){
             if(obj.getPriority() > o.getPriority())
                 break;
 
             pos++;
         }
-        objectsByPriority.add(pos,o);
+        groupPriority.get("").add(pos, o);
+
+        // relocate in nogroup
+        if(o.getGroup().length() > 0){
+            pos = 0;
+            for( RDFObject obj : groupPriority.get(o.getGroup()) ){
+                if(obj.getPriority() > o.getPriority())
+                    break;
+
+                pos++;
+            }
+            groupPriority.get(o.getGroup()).add(pos, o);
+        }
+
         usedRegex.add(o.getUriRegex());
 
         o.compilePattern();
