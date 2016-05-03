@@ -146,6 +146,55 @@ public class RequestTest {
         Assert.assertEquals("http://logservice.com/data/loggerConstruct#42", res);
     }
 
+    /**
+     * Sparql endpoint test requires internet connection and running
+     * endpoint on http://linkedgeodata.org/sparql
+     */
+    @Test
+    public void testRequestExecuteSparqlEndpoint(){
+        RDFObject o = RDFObjectContainer.getInstance().getObject("dynrdf/loggerEndpoint");
+        Assert.assertNotNull(o);
+
+        String uri = "http://logservice.com/data/loggerEndpoint/42/2016-05-01/10:00:23/org.dynrdf.Request/some exception msg";
+        List<String> params = new ArrayList<String>(Arrays.asList(uri.split("/")));
+        Request request = new Request(o, uri, params, "TURTLE");
+        Response r = request.execute();
+
+        Assert.assertEquals(200, r.getStatus());
+        String result = (String)r.getEntity();
+        System.out.println(result);
+
+        StringReader sr = new StringReader(result);
+        Model model = ModelFactory.createDefaultModel();
+        model.read(sr, null, "TURTLE");
+
+        String res = selectresource(model);
+        Assert.assertEquals("http://logservice.com/data/loggerEndpoint#42", res);
+    }
+
+    @Test
+    public void testRequestExecuteProxy(){
+
+        RDFObject o = RDFObjectContainer.getInstance().getObject("dynrdf/loggerProxy");
+        Assert.assertNotNull(o);
+
+        String uri = "http://logservice.com/data/loggerProxy/42/2016-05-01/10:00:23/org.dynrdf.Request/some exception msg";
+        List<String> params = new ArrayList<String>(Arrays.asList(uri.split("/")));
+        Request request = new Request(o, uri, params, "TURTLE");
+        Response r = request.execute();
+
+        Assert.assertEquals(200, r.getStatus());
+        String result = (String)r.getEntity();
+        System.out.println(result);
+
+        StringReader sr = new StringReader(result);
+        Model model = ModelFactory.createDefaultModel();
+        model.read(sr, null, "TURTLE");
+
+        String res = selectresource(model);
+        Assert.assertEquals("http://logservice.com/data/loggerProxy#42", res);
+    }
+
     // helpers
 
     /**

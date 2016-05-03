@@ -7,8 +7,10 @@ import org.apache.jena.rdf.model.ModelFactory;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 import javax.ws.rs.core.Response;
 import org.apache.jena.query.* ;
@@ -89,14 +91,21 @@ public class Request {
 
     private Response executeProxy(Model model){
         String url = object.getUrl();
+        String encodedUri = "";
+
+        try{
+            encodedUri = URLEncoder.encode(uri, "UTF-8");
+        }catch(UnsupportedEncodingException ex){
+            Log.error("Error encoding url in proxy request: " + ex.getMessage());
+        }
 
         // construct request url
         if(url.contains("?")){
-            url = url + "&" + object.getProxyParam() + "=" + uri;
+            url = url + "&" + object.getProxyParam() + "=" + encodedUri;
         }
         else{
 
-            url = url + "?" + object.getProxyParam() + "=" + uri;
+            url = url + "?" + object.getProxyParam() + "=" + encodedUri;
         }
 
         // validate url

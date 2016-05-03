@@ -1,0 +1,16 @@
+# example: http://logservice.com/data/loggerProxy/42/2016-05-01/10:00:23/org.dynrdf.Request/some exception msg
+
+@prefix def:   <http://dynrdf.com/objects#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dynrdf: <http://dynrdf.com/objects.rdfs#> .
+
+def:dynrdf_loggerProxy
+        a                      dynrdf:Proxy ;
+        dynrdf:group           "dynrdf" ;
+        dynrdf:htmlTemplate    "<!doctype html>\n\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Logger</title>\n  <meta name=\"description\" content=\"Dynrdf logger example\">\n</head>\n\n<body>\n Proxy example  \n</body>\n</html>" ;
+        dynrdf:priority        1 ;
+        dynrdf:regex           "loggerProxy" ;
+        dynrdf:proxyParam      "dummy" ;
+        dynrdf:url             <http://linkedgeodata.org/sparql?query=PREFIX++xsd%3A++%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E%0APREFIX++rlog%3A+%3Chttp%3A%2F%2Fpersistence.uni-leipzig.org%2Fnlp2rdf%2Fontologies%2Frlog%2Frlog.ttl%3E%0A%0ACONSTRUCT+%0A++%7B+%3Fres+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23type%3E+rlog%3AEntry+.%0A++++%3Fres+rlog%3Alevel+rlog%3AWARN+.%0A++++%3Fres+rlog%3Adate+%222016-05-01T10%3A00%3A23Z%22%5E%5Exsd%3AdateTime+.%0A++++%3Fres+rlog%3AclassName+%22org.dynrdf.Request%22+.%0A++++%3Fres+rlog%3Amessage+%22some+exception+msg%22+.%7D%0AWHERE%0A++%7B+BIND%28uri%28%22http%3A%2F%2Flogservice.com%2Fdata%2FloggerProxy%2342%22%29+AS+%3Fres%29+%7D%0A> ;
+        dcterms:title          "loggerProxy" .
