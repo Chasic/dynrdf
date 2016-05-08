@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 \providecommand{\biburl}[1]{\url{#1}}
 \providecommand{\urlprefix}{Dostupn{\' e} z: }
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -7,6 +7,11 @@
   \urlstyle{rm}\Url}\fi
 \providecommand{\selectlanguage}[1]{\relax}
 \providecommand{\eprint}[2][]{\biburl{#2}}
+
+\bibitem{linked_data}
+Linked Data community, Tom Heath: \emph{Linked Data - Connect Distributed Data
+  across the Web {[online]}}. [cit. 2016-05-08].
+\urlprefix\biburl{http://linkeddata.org/}
 
 \bibitem{content_negotiation}
 W3C: \emph{HTTP/1.1: Content Negotiation {[online]}}. [cit. 2016-04-16].
@@ -33,6 +38,18 @@ DuCharme, B.: \emph{Learning SPARQL-Querying and Updating with SPARQL 1.1}.
 W3C: \emph{RDF 1.1 Turtle {[online]}}. [cit. 2016-04-19].
 \urlprefix\biburl{http://www.w3.org/TR/2014/REC-turtle-20140225/}
 
+\bibitem{rdf_xml}
+W3C: \emph{RDF 1.1 XML Syntax {[online]}}. [cit. 2016-04-25].
+\urlprefix\biburl{https://www.w3.org/TR/rdf-syntax-grammar/}
+
+\bibitem{rdf_json_ld}
+W3C: \emph{JSON-LD 1.0 {[online]}}. [cit. 2016-04-25].
+\urlprefix\biburl{https://www.w3.org/TR/json-ld/}
+
+\bibitem{rdf_n_triples}
+W3C: \emph{RDF 1.1 N-Triples {[online]}}. [cit. 2016-04-25].
+\urlprefix\biburl{https://www.w3.org/TR/n-triples/}
+
 \bibitem{TimBL_LD}
 Tim Berners-Lee: \emph{Linked Data - Design Issues {[online]}}. [cit.
   2016-04-21].
@@ -47,5 +64,9 @@ Christian Bizer, Andreas Schultz: \emph{The Berlin SPARQL Benchmark
 Jan Goyvaerts: \emph{Regular Expression Reference: Capturing Groups and
   Backreferences {[online]}}. [cit. 2016-04-17].
 \urlprefix\biburl{http://www.regular-expressions.info/refcapture.html}
+
+\bibitem{glassfish}
+Oracle Corporation: \emph{GlassFish Server {[online]}}. [cit. 2016-04-25].
+\urlprefix\biburl{https://glassfish.java.net/}
 
 \end{thebibliography}

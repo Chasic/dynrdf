@@ -50,7 +50,29 @@
 \contentsline {subsubsection}{\numberline {3.5.1.1}Vstup placeholderu}{25}{subsubsection.3.5.1.1}
 \contentsline {subsubsection}{\numberline {3.5.1.2}Regul\IeC {\'a}rn\IeC {\'\i } v\IeC {\'y}raz v placeholderu}{26}{subsubsection.3.5.1.2}
 \contentsline {section}{\numberline {3.6}API}{26}{section.3.6}
-\contentsline {chapter}{Z{\' a}v{\v e}r}{27}{chapter*.7}
-\contentsline {chapter}{Literatura}{29}{section*.9}
-\contentsline {appendix}{\chapternumberline {A}Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{31}{appendix.A}
-\contentsline {appendix}{\chapternumberline {B}Obsah p\IeC {\v r}ilo\IeC {\v z}en\IeC {\'e}ho CD}{33}{appendix.B}
+\contentsline {subsection}{\numberline {3.6.1}Struktura API}{27}{subsection.3.6.1}
+\contentsline {subsubsection}{\numberline {3.6.1.1}Vytvo\IeC {\v r}en\IeC {\'\i } objektu}{27}{subsubsection.3.6.1.1}
+\contentsline {subsubsection}{\numberline {3.6.1.2}Aktualizace objektu}{27}{subsubsection.3.6.1.2}
+\contentsline {subsubsection}{\numberline {3.6.1.3}Smaz\IeC {\'a}n\IeC {\'\i } objektu}{27}{subsubsection.3.6.1.3}
+\contentsline {subsubsection}{\numberline {3.6.1.4}P\IeC {\v r}\IeC {\'\i }stup k definic\IeC {\'\i }m}{28}{subsubsection.3.6.1.4}
+\contentsline {subsection}{\numberline {3.6.2}RDF sch\IeC {\'e}ma}{28}{subsection.3.6.2}
+\contentsline {chapter}{\chapternumberline {4}Implementace}{29}{chapter.4}
+\contentsline {section}{\numberline {4.1}Prototyp webov\IeC {\'e} slu\IeC {\v z}by}{29}{section.4.1}
+\contentsline {section}{\numberline {4.2}Model a persistence}{30}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}RDFObject}{30}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}RDFObjectContainer}{30}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}RDFLoader}{31}{subsection.4.2.3}
+\contentsline {section}{\numberline {4.3}Implementace API}{31}{section.4.3}
+\contentsline {section}{\numberline {4.4}Po\IeC {\v z}adavek klienta na vygenerov\IeC {\'a}n\IeC {\'\i } objektu}{32}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Nalezen\IeC {\'\i } odpov\IeC {\'\i }daj\IeC {\'\i }c\IeC {\'\i } definice}{32}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Vypln\IeC {\v e}n\IeC {\'\i } \IeC {\v s}ablony a \IeC {\v s}ablonovac\IeC {\'\i } syst\IeC {\'e}m}{33}{subsection.4.4.2}
+\contentsline {subsection}{\numberline {4.4.3}Generov\IeC {\'a}n\IeC {\'\i } objektu}{33}{subsection.4.4.3}
+\contentsline {subsection}{\numberline {4.4.4}Webov\IeC {\'a} aplikace pro administraci definic}{33}{subsection.4.4.4}
+\contentsline {chapter}{\chapternumberline {5}Testov\IeC {\'a}n\IeC {\'\i }}{35}{chapter.5}
+\contentsline {section}{\numberline {5.1}Z\IeC {\'a}kladn\IeC {\'\i } testy}{35}{section.5.1}
+\contentsline {section}{\numberline {5.2}Testov\IeC {\'a}n\IeC {\'\i } po\IeC {\v z}adavk\IeC {\r u} klienta a API}{36}{section.5.2}
+\contentsline {section}{\numberline {5.3}Testov\IeC {\'a}n\IeC {\'\i } v\IeC {\'y}konu}{36}{section.5.3}
+\contentsline {chapter}{Z{\' a}v{\v e}r}{39}{chapter*.7}
+\contentsline {chapter}{Literatura}{41}{section*.9}
+\contentsline {appendix}{\chapternumberline {A}Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{43}{appendix.A}
+\contentsline {appendix}{\chapternumberline {B}Obsah p\IeC {\v r}ilo\IeC {\v z}en\IeC {\'e}ho CD}{45}{appendix.B}

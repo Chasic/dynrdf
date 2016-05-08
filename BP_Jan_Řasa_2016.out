@@ -11,7 +11,16 @@
 \BOOKMARK [1][-]{section.3.4}{Definice objektu}{chapter.3}% 11
 \BOOKMARK [1][-]{section.3.5}{\227ablonovac\355 syst\351m}{chapter.3}% 12
 \BOOKMARK [1][-]{section.3.6}{API}{chapter.3}% 13
-\BOOKMARK [0][-]{chapter*.7}{Z\341ver}{}% 14
-\BOOKMARK [0][-]{section*.9}{Literatura}{}% 15
-\BOOKMARK [0][-]{appendix.A}{Seznam pou\236it\375ch zkratek}{}% 16
-\BOOKMARK [0][-]{appendix.B}{Obsah prilo\236en\351ho CD}{}% 17
+\BOOKMARK [0][-]{chapter.4}{Implementace}{}% 14
+\BOOKMARK [1][-]{section.4.1}{Prototyp webov\351 slu\236by}{chapter.4}% 15
+\BOOKMARK [1][-]{section.4.2}{Model a persistence}{chapter.4}% 16
+\BOOKMARK [1][-]{section.4.3}{Implementace API}{chapter.4}% 17
+\BOOKMARK [1][-]{section.4.4}{Po\236adavek klienta na vygenerov\341n\355 objektu}{chapter.4}% 18
+\BOOKMARK [0][-]{chapter.5}{Testov\341n\355}{}% 19
+\BOOKMARK [1][-]{section.5.1}{Z\341kladn\355 testy}{chapter.5}% 20
+\BOOKMARK [1][-]{section.5.2}{Testov\341n\355 po\236adavku klienta a API}{chapter.5}% 21
+\BOOKMARK [1][-]{section.5.3}{Testov\341n\355 v\375konu}{chapter.5}% 22
+\BOOKMARK [0][-]{chapter*.7}{Z\341ver}{}% 23
+\BOOKMARK [0][-]{section*.9}{Literatura}{}% 24
+\BOOKMARK [0][-]{appendix.A}{Seznam pou\236it\375ch zkratek}{}% 25
+\BOOKMARK [0][-]{appendix.B}{Obsah prilo\236en\351ho CD}{}% 26

@@ -48,32 +48,6 @@
     note = "[cit. 2016-04-19]",
 }
 
-@MANUAL{rdf_xml	,
-    title = "RDF 1.1 XML Syntax {[online]}",
-    organization = "W3C",
-    url = "https://www.w3.org/TR/rdf-syntax-grammar/",
-    note = "[cit. 2016-04-25]",
-}
-@MANUAL{rdf_json_ld	,
-    title = "JSON-LD 1.0 {[online]}",
-    organization = "W3C",
-    url = "https://www.w3.org/TR/json-ld/",
-    note = "[cit. 2016-04-25]",
-}
-@MANUAL{rdf_n_triples	,
-    title = "RDF 1.1 N-Triples {[online]}",
-    organization = "W3C",
-    url = "https://www.w3.org/TR/n-triples/",
-    note = "[cit. 2016-04-25]",
-}
-
-@MANUAL{glassfish	,
-    title = "GlassFish Server {[online]}",
-    organization = "Oracle Corporation",
-    url = "https://glassfish.java.net/",
-    note = "[cit. 2016-04-25]",
-}
-
 @MANUAL{TimBL_LD,
     title = "Linked Data - Design Issues {[online]}",
     organization = "Tim Berners-Lee",
@@ -86,20 +60,6 @@
     organization = "Christian Bizer, Andreas Schultz",
     url = "http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.161.8030&rep=rep1&type=pdf",
     note = "[cit. 2016-04-22]",
-}
-
-@MANUAL{linked_data,
-    title = "Linked Data - Connect Distributed Data across the Web {[online]}",
-    organization = "Linked Data community, Tom Heath",
-    url = "http://linkeddata.org/",
-    note = "[cit. 2016-05-08]",
-}
-
-@MANUAL{rdf_turtle,
-    title = "Linked Data - Connect Distributed Data across the Web {[online]}",
-    organization = "Linked Data community, Tom Heath",
-    url = "http://linkeddata.org/",
-    note = "[cit. 2016-05-08]",
 }
 
 @BOOK{b_t_i,

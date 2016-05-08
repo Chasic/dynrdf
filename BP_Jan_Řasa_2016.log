@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.23)  27 APR 2016 00:56
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.23)  8 MAY 2016 20:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -830,26 +830,26 @@ Package: listings 2013/08/26 1.5b (Carsten Heinz)
 (./BP_Jan_Å˜asa_2016.aux)
 \openout1 = `BP_Jan_Å˜asa_2016.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 57.
-LaTeX Font Info:    ... okay on input line 57.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 57.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 58.
+LaTeX Font Info:    ... okay on input line 58.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 58.
  (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 \AtBeginShipoutBox=\box31
-Package hyperref Info: Link coloring OFF on input line 57.
+Package hyperref Info: Link coloring OFF on input line 58.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -861,10 +861,10 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 Redoing nameref's sectioning
 Redoing nameref's label
-LaTeX Info: Redefining \nameref on input line 57.
-LaTeX Info: Redefining \ref on input line 57.
-LaTeX Info: Redefining \pageref on input line 57.
-LaTeX Info: Redefining \nameref on input line 57.
+LaTeX Info: Redefining \nameref on input line 58.
+LaTeX Info: Redefining \ref on input line 58.
+LaTeX Info: Redefining \pageref on input line 58.
+LaTeX Info: Redefining \nameref on input line 58.
 (./BP_Jan_Å˜asa_2016.out) (./BP_Jan_Å˜asa_2016.out)
 \@outlinefile=\write4
 \openout4 = `BP_Jan_Å˜asa_2016.out'.
@@ -891,94 +891,96 @@ LaTeX Info: Redefining \nameref on input line 57.
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
 
 ]
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 57.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 58.
 
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 57.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 58.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 57.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 58.
 
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 57.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 58.
 
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 57.
+(Font)              <10.95> on input line 58.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 57.
+(Font)              <8> on input line 58.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 57.
+(Font)              <6> on input line 58.
 
-<cvut-logo-bw.pdf, id=81, 91.34125pt x 69.25874pt>
+<cvut-logo-bw.pdf, id=117, 91.34125pt x 69.25874pt>
 File: cvut-logo-bw.pdf Graphic file (type pdf)
  <use cvut-logo-bw.pdf>
-Package pdftex.def Info: cvut-logo-bw.pdf used on input line 57.
+Package pdftex.def Info: cvut-logo-bw.pdf used on input line 58.
 (pdftex.def)             Requested size: 59.04135pt x 44.76717pt.
 pdfTeX warning (ext4): destination with the same identifier (name{page.i}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.57 \begin{document}
+l.58 \begin{document}
                       [1 <./cvut-logo-bw.pdf>]pdfTeX warning (ext4): destinatio
 n with the same identifier (name{page.ii}) has been already used, duplicate ign
 ored
 <to be read again> 
                    \relax 
-l.57 \begin{document}
+l.58 \begin{document}
                       [2
 
 ]
 
 LaTeX Font Warning: Font shape `T1/lmr/bx/sc' undefined
-(Font)              using `T1/lmr/bx/n' instead on input line 57.
+(Font)              using `T1/lmr/bx/n' instead on input line 58.
 
-LaTeX Font Info:    Try loading font information for T1+lmss on input line 57.
+LaTeX Font Info:    Try loading font information for T1+lmss on input line 58.
 (/usr/share/texmf/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 
 LaTeX Font Warning: Font shape `T1/lmss/bx/sc' undefined
-(Font)              using `T1/lmss/bx/n' instead on input line 57.
+(Font)              using `T1/lmss/bx/n' instead on input line 58.
 
 [5
 
 ] [6
 
 ] [7]
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 57.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 58.
  (/usr/share/texmf/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 57.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 58.
  [8
 
 ] [9
 
 ] [10]
-(./BP_Jan_Å˜asa_2016.toc) [11
+(./BP_Jan_Å˜asa_2016.toc
+Underfull \vbox (badness 1281) has occurred while \output is active []
 
-] [12
+ [11
 
-] (./BP_Jan_Å˜asa_2016.lof) [13] [14
+])
+[12] (./BP_Jan_Å˜asa_2016.lof) [13
 
-]
+] [14
 
-LaTeX Warning: Citation `linked_data' on page 1 undefined on input line 72.
+] (./BP_Jan_Å˜asa_2016.lot) [15]
+[16
 
-[1
-
+] [1
 
 ] [2
 
@@ -988,47 +990,18 @@ LaTeX Warning: Citation `linked_data' on page 1 undefined on input line 72.
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 99.
+(hyperref)                removing `\textasciicaron' on input line 101.
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 112.
+(Font)              <9> on input line 114.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 112.
+(Font)              <5> on input line 114.
 
 Package hyperref Warning: Composite letter `\textasciicaron+r'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 117.
+(hyperref)                removing `\textasciicaron' on input line 119.
 
-[5] [6]
-
-LaTeX Warning: Citation `JSON' on page 7 undefined on input line 169.
-
-
-LaTeX Warning: Citation `turtle' on page 7 undefined on input line 170.
-
-
-LaTeX Warning: Citation `rdf_xml' on page 7 undefined on input line 174.
-
-
-LaTeX Warning: Citation `json_ld' on page 7 undefined on input line 175.
-
-
-LaTeX Warning: Citation `n_triples' on page 7 undefined on input line 176.
-
-[7]
-
-LaTeX Warning: Citation `sparql_construct' on page 8 undefined on input line 20
-2.
-
-
-LaTeX Warning: Citation `sparql_describe' on page 8 undefined on input line 207
-.
-
-
-LaTeX Warning: Citation `sparql_endpoint' on page 8 undefined on input line 209
-.
-
-[8] [9] [10
+[5] [6] [7] [8] [9] [10
 
 ] [11]
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
@@ -1038,84 +1011,84 @@ File: lstlang1.sty 2013/08/26 1.5b listings language file
 File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 266.
+(Font)              <10> on input line 268.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 266.
+(Font)              <7> on input line 268.
 
-Overfull \hbox (3.00378pt too wide) in paragraph at lines 269--271
+Overfull \hbox (3.00378pt too wide) in paragraph at lines 271--273
 [][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (22.63205pt too wide) in paragraph at lines 281--287
+Overfull \hbox (22.63205pt too wide) in paragraph at lines 283--289
 \T1/lmr/m/n/10.95 <$\OT1/lmr/m/n/10.95 #\OML/lmm/m/it/10.95 green \OMS/lmsy/m/n
 /10.95 ^^@ \OML/lmm/m/it/10.95 goblin$\T1/lmr/m/n/10.95 > je zde sub-jekt iden-
 ti-fi-ko-vaný URI (http://example.org/#green-
  []
 
 
-Overfull \hbox (22.97093pt too wide) in paragraph at lines 281--287
+Overfull \hbox (22.97093pt too wide) in paragraph at lines 283--289
 \T1/lmr/m/n/10.95 URI (http://www.perceive.net/schemas/relationship/enemyOf) a 
 <$\OT1/lmr/m/n/10.95 #\OML/lmm/m/it/10.95 spiderman$\T1/lmr/m/n/10.95 >
  []
 
-[12] [13] [14] <parts.png, id=295, 542.025pt x 361.35pt>
+[12] [13] [14] <parts.png, id=364, 542.025pt x 361.35pt>
 File: parts.png Graphic file (type png)
  <use parts.png>
-Package pdftex.def Info: parts.png used on input line 367.
+Package pdftex.def Info: parts.png used on input line 369.
 (pdftex.def)             Requested size: 369.0pt x 246.00697pt.
 
 [15 <./parts.png (PNG copy)>]
-<packages_core.png, id=303, 415.5525pt x 292.09125pt>
+<packages_core.png, id=373, 415.5525pt x 292.09125pt>
 File: packages_core.png Graphic file (type png)
  <use packages_core.png>
-Package pdftex.def Info: packages_core.png used on input line 378.
+Package pdftex.def Info: packages_core.png used on input line 380.
 (pdftex.def)             Requested size: 295.20113pt x 207.5021pt.
 
-<api_class.png, id=305, 426.59375pt x 161.60374pt>
+<api_class.png, id=375, 426.59375pt x 161.60374pt>
 File: api_class.png Graphic file (type png)
  <use api_class.png>
-Package pdftex.def Info: api_class.png used on input line 389.
+Package pdftex.def Info: api_class.png used on input line 391.
 (pdftex.def)             Requested size: 295.20113pt x 111.83466pt.
 
 Underfull \vbox (badness 1701) has occurred while \output is active []
 
  [16 <./packages_core.png (PNG copy)> <./api_class.png (PNG copy)>]
-<model_class.png, id=312, 498.86375pt x 339.2675pt>
+<model_class.png, id=382, 498.86375pt x 339.2675pt>
 File: model_class.png Graphic file (type png)
  <use model_class.png>
-Package pdftex.def Info: model_class.png used on input line 398.
+Package pdftex.def Info: model_class.png used on input line 400.
 (pdftex.def)             Requested size: 369.0pt x 250.95566pt.
 
 [17 <./model_class.png (PNG copy)>]
-<container_class.png, id=320, 560.0925pt x 274.02374pt>
+<container_class.png, id=389, 560.0925pt x 274.02374pt>
 File: container_class.png Graphic file (type png)
 
 <use container_class.png>
-Package pdftex.def Info: container_class.png used on input line 425.
+Package pdftex.def Info: container_class.png used on input line 427.
 (pdftex.def)             Requested size: 369.0pt x 180.53845pt.
 
-<publisher_class.png, id=322, 368.37625pt x 412.54124pt>
+<publisher_class.png, id=391, 368.37625pt x 412.54124pt>
 File: publisher_class.png Graphic file (type png)
 
 <use publisher_class.png>
-Package pdftex.def Info: publisher_class.png used on input line 438.
+Package pdftex.def Info: publisher_class.png used on input line 440.
 (pdftex.def)             Requested size: 295.20113pt x 330.58739pt.
  [18 <./container_class.png (PNG copy)>]
 
 Package hyperref Warning: Composite letter `\textring+u'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textring' on input line 447.
+(hyperref)                removing `\textring' on input line 449.
 
 [19 <./publisher_class.png (PNG copy)>]
-<request_flow_2.png, id=335, 674.52pt x 537.00626pt>
+<request_flow_2.png, id=404, 674.52pt x 537.00626pt>
 File: request_flow_2.png Graphic file (type png)
  <use request_flow_2.png>
-Package pdftex.def Info: request_flow_2.png used on input line 484.
+Package pdftex.def Info: request_flow_2.png used on input line 486.
 (pdftex.def)             Requested size: 369.0pt x 293.7729pt.
 
 [20] [21 <./request_flow_2.png (PNG copy)>]
-Overfull \hbox (8.10806pt too wide) in paragraph at lines 507--510
+Overfull \hbox (8.10806pt too wide) in paragraph at lines 509--512
 \T1/lmr/m/it/10.95 http://dynrdf.com/?url=http://dataowner.com/objects/year/201
 5\T1/lmr/m/n/10.95 . P·-vodní po-
  []
@@ -1124,10 +1097,10 @@ Overfull \hbox (8.10806pt too wide) in paragraph at lines 507--510
 
 Package hyperref Warning: Composite letter `\textring+u'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textring' on input line 513.
+(hyperref)                removing `\textring' on input line 515.
 
 [23]
-Overfull \hbox (18.56935pt too wide) in paragraph at lines 555--558
+Overfull \hbox (18.56935pt too wide) in paragraph at lines 556--559
 \T1/lmr/m/n/10.95 kom-pli-ko-va-n¥j-²ích ob-jekt·, je-jichº atri-buty mo-hou bý
 t vý-sled-kem dal-²ích SPARQL
  []
@@ -1137,94 +1110,135 @@ t vý-sled-kem dal-²ích SPARQL
 Class memoir Warning: The material used in the headers is too large
 (13.69412pt) for the given head height (13.6pt), it is recommended to
 either increase the head height or redesign the header
-(in both cases you will find help in the memoir manual). on input line 610.
+(in both cases you will find help in the memoir manual). on input line 611.
 
-[25] [26]
+[25] [26] [27]
+Overfull \hbox (30.46303pt too wide) in paragraph at lines 675--676
+[]\T1/lmr/m/n/10.95 Content type: li-bo-volný z pod-po-ro-va-ných (na-p°í-klad 
+tex-t/turtle, application/n-
+ []
+
+[28] [29
+
+] [30] [31]
+Overfull \hbox (21.59128pt too wide) in paragraph at lines 791--795
+\T1/lmr/m/n/10.95 vat stejné °e-t¥zce. P°í-kla-dem m·ºe být t°eba URL ^^Rhttp:/
+/dynrdf.com/object/42^^P.
+ []
+
+
+Overfull \hbox (8.46436pt too wide) in paragraph at lines 791--795
+\T1/lmr/m/n/10.95 Po-kud by jedna de-fi-nice po-u-ºí-vala re-gu-lární vý-raz po
+uze ^^Robj^^P a druhá ^^Robject^^P,
+ []
+
+[32] [33] [34]
+
+Package hyperref Warning: Composite letter `\textring+u'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textring' on input line 862.
+
+
+Underfull \vbox (badness 1803) has occurred while \output is active []
+
+ [35
+
+]
+[36]
+Overfull \hbox (24.25206pt too wide) in paragraph at lines 900--911
+ [][] 
+ []
+
+
+Overfull \hbox (26.98927pt too wide) in paragraph at lines 915--926
+ [][] 
+ []
+
+[37] [38
+
+]
 
 Package hyperref Warning: Composite letter `\textasciicaron+e'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 623.
+(hyperref)                removing `\textasciicaron' on input line 928.
 
-(./BP_Jan_Å˜asa_2016.bbl [27
-
-] [28
+(./BP_Jan_Å˜asa_2016.bbl [39] [40
 
 ]
 bibitemlist
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 13.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 14.
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Underfull \hbox (badness 5460) in paragraph at lines 12--14
+Underfull \hbox (badness 3503) in paragraph at lines 17--19
 []\T1/lmr/m/n/10.95 W3C: \T1/lmr/m/it/10.95 HTTP/1.1: Con-tent Ne-go-ti-ation [
 on-line]\T1/lmr/m/n/10.95 . [cit. 2016-04-16].
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 12--14
+Underfull \hbox (badness 10000) in paragraph at lines 17--19
 \T1/lmr/m/n/10.95 Do-stupné z: []$\T1/lmtt/m/n/10.95 https : / / www\OML/lmm/m/
 it/10.95 :\T1/lmtt/m/n/10.95 w3\OML/lmm/m/it/10.95 :\T1/lmtt/m/n/10.95 org / Pr
 otocols / rfc2616 / rfc2616 -[]
  []
 
 
-Underfull \hbox (badness 1924) in paragraph at lines 20--23
+Underfull \hbox (badness 1178) in paragraph at lines 25--28
 []\T1/lmr/m/n/10.95 Epimorphics: \T1/lmr/m/it/10.95 Using In-ter-val Set URIs i
 n Sta-tis-ti-cal Data [on-line]\T1/lmr/m/n/10.95 .
  []
 
-
-Underfull \hbox (badness 1496) in paragraph at lines 42--45
-\T1/lmr/m/it/10.95 line]\T1/lmr/m/n/10.95 . [cit. 2016-04-22]. Do-stupné z: []$
-\T1/lmtt/m/n/10.95 http : / / citeseerx\OML/lmm/m/it/10.95 :\T1/lmtt/m/n/10.95 
-ist\OML/lmm/m/it/10.95 :\T1/lmtt/m/n/10.95 psu\OML/lmm/m/it/10.95 :\T1/lmtt/m/n
-/10.95 edu /
+[41]
+Underfull \hbox (badness 4726) in paragraph at lines 64--67
+[]\T1/lmr/m/n/10.95 Jan Go-y-vaerts: \T1/lmr/m/it/10.95 Re-gu-lar Ex-pres-sion 
+Re-fe-rence: Cap-tu-ring Groups
  []
 
-) [29] [30
+) [42] [43
 
-] [31] [32
+] [44
 
 ]
 
 Package hyperref Warning: Composite letter `\textasciicaron+r'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 747.
+(hyperref)                removing `\textasciicaron' on input line 1061.
 
 
 Class memoir Warning: The material used in the headers is too large
 (13.69412pt) for the given head height (13.6pt), it is recommended to
 either increase the head height or redesign the header
-(in both cases you will find help in the memoir manual). on input line 764.
+(in both cases you will find help in the memoir manual). on input line 1078.
 
-[33]
+[45]
 \tf@toc=\write5
 \openout5 = `BP_Jan_Å˜asa_2016.toc'.
 
 \tf@lof=\write6
 \openout6 = `BP_Jan_Å˜asa_2016.lof'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 764.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 764.
+\tf@lot=\write7
+\openout7 = `BP_Jan_Å˜asa_2016.lot'.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1078.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1078.
  (./BP_Jan_Å˜asa_2016.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 764.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 764.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1078.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1078.
+
 Package rerunfilecheck Info: File `BP_Jan_Å˜asa_2016.out' has not changed.
-(rerunfilecheck)             Checksum: 1A27782DB1F4A9A84AD18453974C4D3D;995.
+(rerunfilecheck)             Checksum: 857FCD1CC2D8BDBCAE1C6CD083C67F80;1623.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 764.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1078.
  ) 
 Here is how much of TeX's memory you used:
- 11930 strings out of 494991
- 165436 string characters out of 6180090
- 333487 words of memory out of 5000000
- 14861 multiletter control sequences out of 15000+600000
+ 11988 strings out of 494991
+ 166157 string characters out of 6180090
+ 333896 words of memory out of 5000000
+ 14873 multiletter control sequences out of 15000+600000
  96415 words of font info for 61 fonts, out of 8000000 for 9000
  24 hyphenation exceptions out of 8191
  38i,13n,51p,1101b,1238s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1240,9 +1254,9 @@ b></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type
 re/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/
 lm/lmssbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/
 texmf/fonts/type1/public/lm/lmtt10.pfb>
-Output written on BP_Jan_Å˜asa_2016.pdf (47 pages, 583179 bytes).
+Output written on BP_Jan_Å˜asa_2016.pdf (61 pages, 634092 bytes).
 PDF statistics:
- 507 PDF objects out of 1000 (max. 8388607)
- 140 named destinations out of 1000 (max. 500000)
- 177 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 661 PDF objects out of 1000 (max. 8388607)
+ 183 named destinations out of 1000 (max. 500000)
+ 249 words of extra memory for PDF output out of 10000 (max. 10000000)
 
