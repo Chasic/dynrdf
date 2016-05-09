@@ -1,0 +1,91 @@
+<div class="form-group">
+    <label for="name" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+        <input type="text" ng-model="RDFobject.name" class="form-control" id="name" placeholder="Object name here"/>
+    </div>
+</div>
+<div class="form-group">
+    <label for="group" class="col-sm-2 control-label">Group</label>
+    <div class="col-sm-10">
+        <input type="text" ng-model="RDFobject.group" class="form-control" id="group" placeholder="Group name"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="uriRegex" class="col-sm-2 control-label">Object URI regex</label>
+    <div class="col-sm-10">
+        <input type="text" ng-model="RDFobject.uriRegex" ng-change="regexChange()" class="form-control" id="uriRegex" placeholder="generated\/date"/>
+    </div>
+    <div class="col-sm-10">
+        <span>{{generatedUrl}}</span>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="priority" class="col-sm-2 control-label">Object priority</label>
+    <div class="col-sm-10">
+        <input type="text" ng-model="RDFobject.priority" class="form-control" id="priority" placeholder="1"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="type" class="col-sm-2 control-label">Object definition type</label>
+    <div class="col-sm-10">
+        <select class="selectpicker" ng-model="RDFobject.type" class="form-control" id="type"
+                ng-change="showCustomData()" >
+            <option value="TURTLE">TURTLE</option>
+            <option value="RDF/XML">RDF/XML</option>
+            <option value="N-TRIPLES">N-TRIPLES</option>
+            <option value="JSON-LD">JSON-LD</option>
+            <option value="SPARQL-CONSTRUCT">SPARQL Construct</option>
+            <option value="SPARQL-ENDPOINT">SPARQL Endpoint</option>
+            <option value="PROXY">Proxy</option>
+        </select>
+    </div>
+</div>
+
+<div class="proxyData" ng-show="proxyState">
+    <div class="form-group">
+        <label for="proxyUrl" class="col-sm-2 control-label">Proxy URL</label>
+        <div class="col-sm-10">
+            <input type="url" ng-model="RDFobject.url" class="form-control" id="proxyUrl" ng-required="proxyState" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="proxyParam" class="col-sm-2 control-label">Proxy parameter name</label>
+        <div class="col-sm-10">
+            <input type="text" ng-model="RDFobject.proxyParam" class="form-control" id="proxyParam" placeholder="url"
+                   pattern="[a-zA-Z_0-9]+"/>
+        </div>
+    </div>
+</div>
+
+<div class="endpointData" ng-show="endpointState">
+    <div class="form-group">
+        <label for="endpointUrl" class="col-sm-2 control-label">Endpoint URL</label>
+        <div class="col-sm-10">
+            <input type="url" ng-model="RDFobject.url" class="form-control" id="endpointUrl" ng-required="endpointState" />
+        </div>
+    </div>
+</div>
+
+<div class="form-group" ng-hide="proxyState">
+    <label for="template" class="col-sm-2 control-label">Object definition</label>
+    <div class="col-sm-10">
+        <textarea class="form-control" rows="10" id="template" ng-model="RDFobject.template"></textarea>
+
+    </div>
+</div>
+<div class="form-group">
+    <label for="htmlTemplate" class="col-sm-2 control-label">HTML template</label>
+    <div class="col-sm-10">
+        <textarea class="form-control" rows="10" id="htmlTemplate" ng-model="RDFobject.htmlTemplate"></textarea>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+        <input type="submit" class="btn btn-primary" value="Save"/>
+    </div>
+</div>

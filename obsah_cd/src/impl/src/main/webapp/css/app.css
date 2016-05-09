@@ -1,0 +1,24 @@
+.top-buffer{
+    margin-top:10px;
+}
+
+.definitions tr td:nth-child(2){
+    width: 150px;
+}
+
+.definitions tr:nth-child(1) td{
+    border-top: none;
+}
+a.nodecoration{
+    text-decoration:none;
+}
+
+
+.help_span{
+    cursor: pointer;
+}
+
+.help-block{
+    display: none;
+}
+

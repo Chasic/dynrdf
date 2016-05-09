@@ -1,0 +1,52 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: BP_Jan_Řasa_2016.aux
+The style file: csn690.bst
+Database file #1: mybibliographyfile.bib
+Repeated entry---line 112 of file mybibliographyfile.bib
+ : @book{british_ti
+ :                 ,
+I'm skipping whatever remains of this entry
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+You've used 14 entries,
+            3151 wiz_defined-function locations,
+            710 strings with 7062 characters,
+and the built_in function-call counts, 3782 in all, are:
+= -- 290
+> -- 20
+< -- 0
++ -- 17
+- -- 2
+* -- 185
+:= -- 336
+add.period$ -- 28
+call.type$ -- 14
+change.case$ -- 55
+chr.to.int$ -- 0
+cite$ -- 14
+duplicate$ -- 442
+empty$ -- 447
+format.name$ -- 2
+if$ -- 855
+int.to.chr$ -- 0
+int.to.str$ -- 14
+missing$ -- 102
+newline$ -- 65
+num.names$ -- 2
+pop$ -- 246
+preamble$ -- 1
+purify$ -- 42
+quote$ -- 0
+skip$ -- 129
+stack$ -- 0
+substring$ -- 110
+swap$ -- 171
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 54
+warning$ -- 0
+while$ -- 2
+width$ -- 16
+write$ -- 121
+(There was 1 error message)

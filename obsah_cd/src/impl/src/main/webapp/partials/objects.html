@@ -1,0 +1,14 @@
+<a ui-sref="newObject" class="btn-primary btn-lg nodecoration">Add new object definition</a>
+<table class="table definitions">
+    <tr>
+        <td><h3>All object definitions</h3></td>
+        <td></td>
+    </tr>
+    <tr ng-repeat="RDFobject in rdfobjects">
+        <td>{{RDFobject.group}}/{{RDFobject.name}}</td>
+        <td>
+            <a class="btn btn-primary" ui-sref="viewObject({id:RDFobject.fullName})">View</a>
+            <a class="btn btn-danger"  ng-click="deleteRDFObject(RDFobject)">Delete</a>
+        </td>
+    </tr>
+</table>

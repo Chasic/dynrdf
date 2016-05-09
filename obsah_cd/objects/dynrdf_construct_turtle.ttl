@@ -1,0 +1,14 @@
+@prefix def:   <http://dynrdf.com/objects#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dynrdf: <http://dynrdf.com/objects.rdfs#> .
+
+def:dynrdf_construct_turtle
+        a                      dynrdf:SPARQLEndpoint ;
+        dynrdf:group           "dynrdf" ;
+        dynrdf:htmlTemplate    "html" ;
+        dynrdf:objectTemplate  "PREFIX : <http://example.com/>\nCONSTRUCT { :test a ?s . }\nWHERE {\n    BIND ( \"[@2]\" AS ?s)\n}" ;
+        dynrdf:priority        1 ;
+        dynrdf:regex           "construct_turtl" ;
+        dynrdf:url             <http://end.com> ;
+        dcterms:title          "construct_turtle" .

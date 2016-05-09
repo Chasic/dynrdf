@@ -1,0 +1,84 @@
+@MANUAL{british_ti,
+    title = "data.gov.uk Time Intervals {[online]}",
+    organization = "Datahub",
+    url = "https://datahub.io/tr/dataset/data-gov-uk-time-intervals",
+    note = "[cit. 2016-04-16]",
+    key = "svg"
+}
+
+@MANUAL{content_negotiation,
+    title = "HTTP/1.1: Content Negotiation {[online]}",
+    organization = "W3C",
+    url = "https://www.w3.org/Protocols/rfc2616/rfc2616-sec12.html",
+    note = "[cit. 2016-04-16]",
+}
+
+@MANUAL{ti_structure,
+    title = "Using Interval Set URIs in Statistical Data {[online]}",
+    organization = "Epimorphics",
+    url = "http://www.epimorphics.com/web/wiki/using-interval-set-uris-statistical-data",
+    note = "[cit. 2016-04-16]",
+}
+
+@MANUAL{capture_group,
+    title = "Regular Expression Reference: Capturing Groups and Backreferences {[online]}",
+    organization = "Jan Goyvaerts",
+    url = "http://www.regular-expressions.info/refcapture.html",
+    note = "[cit. 2016-04-17]",
+}
+
+@MANUAL{sparql_w3c,
+    title = "SPARQL Query Language for RDF {[online]}",
+    organization = "W3C",
+    url = "https://www.w3.org/TR/rdf-sparql-query/",
+    note = "[cit. 2016-04-16]",
+}
+
+@BOOK{sparql_bob,
+    title = "Learning SPARQL-Querying and Updating with SPARQL 1.1",
+	author = "Bob DuCharme",
+	publisher = "O’Reilly Media",
+	year = "2011",
+}
+
+@MANUAL{turtle_example,
+    title = "RDF 1.1 Turtle {[online]}",
+    organization = "W3C",
+    url = "http://www.w3.org/TR/2014/REC-turtle-20140225/",
+    note = "[cit. 2016-04-19]",
+}
+
+@MANUAL{TimBL_LD,
+    title = "Linked Data - Design Issues {[online]}",
+    organization = "Tim Berners-Lee",
+    url = "https://www.w3.org/DesignIssues/LinkedData",
+    note = "[cit. 2016-04-21]",
+}
+
+@MANUAL{sparql_benchmark,
+    title = "The Berlin SPARQL Benchmark  {[online]}",
+    organization = "Christian Bizer, Andreas Schultz",
+    url = "http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.161.8030&rep=rep1&type=pdf",
+    note = "[cit. 2016-04-22]",
+}
+
+@BOOK{b_t_i,
+	title = "Praktick{\' a} typografie",
+	author = "Pavel Ko{\v c}i{\v c}ka and Filip Bla{\v z}ek",
+	publisher = "Brno: Computer Press",
+	year = "2004"
+}
+
+@BOOK{british_ti,
+	title = "LaTeX pro za\v c\'ate\v cn\'\i{}ky",
+	author = "Ji{\v r}{\' i} Rybi{\v c}ka",
+	isbn = "80-7302-049-1",
+	publisher = "Brno: Konvoj",
+	edition = "3"
+}
+
+@MANUAL{iso690,
+	organization = "\'U\v rad pro technickou normalizaci, metrologii a st\'atn\'\i{} zku\v sebnictv\'\i{}",
+	title = "\v CSN ISO 690 Informace a dokumentace -- Pravidla pro bibliografick\'e odkazy a citace informa\v cn\'\i{}ch zdroj{\r u}",
+	year = "2011"
+}
