@@ -10,6 +10,10 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -193,6 +197,35 @@ public class RDFLoader {
                 break; // other user-defined types we dont care
         }
 
+    }
+
+    /**
+     * Finds files with objects definitions
+     * @param dir Directory path
+     * @return List<File>
+     * @throws IOException
+     */
+    public static List<File> findObjectsDefinitionsRec(File dir) throws IOException {
+        List<File> definitions = new ArrayList<>();
+        File[] files = dir.listFiles();
+        if(files != null){
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    definitions.addAll(findObjectsDefinitionsRec(file));
+                } else {
+                    String name = file.getName();
+                    if(name.matches("^.*\\.ttl$")){
+                        Log.debug("Found ttl: " + file.getAbsolutePath());
+                        definitions.add(file);
+                    }
+                }
+            }
+        }
+        else{
+            throw new IOException("Cannot read directory: " + dir.getAbsolutePath());
+        }
+
+        return definitions;
     }
 
 

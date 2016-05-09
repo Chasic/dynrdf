@@ -432,7 +432,7 @@ public class RDFObjectContainer{
         File currentDir = new File(Config.objectsPath);
         List<File> definitions;
         try{
-            definitions = findObjectsDefinitionsRec(currentDir);
+            definitions = RDFLoader.findObjectsDefinitionsRec(currentDir);
         }
         catch (IOException ex){
             throw new InitException(ex.getMessage());
@@ -440,28 +440,7 @@ public class RDFObjectContainer{
         return definitions;
     }
 
-    private static List<File> findObjectsDefinitionsRec(File dir) throws IOException{
-        List<File> definitions = new ArrayList<>();
-        File[] files = dir.listFiles();
-        if(files != null){
-            for (File file : files) {
-                if (file.isDirectory()) {
-                    definitions.addAll(findObjectsDefinitionsRec(file));
-                } else {
-                    String name = file.getName();
-                    if(name.matches("^.*\\.ttl$")){
-                        Log.debug("Found ttl: " + file.getAbsolutePath());
-                        definitions.add(file);
-                    }
-                }
-            }
-        }
-        else{
-            throw new IOException("Cannot read directory: " + dir.getAbsolutePath());
-        }
 
-        return definitions;
-    }
 
     /**
      * Loads all objects from DB

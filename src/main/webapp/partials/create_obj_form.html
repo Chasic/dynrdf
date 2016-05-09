@@ -1,36 +1,82 @@
 <div class="form-group">
-    <label for="name" class="col-sm-2 control-label">Name</label>
-    <div class="col-sm-10">
+    <label for="name" class="col-sm-4 control-label">
+         <span class="help_span" onclick="$('.help_name').toggle();">
+            <img src="images/question.jpg">
+        </span>&nbsp; Name</label>
+    <div class="col-sm-8">
         <input type="text" ng-model="RDFobject.name" class="form-control" id="name" placeholder="Object name" required/>
+        <span class="help-block help_name">
+            Name of the definition. The group and the name make a full name of the definitions
+            in the structure &lt;group&gt;/&lt;name&gt;. The created definition is accessible through the API on the URL path
+            /api/objects/&lt;group&gt;/&lt;name&gt;.
+        </span>
     </div>
 </div>
 <div class="form-group">
-    <label for="group" class="col-sm-2 control-label">Group</label>
-    <div class="col-sm-10">
+    <label for="group" class="col-sm-4 control-label">
+        <span class="help_span" onclick="$('.help_group').toggle();">
+            <img src="images/question.jpg">
+        </span>&nbsp; Group</label>
+    <div class="col-sm-8">
         <input type="text" ng-model="RDFobject.group" class="form-control" id="group" placeholder="Group name" required/>
+
+        <span class="help-block help_group">
+            You can group your object definitions together. The group and the name make a full name of the definitions
+            in the structure &lt;group&gt;/&lt;name&gt;. The created definition is accessible through the API on the URL path
+            /api/objects/&lt;group&gt;/&lt;name&gt;.
+            The group is also for better performance. If the request's URL contains parameter 'group', the definition is
+            searched only in the list of the objects of this group.
+        </span>
     </div>
+
 </div>
 <div class="form-group">
-    <label for="uriRegex" class="col-sm-2 control-label">Object URI regex</label>
-    <div class="col-sm-10">
+    <label for="uriRegex" class="col-sm-4 control-label">
+         <span class="help_span" onclick="$('.help_regex').toggle();">
+            <img src="images/question.jpg">
+        </span>&nbsp;Object URI regex</label>
+    <div class="col-sm-8">
         <input type="text" ng-model="RDFobject.uriRegex" ng-change="regexChange()" class="form-control" id="uriRegex" placeholder="generated\/date" required/>
+
+        <span class="help-block help_regex">
+            Object definition is identified with a regular expression that describes the structure of the requested URL.
+            For example, if the client's request contains in the 'url' parameter URL http://example.com/objects/somecompany/time/2015
+            and the regex is set to '/objects/somecompany/time', the requested URL is mapped to this definition.
+        </span>
+
     </div>
-    <div class="col-sm-10">
+    <div  class="col-sm-4 control-label"></div>
+    <div class="col-sm-8">
         <span>{{generatedUrl}}</span>
     </div>
 
 </div>
 
 <div class="form-group">
-    <label for="priority" class="col-sm-2 control-label">Object priority</label>
-    <div class="col-sm-10">
+    <label for="priority" class="col-sm-4 control-label"><span class="help_span" onclick="$('.help_priority').toggle();">
+            <img src="images/question.jpg">
+        </span>&nbsp; Object priority</label>
+    <div class="col-sm-8">
         <input type="text" ng-model="RDFobject.priority" class="form-control" id="priority"/>
+
+        <span class="help-block help_priority">
+            In some cases, several regular expressions can describe the same group of URL addresses.
+            For example regex 'object' for URL http://example.com/object/id/42 and regex 'obj' for URL
+            http://anothersite.com/obj/time/2016. When the system tries to find a definition for the requested URL,
+            it tries to match that URL against regular expressions of the definitions. If it tries to match
+            the first URL against the second regex before the first regex, it will fail or generate invalid object.
+            But if you set for example priority 1 to definition with regex 'object' and priority 2 for definition
+            with regex 'obj', the first one is compared before the second regex thus the system can generate a valid object.
+        </span>
+
     </div>
 </div>
 
 <div class="form-group">
-    <label for="type" class="col-sm-2 control-label">Object definition type</label>
-    <div class="col-sm-10">
+    <label for="type" class="col-sm-4 control-label"><span class="help_span" onclick="$('.help_type').toggle();">
+            <img src="images/question.jpg">
+        </span>&nbsp; Object definition type</label>
+    <div class="col-sm-8">
         <select class="selectpicker" ng-model="RDFobject.type" class="form-control" id="type"
                 ng-change="showCustomData()" >
             <option value="TURTLE">TURTLE</option>
@@ -41,52 +87,128 @@
             <option value="SPARQL-ENDPOINT">SPARQL Endpoint</option>
             <option value="PROXY">Proxy</option>
         </select>
+    <br>
+        <span class="help-block help_type">
+            There are several types of the definition you can use. The first are the basic RDF serializations - Turtle, RDF/XML,
+            N-Triples and JSON-LD. In the object definition you can write template with placeholders for these serializations.
+            You can use also templates for SPARQL queries - locally construct query (SPARQL Construct type) and construct/describe
+            queries which are executed on the SPARQL endpoint identified by the URL that you can set after you select this type.
+            The last type you can use is the Proxy type. After configuring the proxy type, requests are forwarded to the configured URL.
+            The advantage of this type is that you can have some other applications for generating objects but still you can use
+            for example output serializations implemented in this project.
+        </span>
     </div>
 </div>
 
 <div class="proxyData" ng-show="proxyState">
     <div class="form-group">
-        <label for="proxyUrl" class="col-sm-2 control-label">Proxy URL</label>
-        <div class="col-sm-10">
+        <label for="proxyUrl" class="col-sm-4 control-label">
+            <span class="help_span" onclick="$('.help_proxy_url').toggle();">
+            <img src="images/question.jpg">
+        </span>&nbsp; Proxy URL</label>
+        <div class="col-sm-8">
             <input type="url" ng-model="RDFobject.url" class="form-control" id="proxyUrl" ng-required="proxyState" />
+
+             <span class="help-block help_proxy_url">
+            The URL address where the system should forward requests.
+        </span>
         </div>
     </div>
 
     <div class="form-group">
-        <label for="proxyParam" class="col-sm-2 control-label">Proxy parameter name</label>
-        <div class="col-sm-10">
+        <label for="proxyParam" class="col-sm-4 control-label"><span class="help_span" onclick="$('.help_proxy_param').toggle();">
+            <img src="images/question.jpg">
+        </span>&nbsp; Proxy parameter name</label>
+        <div class="col-sm-8">
             <input type="text" ng-model="RDFobject.proxyParam" class="form-control" id="proxyParam" placeholder="url"
                     pattern="[a-zA-Z_0-9]+"/>
+            <span class="help-block help_proxy_param">
+                A name of the URL parameter to fill with the requested URL.
+        </span>
         </div>
     </div>
 </div>
 
 <div class="endpointData" ng-show="endpointState">
     <div class="form-group">
-        <label for="endpointUrl" class="col-sm-2 control-label">Endpoint URL</label>
-        <div class="col-sm-10">
+        <label for="endpointUrl" class="col-sm-4 control-label"><span class="help_span" onclick="$('.help_sparql_endpoint').toggle();">
+            <img src="images/question.jpg">
+        </span>&nbsp; Endpoint URL</label>
+        <div class="col-sm-8">
             <input type="url" ng-model="RDFobject.url" class="form-control" id="endpointUrl" ng-required="endpointState" />
+
+        <span class="help-block help_sparql_endpoint">
+                URL address of the SPARQL endpoint.
+        </span>
         </div>
     </div>
 </div>
 
 
 <div class="form-group" ng-hide="proxyState">
-    <label for="template" class="col-sm-2 control-label">Object definition</label>
-    <div class="col-sm-10">
+    <label for="template" class="col-sm-4 control-label"><span class="help_span" onclick="$('.help_def').toggle();">
+            <img src="images/question.jpg">
+        </span>&nbsp; Definition template</label>
+    <div class="col-sm-8">
         <textarea class="form-control" rows="10" id="template" ng-model="RDFobject.template"></textarea>
+        <span class="help-block help_def">
+                Structure of the definition template depends on the definition type. It could be SPARQL query or
+            one of the supported RDF serialization. In the template you can use placeholders which identify the place
+            where should be filled parameters from URL.
+            <br>Placeholder has this structure:
+            [@&lt;param_number&gt;[, "&lt;regex&gt;"]].
+            <br>&lt;param_number&gt; Parameter numbers identify strings between slashes and they are indexed from 1.
+            <br>Example:
+            <br>URL http://example.com/objects/time/2015-2016
+            <br>@1 = http:
+            <br>@2 = empty string (between //)
+            <br>@3 = example.com
+            <br>@4 = objects
+            <br>@5 = time
+            <br>@6 = 2015-2016
+            <br>Parameter @0 is special parameter which represents the whole URL
+
+            <br>
+            The optional parameter is regular expression. With regex you can extract a part of the URL
+            using capture group.<br> For example if you want to get from parameter @6 only the first year, you can use
+            this placeholder:  [@6, "(\d+)-"].
+
+        </span>
     </div>
 </div>
 
 <div class="form-group">
-    <label for="htmlTemplate" class="col-sm-2 control-label">HTML template</label>
-    <div class="col-sm-10">
+    <label for="htmlTemplate" class="col-sm-4 control-label"><span class="help_span" onclick="$('.help_def_html').toggle();">
+            <img src="images/question.jpg">
+        </span>&nbsp; HTML template</label>
+    <div class="col-sm-8">
         <textarea class="form-control" rows="10" id="htmlTemplate" ng-model="RDFobject.htmlTemplate"></textarea>
+        <span class="help-block help_def_html">
+                Objects can be accessed with normal requests from web browsers. In the HTML template you can
+            use template placeholders.
+            <br>Placeholder has this structure:
+            [@&lt;param_number&gt;[, "&lt;regex&gt;"]].
+            <br>&lt;param_number&gt; Parameter numbers identify strings between slashes and they are indexed from 1.
+            <br>Example:
+            <br>URL http://example.com/objects/time/2015-2016
+            <br>@1 = http:
+            <br>@2 = empty string (between //)
+            <br>@3 = example.com
+            <br>@4 = objects
+            <br>@5 = time
+            <br>@6 = 2015-2016
+            <br>Parameter @0 is special parameter which represents the whole URL
+
+            <br>
+            The optional parameter is regular expression. With regex you can extract a part of the URL
+            using capture group.<br> For example if you want to get from parameter @6 only the first year, you can use
+            this placeholder:  [@6, "(\d+)-"].
+        </span>
     </div>
 </div>
 
 <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
+    <div class="col-sm-offset-2 col-sm-8">
         <input type="submit" class="btn btn-primary" value="Save"/>
     </div>
 </div>

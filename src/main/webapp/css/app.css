@@ -14,3 +14,11 @@ a.nodecoration{
 }
 
 
+.help_span{
+    cursor: pointer;
+}
+
+.help-block{
+    display: none;
+}
+
