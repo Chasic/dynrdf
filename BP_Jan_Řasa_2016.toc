@@ -8,7 +8,7 @@
 \contentsline {section}{\numberline {2.1}\IeC {\'U}\IeC {\v c}el aplikace}{5}{section.2.1}
 \contentsline {section}{\numberline {2.2}Existuj\IeC {\'\i }c\IeC {\'\i } \IeC {\v r}e\IeC {\v s}en\IeC {\'\i }}{5}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}British Time Intervals}{6}{subsection.2.2.1}
-\contentsline {subsubsection}{\numberline {2.2.1.1}Struktura URI}{6}{subsubsection.2.2.1.1}
+\contentsline {subsubsection}{\numberline {2.2.1.1}Struktura URL}{6}{subsubsection.2.2.1.1}
 \contentsline {subsubsection}{\numberline {2.2.1.2}Generov\IeC {\'a}n\IeC {\'\i } objektu}{6}{subsubsection.2.2.1.2}
 \contentsline {section}{\numberline {2.3}Po\IeC {\v z}adavky}{6}{section.2.3}
 \contentsline {subsection}{\numberline {2.3.1}Funk\IeC {\v c}n\IeC {\'\i } po\IeC {\v z}adavky}{6}{subsection.2.3.1}
@@ -24,7 +24,7 @@
 \contentsline {subsection}{\numberline {3.1.1}Resource Description Framework (RDF)}{11}{subsection.3.1.1}
 \contentsline {subsection}{\numberline {3.1.2}Linked Data}{12}{subsection.3.1.2}
 \contentsline {subsection}{\numberline {3.1.3}Java}{13}{subsection.3.1.3}
-\contentsline {subsection}{\numberline {3.1.4}Apache Jena}{13}{subsection.3.1.4}
+\contentsline {subsection}{\numberline {3.1.4}Apache Jena}{14}{subsection.3.1.4}
 \contentsline {subsection}{\numberline {3.1.5}Dal\IeC {\v s}\IeC {\'\i } Java knihovny}{14}{subsection.3.1.5}
 \contentsline {subsection}{\numberline {3.1.6}Maven}{14}{subsection.3.1.6}
 \contentsline {subsection}{\numberline {3.1.7}AngularJS}{14}{subsection.3.1.7}
@@ -67,30 +67,25 @@
 \contentsline {subsection}{\numberline {4.4.1}Nalezen\IeC {\'\i } odpov\IeC {\'\i }daj\IeC {\'\i }c\IeC {\'\i } definice}{32}{subsection.4.4.1}
 \contentsline {subsection}{\numberline {4.4.2}Vypln\IeC {\v e}n\IeC {\'\i } \IeC {\v s}ablony a \IeC {\v s}ablonovac\IeC {\'\i } syst\IeC {\'e}m}{33}{subsection.4.4.2}
 \contentsline {subsection}{\numberline {4.4.3}Generov\IeC {\'a}n\IeC {\'\i } objektu}{33}{subsection.4.4.3}
-\contentsline {subsection}{\numberline {4.4.4}Webov\IeC {\'a} aplikace pro administraci definic}{33}{subsection.4.4.4}
+\contentsline {subsection}{\numberline {4.4.4}Webov\IeC {\'a} aplikace pro administraci definic}{34}{subsection.4.4.4}
 \contentsline {chapter}{\chapternumberline {5}Testov\IeC {\'a}n\IeC {\'\i }}{35}{chapter.5}
-\contentsline {section}{\numberline {5.1}Z\IeC {\'a}kladn\IeC {\'\i } testy}{35}{section.5.1}
+\contentsline {section}{\numberline {5.1}Unit testy}{35}{section.5.1}
 \contentsline {section}{\numberline {5.2}Testov\IeC {\'a}n\IeC {\'\i } po\IeC {\v z}adavk\IeC {\r u} klienta a API}{36}{section.5.2}
 \contentsline {section}{\numberline {5.3}Testov\IeC {\'a}n\IeC {\'\i } v\IeC {\'y}konu}{36}{section.5.3}
 \contentsline {chapter}{\chapternumberline {6}U\IeC {\v z}ivatelsk\IeC {\'a} dokumentace}{39}{chapter.6}
-\contentsline {section}{\numberline {6.1}Popis aplikace}{39}{section.6.1}
-\contentsline {section}{\numberline {6.2}Webov\IeC {\'a} aplikace}{39}{section.6.2}
-\contentsline {subsection}{\numberline {6.2.1}P\IeC {\v r}ehled definic}{40}{subsection.6.2.1}
-\contentsline {subsection}{\numberline {6.2.2}Vytvo\IeC {\v r}en\IeC {\'\i } nov\IeC {\'e} definice}{40}{subsection.6.2.2}
-\contentsline {subsection}{\numberline {6.2.3}Editace definic}{42}{subsection.6.2.3}
-\contentsline {subsection}{\numberline {6.2.4}Maz\IeC {\'a}n\IeC {\'\i } definic}{42}{subsection.6.2.4}
-\contentsline {section}{\numberline {6.3}Typy definic}{43}{section.6.3}
-\contentsline {subsection}{\numberline {6.3.1}RDF serializace}{43}{subsection.6.3.1}
-\contentsline {subsection}{\numberline {6.3.2}SPARQL Construct}{43}{subsection.6.3.2}
-\contentsline {subsection}{\numberline {6.3.3}SPARQL Endpoint}{44}{subsection.6.3.3}
-\contentsline {subsection}{\numberline {6.3.4}Proxy}{44}{subsection.6.3.4}
-\contentsline {section}{\numberline {6.4}\IeC {\v S}ablonovac\IeC {\'\i } syst\IeC {\'e}m}{44}{section.6.4}
-\contentsline {section}{\numberline {6.5}P\IeC {\v r}\IeC {\'\i }stup k objekt\IeC {\r u}m}{44}{section.6.5}
-\contentsline {section}{\numberline {6.6}Instalace serveru}{44}{section.6.6}
-\contentsline {subsection}{\numberline {6.6.1}Syst\IeC {\'e}mov\IeC {\'e} po\IeC {\v z}adavky}{44}{subsection.6.6.1}
-\contentsline {subsection}{\numberline {6.6.2}Instalace p\IeC {\v r}es webov\IeC {\'y} archiv}{44}{subsection.6.6.2}
-\contentsline {subsection}{\numberline {6.6.3}Instalace ze zdrojov\IeC {\'y}ch k\IeC {\'o}d\IeC {\r u}}{46}{subsection.6.6.3}
-\contentsline {chapter}{Z{\' a}v{\v e}r}{47}{chapter*.7}
-\contentsline {chapter}{Literatura}{49}{section*.9}
-\contentsline {appendix}{\chapternumberline {A}Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{51}{appendix.A}
-\contentsline {appendix}{\chapternumberline {B}Obsah p\IeC {\v r}ilo\IeC {\v z}en\IeC {\'e}ho CD}{53}{appendix.B}
+\contentsline {section}{\numberline {6.1}Webov\IeC {\'a} aplikace}{39}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}P\IeC {\v r}ehled definic}{39}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Vytvo\IeC {\v r}en\IeC {\'\i } nov\IeC {\'e} definice}{40}{subsection.6.1.2}
+\contentsline {subsection}{\numberline {6.1.3}Editace definic}{42}{subsection.6.1.3}
+\contentsline {subsection}{\numberline {6.1.4}Maz\IeC {\'a}n\IeC {\'\i } definic}{42}{subsection.6.1.4}
+\contentsline {section}{\numberline {6.2}Typy definic}{43}{section.6.2}
+\contentsline {section}{\numberline {6.3}\IeC {\v S}ablonovac\IeC {\'\i } syst\IeC {\'e}m}{44}{section.6.3}
+\contentsline {section}{\numberline {6.4}P\IeC {\v r}\IeC {\'\i }stup k objekt\IeC {\r u}m}{44}{section.6.4}
+\contentsline {section}{\numberline {6.5}Instalace serveru}{44}{section.6.5}
+\contentsline {subsection}{\numberline {6.5.1}Syst\IeC {\'e}mov\IeC {\'e} po\IeC {\v z}adavky}{44}{subsection.6.5.1}
+\contentsline {subsection}{\numberline {6.5.2}Instalace p\IeC {\v r}es webov\IeC {\'y} archiv}{45}{subsection.6.5.2}
+\contentsline {subsection}{\numberline {6.5.3}Instalace ze zdrojov\IeC {\'y}ch k\IeC {\'o}d\IeC {\r u}}{47}{subsection.6.5.3}
+\contentsline {chapter}{Z{\' a}v{\v e}r}{49}{chapter*.7}
+\contentsline {chapter}{Literatura}{51}{section*.9}
+\contentsline {appendix}{\chapternumberline {A}Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{53}{appendix.A}
+\contentsline {appendix}{\chapternumberline {B}Obsah p\IeC {\v r}ilo\IeC {\v z}en\IeC {\'e}ho CD}{55}{appendix.B}
