@@ -17,6 +17,8 @@
 \usepackage{dirtree} %directory tree visualisation
 
 
+\usepackage{float}
+
 \usepackage{listings}
 \lstset{frame=lrbt,xleftmargin=\fboxsep,xrightmargin=-\fboxsep, showstringspaces=false}
 
@@ -52,7 +54,7 @@ Návrh bude zohledňovat již zaběhlé technologie z oboru Linked Data, jako je
 jazyk SPARQL (Protocol and RDF Query Language). Server bude implementován v jazyce Java.}
 
 \abstractEN{There are many objects on the web of data that make such a big group (almost infinite) that it's not possible to persist them all and publish them.
-It's necessary to offer a web server that to the client's requests to the given objects dynamically generates the data and sends it back to the client.
+It's necessary to offer a web server that to the client's requests to the given objects dynamically generates the data and sends them back to the client.
 
 The goal of this bachelor's thesis is an analysis of existing solutions, to design and implement this web server, including tests of the basic functionality.
 Users of the web server will be able to define RDF (Resource Description Framework) objects for dynamically generating in the several formats.
@@ -523,7 +525,7 @@ $rel$:$enemyOf$ je predikát - v tomto případě zase objekt identifikovaný UR
 
    \newpage
    
- \section{Definice objektů}
+ \section{Definice objektů}\label{obj_def}
   Každý objekt, který má být dynamicky generován tímto systémem, musí být nadefinován administrátorem a následně uložen.
   Základními atributy, které daná definice musí obsahovat jsou:
   \begin{itemize}
@@ -798,7 +800,7 @@ $rel$:$enemyOf$ je predikát - v tomto případě zase objekt identifikovaný UR
    \item Zobrazení výsledného vygenerovaného objektu
   \end{itemize}
 
-  \subsection{Nalezení odpovídající definice}
+  \subsection{Nalezení odpovídající definice}\label{find_def}
   Požadavek na každou definici je identifikovatelný přes regulární výraz. Problémem regulárních výrazů zde je to, že několik regulárních výrazů může popisovat
   stejné řetězce. Příkladem může být třeba URL \\ \uv{http://dynrdf.com/object/42}. Pokud by jedna definice používala regulární výraz pouze \uv{obj} a druhá \uv{object}, mohlo
   by dojít ke konfliktu, protože by danému řetězci odpovídaly obě definice. Komplikovaněji, pokud by \uv{obj} mělo odpovídat jiné očekávané URL
@@ -909,32 +911,237 @@ $rel$:$enemyOf$ je predikát - v tomto případě zase objekt identifikovaný UR
   \begin{table}\centering
  	\caption[Test výkonu - s parametrem group]{Test výkonu s parametrem group. Celková propustnost při tomto testu byla 147 požadavků za sekundu. Sloupce average, median, min a max označují trvání požadavku v ms po připojení.}\label{performance1}
  	\begin{tabular}{|l|r|r|r|r|r|r|r|}\hline
-Label				& 	Samples&	Average &	Median &Min &	Max &		Throughput \tabularnewline \hline \hline
- Turtle		&	300	&	372	&	22&	10 &	5138&		29.8\tabularnewline \hline
- RDF/XML 		&	300	&	62	&	19&	9&	991	&	56.3\tabularnewline \hline
- NTriples 		&	300	&	553	&	24&	9&	5132 	&	31.6\tabularnewline \hline
- JSON-LD 		&	300	&	1005	&	87&	9&	5141 	&	33.8\tabularnewline \hline
- SPARQL Construct 	&	99	&	106	&	36&	13&	950 	&	32.3\tabularnewline \hline
- SPARQL Endpoint 	&	99	&	1132	&	315&	89&	5190 	&	13.5\tabularnewline \hline
- Proxy 		&	99	&	2122	&	765&	325&	5212 	&	13.1\tabularnewline \hline
-TOTAL				&	1497	&	621	&	29&	9&	5212 	&	147\tabularnewline \hline
+\textbf{Label}		& 	\textbf{Samples}&		\textbf{Median} &\textbf{Min} &	\textbf{Max} &		\textbf{Throughput} \tabularnewline \hline \hline
+ Turtle			&	300	&			22&	10 &	5138&		29.8\tabularnewline \hline
+ RDF/XML 		&	300	&			19&	9&	991	&	56.3\tabularnewline \hline
+ NTriples 		&	300	&			24&	9&	5132 	&	31.6\tabularnewline \hline
+ JSON-LD 		&	300	&			87&	9&	5141 	&	33.8\tabularnewline \hline
+ SPARQL Construct 	&	99	&			36&	13&	950 	&	32.3\tabularnewline \hline
+ SPARQL Endpoint 	&	99	&			315&	89&	5190 	&	13.5\tabularnewline \hline
+ Proxy 			&	99	&			765&	325&	5212 	&	13.1\tabularnewline \hline
+TOTAL			&	1497	&			29&	9&	5212 	&	147\tabularnewline \hline
  	\end{tabular}
  \end{table}
  
    \begin{table}\centering
  	\caption[Test výkonu - bez parametru group]{Test výkonu bez parametru group. Celková propustnost při tomto testu byla přibližně 91 požadavků za sekundu. Sloupce average, median, min a max označují trvání požadavku v ms po připojení.}\label{performance2}
  	\begin{tabular}{|l|r|r|r|r|r|r|r|}\hline
-Label				& 	Samples&	Average &	Median &Min &	Max &		Throughput \tabularnewline \hline \hline
- Turtle				&300	&2348	&1549	&98	&5483	&19\tabularnewline \hline
- RDF/XML 			&300	&1855	&922	&134	&5419	&21.2\tabularnewline \hline
- NTriples 			&300	&3070	&3539	&232	&5527	&19.4\tabularnewline \hline
- JSON-LD 			&300	&3878	&4063	&970	&5503	&20.4\tabularnewline \hline
- SPARQL Construct 		&99	&3807	&3979	&1829	&5467	&8.4\tabularnewline \hline
- SPARQL Endpoint 		&99	&3975	&3936	&3490	&4518	&8\tabularnewline \hline
- Proxy 				&999	&4170	&4306	&3244	&5159	&7.5\tabularnewline \hline
-TOTAL				&1497	&3025	&3596	&98	&5527	&91.4\tabularnewline \hline
+\textbf{Label}			& 	\textbf{Samples}&		\textbf{Median} &\textbf{Min} &	\textbf{Max} &		\textbf{Throughput} \tabularnewline \hline \hline
+ Turtle				&300		&1549	&98	&5483	&19\tabularnewline \hline
+ RDF/XML 			&300		&922	&134	&5419	&21.2\tabularnewline \hline
+ NTriples 			&300		&3539	&232	&5527	&19.4\tabularnewline \hline
+ JSON-LD 			&300		&4063	&970	&5503	&20.4\tabularnewline \hline
+ SPARQL Construct 		&99		&3979	&1829	&5467	&8.4\tabularnewline \hline
+ SPARQL Endpoint 		&99		&3936	&3490	&4518	&8\tabularnewline \hline
+ Proxy 				&999		&4306	&3244	&5159	&7.5\tabularnewline \hline
+TOTAL				&1497		&3596	&98	&5527	&91.4\tabularnewline \hline
  	\end{tabular}
  \end{table}
+  
+  
+  \chapter{Uživatelská dokumentace}
+  
+  \section{Popis aplikace}
+  Tento webový server slouží pro dynamické generování objektů v RDF formátech. Uživateli je umožněno nadefinovat si vlastní typy objektů a vytvořit si k nim
+  šablony, ze kterých jsou následně dynamicky generovány výsledné objekty dle příchozí URL. K administraci definic objektů slouží webová aplikace a API.
+  Klientovi jsou výsledné objekty dostupné v několika RDF serializacích (Turtle, N-Triples, JSON-LD a RDF/XML) a jako webová stránka (HTML dokument).
+  
+  Cílem tohoto systému je uživatelům usnadnit tvorbu RDF objektů pomocí jednotných šablon a zároveň šetřit zdroje za ukládání objektů. Tento server 
+  je vhodný například pro časové objekty, kterých může být nekonečně mnoho, nebo pro objekty, u kterých se mění pouze pár atributů, které mohou být součásti
+  identifikátoru objektu (URI).
+  
+  Příkladem takového časového objektu je například interval v rozmezí let. Tento objekt může být například přístupný přes URL adresu, která obsahuje na konci konkrétní roky - \url{http://obj.com/objects/time-interval/year/2015/2016}. Klientovi je po přístupu na tuto adresu vygenerován výsledný objekt, který reprezentuje
+  časový interval v rozmezí let 2015-2016. Pokud chce klient interval v jiném rozmezí, může poslední dva parametry (roky 2015 a 2016) změnit a systém vygeneruje
+  objekt intervalu v daném rozmezí, přičemž je použita stále stejná šablona.
+  
+  
+  
+  \section{Webová aplikace}
+  Pro administraci definic objektů může uživatel využít webovou aplikaci. V této aplikaci je mu umožněno zobrazit si
+  seznam definic, vytvářet, upravovat nebo smazat tyto definice.
+  
+  \subsection{Přehled definic}
+  Při přístupu na hlavní stránku webové aplikace je uživateli k dispozici seznam již vytvořených definic. U každé definice se vyskytují dvě tlačítka - pro 
+  zobrazení definice (a následnou editaci) a pro smazání definice.
+  Pro založení nové definice může uživatel kliknout na tlačítko \uv{Add new object definition} a aplikace ho přesměruje na stránku s formulářem pro založení nové definice.
+  Hlavní stránku s přehledem lze vidět na obrázku \ref{web_overview}
+  \begin{figure}\centering
+ 	\includegraphics[width=\textwidth]{web_overview}
+ 	\caption[Přehled definic ve webové aplikaci - hlavní stránka]{Přehled definic ve webové aplikaci - hlavní stránka}\label{web_overview}		
+  \end{figure}
+    
+    \subsection{Vytvoření nové definice}
+    Po kliknutí na tlačítko \uv{Add new object definition} je uživatel přesměrován na formulář pro založení nové definice. Tento formulář je zobrazen na obrázku
+    \ref{web_create}.
+    Uživatel zde nastavuje všechny atributy pro generování objektů.
+    Ke každému atributu je na stránce také k dispozici nápověda, která se uživateli zobrazí po kliknutí na obrázek otazníku.
+    Těmito atributy jsou:
+    \begin{itemize}
+     \item Název definice a skupina
+      \subitem Název a skupina tvoří dohromady celé jméno definice ve formátu \textit{<skupina>/<název>}. Toto označení definice musí být v celém systému 
+      unikátní. Uživatel může pojmenovat více definic stejným jménem, ale tyto definice musí mít rozdílné skupiny.
+      
+      Zavedení parametru $skupina$ má také výkonostní důvody, které jsou popsány v kapitole Přístup k objektům \ref{obj_access}.
+      
+      \item Regulární výraz
+	\subitem Konkrétní definice jsou v systému identifikovány regulárním výrazem. Při požadavku klienta na konkrétní objekt se server pokouší najít v 
+	definicích regulární výraz, který požadované URL adrese odpovídá. Pokud tuto definici nalezne, tak podle ní vygeneruje výsledný objekt.
+	
+	Například regulární výraz \uv{\textbackslash /objects\textbackslash /time} popisuje URL \url{http://company.com/objects/time/year/2016}.
+	Pokud požadavek klienta obsahuje tuto URL adresu a v systému existuje definice s daným regulárním výrazem, je výsledný objekt vygenerován
+	dle této definice.
+	
+	
+      \item Priorita
+	\subitem Tento atribut určuje pořadí definic, ve kterém se bude systém snažit najít odpovídající definici při požadavku klienta. 
+	Mezi jednotlivými definicemi může docházet ke konfliktům regulárních výrazů. Tyto výrazy nemusí být stejné, ale mohou popisovat velmi podobné struktury.
+	Při nedefinovaném pořadí vyhledávání v definicích může docházet k nalezení shody u špatných definic a tudíž k vygenerování špatného objektu.
+	Nastavením správných priorit lze tomuto problému alespoň zčástí předcházet. Definice jsou prohledávány v pořadí od nejvyšší (1) priority po nejmenší.
+	
+      \item Typ definice
+	\subitem Typ definice určuje, jak bude generování objektu probíhat. Aplikace podporuje několik typů definic. Jedná se o RDF serializace (Turtle, JSON-LD, 
+	N-Triples a RDF/XML), SPARQL dotazy (lokální Construct, nebo Construct/Describe dotaz na SPARQL endpointu) a typ Proxy, 
+	který funguje na principu přeposílání požadavků.
+	Všechny tyto typy jsou dále popsány v kapitole Typy definic \ref{def_types}
+	
+    \item Šablona definice
+      \subitem Typ šablony závisí na typu definice. U RDF serializací se jedná o šablonu v konkrétní serializaci, zatímco u SPARQL typů
+      se jedná o SPARQL dotaz. V šablonách se mohou využívat placeholdery pro dosazení parametrů z URL adresy. Šablonovací systém včetně formátu je popsán v kapitole
+      Šablonovací systém \ref{template_system}. U typu Proxy se tento atribut nevyplňuje.
+      
+      \item HTML šablona
+      \subitem HTML šablona slouží pro zobrazení dat o objektu v HTML formátu při požadavku z webových prohlížečů. Stejně jako u šablony definice se mohou využívat
+      placeholdery pro dosazení parametrů z URL adresy.	
+	
+    \end{itemize}
+    \begin{figure}\centering
+ 	\includegraphics[width=\textwidth]{web_create}
+ 	\caption[Formulář pro založení a editaci definice]{Formulář pro založení a editaci definice}\label{web_create}		
+  \end{figure}
+    
+    \subsection{Editace definic}
+    Po kliknutí na tlačítko \uv{View} v přehledu definic je uživatel přesměrován na informace o dané definici.
+    Tyto informace jsou přístupné v editovatelném formuláři. Tento formulář je strukturou totožný s 
+    formulářem pro tvorbu nových definic.
+    
+    \subsection{Mazání definic}
+    Uživatel může smazat konkrétní definici přes webovou aplikaci kliknutím na tlačítka \uv{Delete} a následním potvrzením.
+    Smazanou definici již nejde žádným způsobem znovu obnovit.    
+    
+    \section{Typy definic}\label{def_types}
+    U každé následující definice jsou uvedeny příklady pro stejný typ objektu - logovací systém, který je také
+    dostupný v příloze v ukázkových objektech. Jedná se o objekt logované informace, který očekává URL o délce deseti parametrů. Z URL požadavku
+    na tento objekt jsou dosazeny atributy: ID logu, datum, zpráva a název třídy.
+      
+    \subsection{RDF serializace}
+     Tento typ se dělí na definice dle konkrétních serializací - Turtle, N-Triples, RDF/XML a JSON-LD. Uživatel do šablony objektu dosadí
+     již serializovaná data a na místech, kam se mají dosadit parametry z URL adresy vytvoři placeholdery.
+     Následující příklad šablony je typu Turtle:
+     
+     \begin{lstlisting}[language=C, basicstyle=\small,]
+@base <[@0, "^([^/]*\/[^/]*\/[^/]*\/[^/]*\/[^/]*)\/"]> .
+@prefix rlog: 
+<http://persistence.unileipzig.org/nlp2rdf/ontologies/rlog#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<#[@6]> # log id 
+	a rlog:Entry ;
+  	rlog:level rlog:WARN ;
+	rlog:date "[@7]T[@8]Z"^^xsd:dateTime ;
+	rlog:className "[@9]";
+	rlog:message "[@10]".
+\end{lstlisting}
+ 
+    \subsection{SPARQL Construct}
+      Šablonou pro tento typ je SPARQL Construct dotaz, kde se jednotlivé parametry mohou například vytvářet pomocí funkce \textit{BIND()}.
+      Tento typ definice díky jazyku 
+      SPARQL doplňuje RDF serializace o další funkcionality tohoto dotazovacího jazyka.
+      Příklad stejného objektu pro SPARQL dotaz:
+      
+           \begin{lstlisting}[language=C, basicstyle=\small,]
+PREFIX rlog:  
+<http://persistence.unileipzig.org/nlp2rdf/ontologies/rlog#>
+PREFIX xsd:   <http://www.w3.org/2001/XMLSchema#>
+CONSTRUCT { 
+?res a rlog:Entry ;
+  	rlog:level rlog:WARN ;
+	rlog:date "[@7]T[@8]Z"^^xsd:dateTime ;
+	rlog:className "[@9]";
+	rlog:message "[@10]".
+  }
+WHERE {
+    BIND (URI('[@0, 
+    "^([^/]*\/[^/]*\/[^/]*\/[^/]*\/[^/]*)\/"]#[@6]')
+    AS ?res) }
+\end{lstlisting}
+      
+      
+    \subsection{SPARQL Endpoint}
+      Tento typ je rozšířením typu SPARQL Construct. Dotaz je spouštěn vzdáleně na SPARQL endpointu, přes který je možné přistupovat k datasetům které jsou
+      na endpointu dostupné. Tento typ podporuje dva typy dotazů - Construct a Describe a narozdíl od předchozího typu může obsahovat komplikovanější
+      dotazy právě nad zmíněnými datasety.
+      
+    \subsection{Proxy}
+      Uživatel může nakonfigurovat přeposílání požadavků na jiný server, který poskytuje také data v RDF serializacích. Jedná se o případy, kdy uživateli
+      nestačí výše zmíněné typy a potřebuje nějaký sofistikovanější generátor pro konkrétní objekt. Server tedy pouze přeposílá požadavek a výsledná
+      data poté serializuje dle požadavku klienta.
+    
+    
+    
+    \section{Šablonovací systém}\label{template_system}
+    // TODO
+    
+    \section{Přístup k objektům}\label{obj_access}
+    // TODO
+    
+  \section{Instalace serveru}
+  
+  \subsection{Systémové požadavky}
+  \begin{itemize}
+   \item Webový server pro webové aplikace v Javě Tomcat nebo Glassfish
+   \item Java 1.8
+  \end{itemize}
+    
+  \subsection{Instalace přes webový archiv}
+  Instalace serveru přes přiložený webový archiv je nejjednodušší variantou. Pro správný chod celého serveru je potřeba před nasazením nastavit konfiguraci serveru.
+  Celá instalace má následující kroky:
+  \begin{itemize}
+   \item Ve filesystému založte adresář pro definice objektů a zajistěte práva pro čtení i zápis pro webový server
+   \item Nakopírujte do tohoto adresáře ukázkové objekty z adresáře $objects$
+   \item Otevřte přiložený soubor $dynrdf.war$ v libovolném manažeru archivů
+   \item V archivu otevřte soubor $/WEB-INF/classes/config.properties$ dle obrázku \ref{config} a nastavte zde parametr $ObjectsPath$ aby směřoval na 
+   adresář s definicemi. Parametry $ObjectBaseUrl$ a $ObjectRDFS$ se používají při ukládání definic do Turtle formátu a měly by směřovat na základní URL serveru
+   a URL s přístupem ke schématu definic (RDFS).
+   \item V archivu otevřte soubor $/WEB-INF/classes/log4j.properties$ a nastavte zde parametr $log4j.appender.file.File$ na cestu, kam chcete ukládat logy.
+   Můžeté také změnit styl logování, případně změnit i typ logování z $DEBUG$ na jiný typ prostředí.
+   \item Uložte upravený webový archiv
+   \item Nahrajte soubor $dynrdf.war$ na aplikační server. Na serveru Tomcat pomocí formuláře pro nahrátí na obrázku \ref{tomcat_deploy}.
+  \end{itemize}
+
+      \begin{figure}\centering
+ 	\includegraphics[width=\textwidth]{config}
+ 	\caption[Nastavení parametrů v konfiguračním souboru]{Nastavení parametrů v konfiguračním souboru}\label{config}		
+  \end{figure}
+  
+        \begin{figure}\centering
+ 	\includegraphics[width=\textwidth]{tomcat_deploy}
+ 	\caption[Nahrátí webového archivu na server Tomcat]{Nahrátí webového archivu na server Tomcat (adresa /manager/html) - vyberte war soubor z adresáře a klikněte na deploy}\label{tomcat_deploy}		
+  \end{figure}
+  
+
+  
+  \subsection{Instalace ze zdrojových kódů}
+  Pro instalaci ze zdrojových kódu je potřba mít nainstalovaný program Maven.
+  Instalace má tyto kroky:
+   \begin{itemize}
+   \item Nastavte parametry v konfiguračních souborech podobně jako při instalaci z připraveného war souboru. Konfigurační soubory se
+   nacházejí ve složce $src/main/resources$.
+   \item Vytvořte ze zdrojových kódů webový archiv pomocí příkazu $mvn \ package$ v kořenu zdrojových kódu (tam kde je uložen soubor $pom.xml$).
+   \item Webový archiv, který najdete ve složce $target$, která se po provedení příkazu vytvořila, nahrajte na aplikační server stejně jako 
+   v případě instalace serveru z war souboru.
+  \end{itemize}
+
+  
   
 \begin{conclusion}
 Cílem této práce bylo navrhnout, implementovat a otestovat webový server pro poskytování dynamicky generovaných objektů v RDF formátech.
@@ -987,14 +1194,14 @@ S využitím této práce se počítá pro datasety otevřené datové infrastru
 
 
 \chapter{Obsah přiloženého CD}
-
-
-\begin{figure}
+\begin{figure}[H]
 	\dirtree{%
 		.1 readme.txt\DTcomment{stručný popis obsahu CD}.
+		.1 install.txt\DTcomment{instalační pokyny pro nasazení war souboru}.
 		.1 dynrdf.war\DTcomment{war soubor pro deploy na server}.
 		.1 objects\DTcomment{adresář s ukázkovými objekty}.
 		.1 testObjects\DTcomment{adresář s objekty pro testování}.
+		.1 img \DTcomment{adresář s obrázky administrace a požadavku na objekt}.
 		.1 src.
 		.2 impl\DTcomment{zdrojové kódy implementace}.
 		.2 thesis\DTcomment{zdrojová forma práce ve formátu \LaTeX{}}.

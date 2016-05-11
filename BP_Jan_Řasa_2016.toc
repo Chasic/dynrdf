@@ -72,7 +72,25 @@
 \contentsline {section}{\numberline {5.1}Z\IeC {\'a}kladn\IeC {\'\i } testy}{35}{section.5.1}
 \contentsline {section}{\numberline {5.2}Testov\IeC {\'a}n\IeC {\'\i } po\IeC {\v z}adavk\IeC {\r u} klienta a API}{36}{section.5.2}
 \contentsline {section}{\numberline {5.3}Testov\IeC {\'a}n\IeC {\'\i } v\IeC {\'y}konu}{36}{section.5.3}
-\contentsline {chapter}{Z{\' a}v{\v e}r}{39}{chapter*.7}
-\contentsline {chapter}{Literatura}{41}{section*.9}
-\contentsline {appendix}{\chapternumberline {A}Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{43}{appendix.A}
-\contentsline {appendix}{\chapternumberline {B}Obsah p\IeC {\v r}ilo\IeC {\v z}en\IeC {\'e}ho CD}{45}{appendix.B}
+\contentsline {chapter}{\chapternumberline {6}U\IeC {\v z}ivatelsk\IeC {\'a} dokumentace}{39}{chapter.6}
+\contentsline {section}{\numberline {6.1}Popis aplikace}{39}{section.6.1}
+\contentsline {section}{\numberline {6.2}Webov\IeC {\'a} aplikace}{39}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}P\IeC {\v r}ehled definic}{40}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Vytvo\IeC {\v r}en\IeC {\'\i } nov\IeC {\'e} definice}{40}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}Editace definic}{42}{subsection.6.2.3}
+\contentsline {subsection}{\numberline {6.2.4}Maz\IeC {\'a}n\IeC {\'\i } definic}{42}{subsection.6.2.4}
+\contentsline {section}{\numberline {6.3}Typy definic}{43}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}RDF serializace}{43}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}SPARQL Construct}{43}{subsection.6.3.2}
+\contentsline {subsection}{\numberline {6.3.3}SPARQL Endpoint}{44}{subsection.6.3.3}
+\contentsline {subsection}{\numberline {6.3.4}Proxy}{44}{subsection.6.3.4}
+\contentsline {section}{\numberline {6.4}\IeC {\v S}ablonovac\IeC {\'\i } syst\IeC {\'e}m}{44}{section.6.4}
+\contentsline {section}{\numberline {6.5}P\IeC {\v r}\IeC {\'\i }stup k objekt\IeC {\r u}m}{44}{section.6.5}
+\contentsline {section}{\numberline {6.6}Instalace serveru}{44}{section.6.6}
+\contentsline {subsection}{\numberline {6.6.1}Syst\IeC {\'e}mov\IeC {\'e} po\IeC {\v z}adavky}{44}{subsection.6.6.1}
+\contentsline {subsection}{\numberline {6.6.2}Instalace p\IeC {\v r}es webov\IeC {\'y} archiv}{44}{subsection.6.6.2}
+\contentsline {subsection}{\numberline {6.6.3}Instalace ze zdrojov\IeC {\'y}ch k\IeC {\'o}d\IeC {\r u}}{46}{subsection.6.6.3}
+\contentsline {chapter}{Z{\' a}v{\v e}r}{47}{chapter*.7}
+\contentsline {chapter}{Literatura}{49}{section*.9}
+\contentsline {appendix}{\chapternumberline {A}Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{51}{appendix.A}
+\contentsline {appendix}{\chapternumberline {B}Obsah p\IeC {\v r}ilo\IeC {\v z}en\IeC {\'e}ho CD}{53}{appendix.B}
