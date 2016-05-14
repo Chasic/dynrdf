@@ -1,19 +1,28 @@
-# nasazeni dynrdf.war souboru
+## Instalacni manual pro nasazeni dynrdf.war souboru
+
+# podrobnejsi instalacni pokyny a instalaci ze zdrojovych kodu lze najit v textu prace
+# v kapitole Uzivatelska dokumentace
+ 
 
 # predpoklady:
 	- funkcni aplikacni server (napr. Tomcat nebo GlassFish)
-	- prava pro deploy aplikaci na server
+	- Java 8
 	
 
 # postup:
-1) Urcete misto na serveru s adresarem pro definice objektu
-2) Do tohoto adresare nakopirujte obsah adresare objects. Obsahuje ukazkove objekty
+1) Na serveru vytvorte adresar pro definice objektu. Tomuto adresari nastavte prava na zapis a cteni pro aplikacni server
+2) Do tohoto adresare nakopirujte obsah adresare 'objects'. Tento adresar obsahuje ukazkove definice objektu
 3) Konfigurace
-	- otevrte soubor dynrdf.war v programu pro archivaci
+	- otevrte soubor dynrdf.war v libovolnem programu pro archivaci
 	- v souboru /WEB-INF/config.properties nastavte parametry pro cestu k definicim a URL 
 	  adresu serveru
-	- v souboru /WEB-INF/log4j.properties nastavte cestu do adresare, kam si prejete ukladat logy
+	- v souboru /WEB-INF/log4j.properties nastavte cestu do adresare (parametr log4j.appender.file.File),
+	  kam si prejete ukladat logy
 	- zmeneny war soubor ulozte
 4) Instalace
-	- provedte deploy na vami vybrany aplikacni server vcetne nastaveni URL kde bude aplikace dostupna
-	- pro spusteni aplikace nejsou potreba po deployi zadne dalsi kroky
+	- nahrajte war soubor na vami vybrany aplikacni server vcetne nastaveni URL kde bude aplikace dostupna
+	- pro spusteni aplikace nejsou potreba po nahrani zadne dalsi kroky
+
+5) Pristup k webovemu rozhrani
+	- webova aplikace pro administraci definic je dostupna v koreni aplikace
+	- API, ktere je popsano v textu k teto praci, je dostupne na URL ceste /api
