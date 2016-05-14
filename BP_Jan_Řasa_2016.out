@@ -12,23 +12,24 @@
 \BOOKMARK [1][-]{section.3.5}{\227ablonovac\355 syst\351m}{chapter.3}% 12
 \BOOKMARK [1][-]{section.3.6}{API}{chapter.3}% 13
 \BOOKMARK [0][-]{chapter.4}{Implementace}{}% 14
-\BOOKMARK [1][-]{section.4.1}{Prototyp webov\351 slu\236by}{chapter.4}% 15
-\BOOKMARK [1][-]{section.4.2}{Model a persistence}{chapter.4}% 16
-\BOOKMARK [1][-]{section.4.3}{Implementace API}{chapter.4}% 17
-\BOOKMARK [1][-]{section.4.4}{Po\236adavek klienta na vygenerov\341n\355 objektu}{chapter.4}% 18
-\BOOKMARK [0][-]{chapter.5}{Testov\341n\355}{}% 19
-\BOOKMARK [1][-]{section.5.1}{Unit testy}{chapter.5}% 20
-\BOOKMARK [1][-]{section.5.2}{Integracn\355 testy}{chapter.5}% 21
-\BOOKMARK [1][-]{section.5.3}{Testov\341n\355 v\375konu}{chapter.5}% 22
-\BOOKMARK [0][-]{chapter.6}{U\236ivatelsk\341 dokumentace}{}% 23
-\BOOKMARK [1][-]{section.6.1}{Webov\341 aplikace}{chapter.6}% 24
-\BOOKMARK [1][-]{section.6.2}{API}{chapter.6}% 25
-\BOOKMARK [1][-]{section.6.3}{Typy definic}{chapter.6}% 26
-\BOOKMARK [1][-]{section.6.4}{Struktura \235ablony}{chapter.6}% 27
-\BOOKMARK [1][-]{section.6.5}{Vygenerov\341n\355 RDF entity na \236\341dost klienta}{chapter.6}% 28
-\BOOKMARK [1][-]{section.6.6}{Instalace serveru}{chapter.6}% 29
-\BOOKMARK [1][-]{section.6.7}{Nastaven\355 serveru pro puvod dat}{chapter.6}% 30
-\BOOKMARK [0][-]{chapter*.7}{Z\341ver}{}% 31
-\BOOKMARK [0][-]{section*.9}{Literatura}{}% 32
-\BOOKMARK [0][-]{appendix.A}{Seznam pou\236it\375ch zkratek}{}% 33
-\BOOKMARK [0][-]{appendix.B}{Obsah prilo\236en\351ho CD}{}% 34
+\BOOKMARK [1][-]{section.4.1}{Komponenta Model}{chapter.4}% 15
+\BOOKMARK [1][-]{section.4.2}{Komponenta Container}{chapter.4}% 16
+\BOOKMARK [1][-]{section.4.3}{Komponenta API}{chapter.4}% 17
+\BOOKMARK [1][-]{section.4.4}{Komponenta Publisher}{chapter.4}% 18
+\BOOKMARK [1][-]{section.4.5}{Webov\341 aplikace pro administraci definic}{chapter.4}% 19
+\BOOKMARK [0][-]{chapter.5}{Testov\341n\355}{}% 20
+\BOOKMARK [1][-]{section.5.1}{Unit testy}{chapter.5}% 21
+\BOOKMARK [1][-]{section.5.2}{Integracn\355 testy}{chapter.5}% 22
+\BOOKMARK [1][-]{section.5.3}{Testov\341n\355 v\375konu}{chapter.5}% 23
+\BOOKMARK [0][-]{chapter.6}{U\236ivatelsk\341 dokumentace}{}% 24
+\BOOKMARK [1][-]{section.6.1}{Webov\341 aplikace}{chapter.6}% 25
+\BOOKMARK [1][-]{section.6.2}{API}{chapter.6}% 26
+\BOOKMARK [1][-]{section.6.3}{Typy definic}{chapter.6}% 27
+\BOOKMARK [1][-]{section.6.4}{Struktura \235ablony}{chapter.6}% 28
+\BOOKMARK [1][-]{section.6.5}{Vygenerov\341n\355 RDF entity na \236\341dost klienta}{chapter.6}% 29
+\BOOKMARK [1][-]{section.6.6}{Instalace serveru}{chapter.6}% 30
+\BOOKMARK [1][-]{section.6.7}{Nastaven\355 serveru pro puvod dat}{chapter.6}% 31
+\BOOKMARK [0][-]{chapter*.7}{Z\341ver}{}% 32
+\BOOKMARK [0][-]{section*.9}{Literatura}{}% 33
+\BOOKMARK [0][-]{appendix.A}{Seznam pou\236it\375ch zkratek}{}% 34
+\BOOKMARK [0][-]{appendix.B}{Obsah prilo\236en\351ho CD}{}% 35

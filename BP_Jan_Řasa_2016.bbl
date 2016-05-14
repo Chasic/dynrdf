@@ -96,18 +96,31 @@ Oracle Corporation: \emph{Chapter 7. Jersey Test Framework {[online]}}. [cit.
   2016-05-13].
 \urlprefix\biburl{https://jersey.java.net/documentation/1.19.1/test-framework.html}
 
+\bibitem{angular}
+AngularJS, Google: \emph{AngularJS — Superheroic JavaScript MVW Framework
+  {[online]}}. [cit. 2016-05-13].
+\urlprefix\biburl{https://angularjs.org/}
+
 \bibitem{capture_group}
 Jan Goyvaerts: \emph{Regular Expression Reference: Capturing Groups and
   Backreferences {[online]}}. [cit. 2016-04-17].
 \urlprefix\biburl{http://www.regular-expressions.info/refcapture.html}
 
-\bibitem{glassfish}
-Oracle Corporation: \emph{GlassFish Server {[online]}}. [cit. 2016-04-25].
-\urlprefix\biburl{https://glassfish.java.net/}
+\bibitem{content_type}
+W3C: \emph{Content-Type fields in MIME {[online]}}. [cit. 2016-05-13].
+\urlprefix\biburl{https://www.w3.org/Protocols/rfc1341/4_Content-Type.html}
+
+\bibitem{bootstrap}
+Bootstrap community: \emph{Bootstrap {[online]}}. [cit. 2016-05-13].
+\urlprefix\biburl{http://getbootstrap.com/}
 
 \bibitem{jmeter}
 Apache Software Foundation: \emph{Apache JMeter {[online]}}. [cit. 2016-05-13].
 \urlprefix\biburl{http://jmeter.apache.org/}
+
+\bibitem{glassfish}
+Oracle Corporation: \emph{GlassFish Server {[online]}}. [cit. 2016-04-25].
+\urlprefix\biburl{https://glassfish.java.net/}
 
 \bibitem{rdf}
 W3C: \emph{RDF - Semantic Web Standards {[online]}}. [cit. 2016-05-08].

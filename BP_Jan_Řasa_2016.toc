@@ -37,9 +37,9 @@
 \contentsline {section}{\numberline {3.3}Identifikace objekt\IeC {\r u}, URL}{20}{section.3.3}
 \contentsline {subsection}{\numberline {3.3.1}Struktura URL v.1}{20}{subsection.3.3.1}
 \contentsline {subsection}{\numberline {3.3.2}Struktura URL v.2}{21}{subsection.3.3.2}
-\contentsline {subsubsection}{\numberline {3.3.2.1}Informace o objektu v GET parametru}{21}{subsubsection.3.3.2.1}
+\contentsline {subsubsection}{\numberline {3.3.2.1}Informace o objektu v GET parametru}{22}{subsubsection.3.3.2.1}
 \contentsline {subsubsection}{\numberline {3.3.2.2}Identifikace objekt\IeC {\r u}, regul\IeC {\'a}rn\IeC {\'\i } v\IeC {\'y}raz}{22}{subsubsection.3.3.2.2}
-\contentsline {subsection}{\numberline {3.3.3}Shrnut\IeC {\'\i }}{22}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.3}Shrnut\IeC {\'\i }}{23}{subsection.3.3.3}
 \contentsline {section}{\numberline {3.4}Definice objekt\IeC {\r u}}{24}{section.3.4}
 \contentsline {subsection}{\numberline {3.4.1}RDF serializace}{25}{subsection.3.4.1}
 \contentsline {subsection}{\numberline {3.4.2}SPARQL Construct}{25}{subsection.3.4.2}
@@ -57,44 +57,43 @@
 \contentsline {subsubsection}{\numberline {3.6.1.4}P\IeC {\v r}\IeC {\'\i }stup k definic\IeC {\'\i }m}{29}{subsubsection.3.6.1.4}
 \contentsline {subsection}{\numberline {3.6.2}RDF sch\IeC {\'e}ma}{29}{subsection.3.6.2}
 \contentsline {chapter}{\chapternumberline {4}Implementace}{31}{chapter.4}
-\contentsline {section}{\numberline {4.1}Prototyp webov\IeC {\'e} slu\IeC {\v z}by}{31}{section.4.1}
-\contentsline {section}{\numberline {4.2}Model a persistence}{32}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}RDFObject}{32}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}RDFObjectContainer}{32}{subsection.4.2.2}
-\contentsline {subsection}{\numberline {4.2.3}RDFLoader}{33}{subsection.4.2.3}
-\contentsline {section}{\numberline {4.3}Implementace API}{33}{section.4.3}
-\contentsline {section}{\numberline {4.4}Po\IeC {\v z}adavek klienta na vygenerov\IeC {\'a}n\IeC {\'\i } objektu}{34}{section.4.4}
-\contentsline {subsection}{\numberline {4.4.1}Nalezen\IeC {\'\i } odpov\IeC {\'\i }daj\IeC {\'\i }c\IeC {\'\i } definice}{34}{subsection.4.4.1}
-\contentsline {subsection}{\numberline {4.4.2}Vypln\IeC {\v e}n\IeC {\'\i } \IeC {\v s}ablony a \IeC {\v s}ablonovac\IeC {\'\i } syst\IeC {\'e}m}{35}{subsection.4.4.2}
-\contentsline {subsection}{\numberline {4.4.3}Generov\IeC {\'a}n\IeC {\'\i } objektu}{35}{subsection.4.4.3}
-\contentsline {subsection}{\numberline {4.4.4}Webov\IeC {\'a} aplikace pro administraci definic}{36}{subsection.4.4.4}
-\contentsline {chapter}{\chapternumberline {5}Testov\IeC {\'a}n\IeC {\'\i }}{37}{chapter.5}
-\contentsline {section}{\numberline {5.1}Unit testy}{37}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Testy t\IeC {\v r}\IeC {\'\i }dy Template}{37}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Testy t\IeC {\v r}\IeC {\'\i }dy RDFObjectContainer}{38}{subsection.5.1.2}
-\contentsline {section}{\numberline {5.2}Integra\IeC {\v c}n\IeC {\'\i } testy}{38}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Testy t\IeC {\v r}\IeC {\'\i }dy Request}{39}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Testy komponent API a Publisher}{40}{subsection.5.2.2}
-\contentsline {section}{\numberline {5.3}Testov\IeC {\'a}n\IeC {\'\i } v\IeC {\'y}konu}{41}{section.5.3}
-\contentsline {chapter}{\chapternumberline {6}U\IeC {\v z}ivatelsk\IeC {\'a} dokumentace}{45}{chapter.6}
-\contentsline {section}{\numberline {6.1}Webov\IeC {\'a} aplikace}{46}{section.6.1}
-\contentsline {subsection}{\numberline {6.1.1}P\IeC {\v r}ehled definic}{46}{subsection.6.1.1}
-\contentsline {subsection}{\numberline {6.1.2}Vytvo\IeC {\v r}en\IeC {\'\i } nov\IeC {\'e} definice}{46}{subsection.6.1.2}
-\contentsline {subsection}{\numberline {6.1.3}Editace definic}{48}{subsection.6.1.3}
-\contentsline {subsection}{\numberline {6.1.4}Maz\IeC {\'a}n\IeC {\'\i } definic}{49}{subsection.6.1.4}
-\contentsline {section}{\numberline {6.2}API}{49}{section.6.2}
-\contentsline {section}{\numberline {6.3}Typy definic}{49}{section.6.3}
-\contentsline {section}{\numberline {6.4}Struktura \IeC {\v s}ablony}{50}{section.6.4}
-\contentsline {section}{\numberline {6.5}Vygenerov\IeC {\'a}n\IeC {\'\i } RDF entity na \IeC {\v z}\IeC {\'a}dost klienta}{51}{section.6.5}
-\contentsline {subsection}{\numberline {6.5.1}P\IeC {\v r}\IeC {\'\i }klad definice a v\IeC {\'y}sledn\IeC {\'e} RDF entity}{51}{subsection.6.5.1}
-\contentsline {subsubsection}{\numberline {6.5.1.1}Definice objektu}{51}{subsubsection.6.5.1.1}
-\contentsline {subsubsection}{\numberline {6.5.1.2}V\IeC {\'y}sledn\IeC {\'a} RDF entita}{53}{subsubsection.6.5.1.2}
-\contentsline {section}{\numberline {6.6}Instalace serveru}{54}{section.6.6}
-\contentsline {subsection}{\numberline {6.6.1}Syst\IeC {\'e}mov\IeC {\'e} po\IeC {\v z}adavky}{54}{subsection.6.6.1}
-\contentsline {subsection}{\numberline {6.6.2}Instalace p\IeC {\v r}es webov\IeC {\'y} archiv}{54}{subsection.6.6.2}
-\contentsline {subsection}{\numberline {6.6.3}Instalace ze zdrojov\IeC {\'y}ch k\IeC {\'o}d\IeC {\r u}}{55}{subsection.6.6.3}
-\contentsline {section}{\numberline {6.7}Nastaven\IeC {\'\i } serveru pro p\IeC {\r u}vod dat}{57}{section.6.7}
-\contentsline {chapter}{Z{\' a}v{\v e}r}{59}{chapter*.7}
-\contentsline {chapter}{Literatura}{61}{section*.9}
-\contentsline {appendix}{\chapternumberline {A}Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{65}{appendix.A}
-\contentsline {appendix}{\chapternumberline {B}Obsah p\IeC {\v r}ilo\IeC {\v z}en\IeC {\'e}ho CD}{67}{appendix.B}
+\contentsline {section}{\numberline {4.1}Komponenta Model}{31}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}T\IeC {\v r}\IeC {\'\i }da RDFObject}{31}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}\IeC {\v S}ablonovac\IeC {\'\i } syst\IeC {\'e}m}{32}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}Komponenta Container}{34}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}T\IeC {\v r}\IeC {\'\i }da RDFLoader}{34}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}T\IeC {\v r}\IeC {\'\i }da RDFObjectContainer}{36}{subsection.4.2.2}
+\contentsline {subsubsection}{\numberline {4.2.2.1}Zefektivn\IeC {\v e}n\IeC {\'\i } vyhled\IeC {\'a}v\IeC {\'a}n\IeC {\'\i } dle atributu group}{37}{subsubsection.4.2.2.1}
+\contentsline {section}{\numberline {4.3}Komponenta API}{38}{section.4.3}
+\contentsline {section}{\numberline {4.4}Komponenta Publisher}{40}{section.4.4}
+\contentsline {section}{\numberline {4.5}Webov\IeC {\'a} aplikace pro administraci definic}{41}{section.4.5}
+\contentsline {chapter}{\chapternumberline {5}Testov\IeC {\'a}n\IeC {\'\i }}{43}{chapter.5}
+\contentsline {section}{\numberline {5.1}Unit testy}{43}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Testy t\IeC {\v r}\IeC {\'\i }dy Template}{43}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Testy t\IeC {\v r}\IeC {\'\i }dy RDFObjectContainer}{44}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Integra\IeC {\v c}n\IeC {\'\i } testy}{44}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Testy t\IeC {\v r}\IeC {\'\i }dy Request}{45}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Testy komponent API a Publisher}{46}{subsection.5.2.2}
+\contentsline {section}{\numberline {5.3}Testov\IeC {\'a}n\IeC {\'\i } v\IeC {\'y}konu}{47}{section.5.3}
+\contentsline {chapter}{\chapternumberline {6}U\IeC {\v z}ivatelsk\IeC {\'a} dokumentace}{51}{chapter.6}
+\contentsline {section}{\numberline {6.1}Webov\IeC {\'a} aplikace}{52}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}P\IeC {\v r}ehled definic}{52}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}Vytvo\IeC {\v r}en\IeC {\'\i } nov\IeC {\'e} definice}{52}{subsection.6.1.2}
+\contentsline {subsection}{\numberline {6.1.3}Editace definic}{54}{subsection.6.1.3}
+\contentsline {subsection}{\numberline {6.1.4}Maz\IeC {\'a}n\IeC {\'\i } definic}{55}{subsection.6.1.4}
+\contentsline {section}{\numberline {6.2}API}{55}{section.6.2}
+\contentsline {section}{\numberline {6.3}Typy definic}{55}{section.6.3}
+\contentsline {section}{\numberline {6.4}Struktura \IeC {\v s}ablony}{56}{section.6.4}
+\contentsline {section}{\numberline {6.5}Vygenerov\IeC {\'a}n\IeC {\'\i } RDF entity na \IeC {\v z}\IeC {\'a}dost klienta}{57}{section.6.5}
+\contentsline {subsection}{\numberline {6.5.1}P\IeC {\v r}\IeC {\'\i }klad definice a v\IeC {\'y}sledn\IeC {\'e} RDF entity}{57}{subsection.6.5.1}
+\contentsline {subsubsection}{\numberline {6.5.1.1}Definice objektu}{57}{subsubsection.6.5.1.1}
+\contentsline {subsubsection}{\numberline {6.5.1.2}V\IeC {\'y}sledn\IeC {\'a} RDF entita}{59}{subsubsection.6.5.1.2}
+\contentsline {section}{\numberline {6.6}Instalace serveru}{60}{section.6.6}
+\contentsline {subsection}{\numberline {6.6.1}Syst\IeC {\'e}mov\IeC {\'e} po\IeC {\v z}adavky}{60}{subsection.6.6.1}
+\contentsline {subsection}{\numberline {6.6.2}Instalace p\IeC {\v r}es webov\IeC {\'y} archiv}{60}{subsection.6.6.2}
+\contentsline {subsection}{\numberline {6.6.3}Instalace ze zdrojov\IeC {\'y}ch k\IeC {\'o}d\IeC {\r u}}{61}{subsection.6.6.3}
+\contentsline {section}{\numberline {6.7}Nastaven\IeC {\'\i } serveru pro p\IeC {\r u}vod dat}{63}{section.6.7}
+\contentsline {chapter}{Z{\' a}v{\v e}r}{65}{chapter*.7}
+\contentsline {chapter}{Literatura}{67}{section*.9}
+\contentsline {appendix}{\chapternumberline {A}Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{71}{appendix.A}
+\contentsline {appendix}{\chapternumberline {B}Obsah p\IeC {\v r}ilo\IeC {\v z}en\IeC {\'e}ho CD}{73}{appendix.B}

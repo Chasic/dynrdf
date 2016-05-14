@@ -4,44 +4,44 @@ The top-level auxiliary file: BP_Jan_Řasa_2016.aux
 The style file: csn690.bst
 Database file #1: mybibliographyfile.bib
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 30 entries,
+You've used 33 entries,
             3151 wiz_defined-function locations,
-            767 strings with 8467 characters,
-and the built_in function-call counts, 7982 in all, are:
-= -- 626
-> -- 36
+            778 strings with 8752 characters,
+and the built_in function-call counts, 8768 in all, are:
+= -- 689
+> -- 39
 < -- 0
-+ -- 37
++ -- 40
 - -- 2
-* -- 393
-:= -- 688
-add.period$ -- 60
-call.type$ -- 30
-change.case$ -- 119
+* -- 432
+:= -- 754
+add.period$ -- 66
+call.type$ -- 33
+change.case$ -- 131
 chr.to.int$ -- 0
-cite$ -- 30
-duplicate$ -- 938
-empty$ -- 943
+cite$ -- 33
+duplicate$ -- 1031
+empty$ -- 1036
 format.name$ -- 2
-if$ -- 1815
+if$ -- 1995
 int.to.chr$ -- 0
-int.to.str$ -- 30
-missing$ -- 214
-newline$ -- 129
+int.to.str$ -- 33
+missing$ -- 235
+newline$ -- 141
 num.names$ -- 2
-pop$ -- 518
+pop$ -- 569
 preamble$ -- 1
-purify$ -- 90
+purify$ -- 99
 quote$ -- 0
-skip$ -- 273
+skip$ -- 300
 stack$ -- 0
-substring$ -- 242
-swap$ -- 363
+substring$ -- 266
+swap$ -- 399
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 118
+type$ -- 130
 warning$ -- 0
 while$ -- 2
-width$ -- 32
-write$ -- 249
+width$ -- 35
+write$ -- 273
