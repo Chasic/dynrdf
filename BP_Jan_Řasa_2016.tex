@@ -176,7 +176,7 @@ Pro popis těchto objektů je asi nejlepší odkázat se na konkrétní definici
 
  \subsubsection{Struktura URL} Pro přístup k jednotlivým generovaným objektům slouží URL adresa, která má vždy předepsanou strukturu. Informace, které jsou dostupné
 k tomuto datasetu, obsahují popis těchto struktur a jsou veřejně dostupné na stránkách společnosti Epimorphics \cite{ti_structure}. Takovou URL adresou může být například 
-\textit{http://reference.data.gov.uk/doc/government-year/\{year1\}-\{year2\}}, kde po dosazení let míto \textit{year1} a \textit{year2} a přístupem na danou adresu získáme požadovaný 
+\texttt{http://reference.data.gov.uk/doc/government-year/\{year1\}-\{year2\}}, kde po dosazení let míto \texttt{year1} a \texttt{year2} a přístupem na danou adresu získáme požadovaný 
 objekt časového intervalu.
 
 \subsubsection{Generování objektu} Takový objekt je tedy dynamicky vygenerován s použitím parametrů z URL adresy. Konkrétní popis toho, jak jsou tyto objekty interně generovány 
@@ -276,7 +276,7 @@ Nefunkční požadavky jsou:
     \item server bude implementován v jazyce Java
     \item celá aplikace bude uložena ve WAR souboru pro zjednodušené nasazení
     \item aplikace bude spustitelná v Javě verze 8
-    \item k aplikaci budou přiloženy ukázkové objekty
+    \item k aplikaci budou přiloženy ukázkové definice objektů
  \end{itemize}
  
  \chapter{Návrh}
@@ -1847,30 +1847,36 @@ RewriteRule    /data/(.*)
 
 \end{lstlisting}
   
-  
+
 \begin{conclusion}
 Cílem této práce bylo navrhnout, implementovat a otestovat webový server pro poskytování dynamicky generovaných objektů v RDF formátech.
-Serveru byly určeny požadavky zadáním této práce a také dalšími v průběhu tvorby této práce. Dalšími požadavky se zabývala převážně analytická část.
+Serveru byly určeny požadavky zadáním této práce a také dalšími v průběhu tvorby této práce. Dalšími požadavky se zabývala analytická část.
 
 Všechny tyto požadavky a cíle byly splněny.
 Návrhu předcházela analýza účelu aplikace a podobných řešení. Závěrem této analýzy bylo, že neexistuje žádný server, který by poskytoval funkce
-implementovaného serveru. To dává této práci šanci být využívanou ve velkém měřítku.
+implementovaného řešení. To dává této práci šanci být velmi využívanou.
 
 Na základě analýzy byl proveden návrh celého systému a následně jeho implementace. Bylo použito několik pokročilých technologií jak z oboru Linked Data,
 tak i z pohledu implementace.
 
-Testování proběhlo na několika úrovních. Základem byly unit testy netriviálních metod tříd, na které navázaly komplexnější testy celé aplikace.
-Server byl také otestován na výkon.
+Testování proběhlo na několika úrovních. Základem byly unit testy, na které navázaly integrační testy v rámci celé aplikace.
+Aplikace byla také otestována na výkon.
+
+Součástí této práce je také uživatelská dokumentace, která popisuje funkce aplikace z pohledu uživatele. Dokumentace obsahuje také pokyny pro instalaci.
+		
+\section{Využití aplikace a další vývoj}
+Využití této aplikace je plánováno na portálu LinkedPipes\footnote{\url{http://linkedpipes.com/}}.
+LinkedPipes je soubor RDF nástrojů, jako jsou LinkedPipes ETL\footnote{\url{http://etl.linkedpipes.com/}} pro převádění dat do RDF
+a LinkedPipes Visualization\footnote{\url{http://visualization.linkedpipes.com/}}, nástroj pro vizualizaci a prohlížení RDF dat.
+Tato aplikace se bude v rámci těchto nástrojů jmenovat LinkedPipes Generator (LP-GEN).
+
+Vzhledem k využití této aplikace se další vývoj dotkne například vzhledu webové aplikace, který bude předělán na materiální design pomocí 
+frameworku Angular Material\footnote{\url{https://material.angularjs.org/latest/}}. Tato aplikace díky této změně více zapadne mezi zmiňované nástroje.
+
+Z hlediska implementace je plánováno přidat další možnosti při tvorbě definic objektů, jako je například rozšířené 
+nastavení číslování v šablonách definic, nebo možnost nahrání vlastního souboru dat pro typy definic pracující se SPARQL dotazy.
 
 
-Mně osobně přinesla tato práce mnoho nových zkušeností a znalostí. Jedná se převážně o obor Linked Data, který mne velice zaujal a plánuji se mu i dále věnovat.
-Z pohledu implementace se jednalo o zatím největší aplikaci v Javě, kterou jsem programoval. Vyzkoušel jsem si práci s velkým množstvím kvalitních knihoven,
-které se ve světě velmi často používají. Z pohledu testování jsem si osvojil nové techniky testování aplikací v Javě, především těch webových. Také jsem se poprvé
-věnoval testování výkonu webové aplikace.
-Ve vývoji této práce plánuji i nadále pokračovat.
-
-
-S využitím této práce se počítá pro datasety otevřené datové infrastruktury opendata.cz.		
 
 \end{conclusion}
 
@@ -1897,7 +1903,6 @@ S využitím této práce se počítá pro datasety otevřené datové infrastru
 	\item[JSON] JavaScript Object Notation
 	\item[VPS] Virtual private server
 \end{description}
-
 
 
 \chapter{Obsah přiloženého CD}

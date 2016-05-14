@@ -94,6 +94,7 @@
 \contentsline {subsection}{\numberline {6.6.3}Instalace ze zdrojov\IeC {\'y}ch k\IeC {\'o}d\IeC {\r u}}{61}{subsection.6.6.3}
 \contentsline {section}{\numberline {6.7}Nastaven\IeC {\'\i } serveru pro p\IeC {\r u}vod dat}{63}{section.6.7}
 \contentsline {chapter}{Z{\' a}v{\v e}r}{65}{chapter*.7}
-\contentsline {chapter}{Literatura}{67}{section*.9}
+\contentsline {section}{Vyu\IeC {\v z}it\IeC {\'\i } aplikace a dal\IeC {\v s}\IeC {\'\i } v\IeC {\'y}voj}{65}{section*.8}
+\contentsline {chapter}{Literatura}{67}{section*.10}
 \contentsline {appendix}{\chapternumberline {A}Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek}{71}{appendix.A}
 \contentsline {appendix}{\chapternumberline {B}Obsah p\IeC {\v r}ilo\IeC {\v z}en\IeC {\'e}ho CD}{73}{appendix.B}
