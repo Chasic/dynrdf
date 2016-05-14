@@ -20,11 +20,11 @@ public class TemplateTest {
 
 
     @Test
-    public void testTemplateRecordsFound(){
+    public void testTemplatePlaceholdersFound(){
         String plainTemplate = "[@0]_[@1]_[@2]";
         Template template = new Template(plainTemplate);
         template.preprocess();
-        Assert.assertEquals(3, template.getRecords().size());
+        Assert.assertEquals(3, template.getPlaceholders().size());
     }
 
     @Test
@@ -32,7 +32,7 @@ public class TemplateTest {
         String plainTemplate = "[@0]_[@1]_[@2]_[@3]_[@4]_[@5]_[@6]";
         Template template = new Template(plainTemplate);
         template.preprocess();
-        Assert.assertEquals(7, template.getRecords().size());
+        Assert.assertEquals(7, template.getPlaceholders().size());
         String testUrl = "http://test.com/a/b/c";
         String filledTemplate = template.fillTemplate(testUrl, Arrays.asList(testUrl.split("/")));
 
@@ -45,7 +45,7 @@ public class TemplateTest {
         String plainTemplate = "[@0, \"http://(.*)\"]";
         Template template = new Template(plainTemplate);
         template.preprocess();
-        Assert.assertEquals(1, template.getRecords().size());
+        Assert.assertEquals(1, template.getPlaceholders().size());
         String testUrl = "http://test.com/a/b/c";
         String filledTemplate = template.fillTemplate(testUrl, Arrays.asList(testUrl.split("/")));
 

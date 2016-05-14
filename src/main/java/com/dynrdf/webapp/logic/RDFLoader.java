@@ -48,8 +48,8 @@ public class RDFLoader {
             container.validateObject(obj, updating, updatingObject);
         }
         catch( Exception ex ){
-            Log.error("Cannot load mandatory data, msg: " + ex.getMessage());
-            throw new Exception("Cannot load mandatory data, msg: " + ex.getMessage());
+            Log.error("Error: " + ex.getMessage());
+            throw new Exception("Error: " + ex.getMessage());
         }
 
         // set file path and TTL def to object

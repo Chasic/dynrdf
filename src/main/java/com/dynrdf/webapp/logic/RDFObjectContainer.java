@@ -88,6 +88,7 @@ public class RDFObjectContainer{
     /**
      * Get first RDF object from container by regex match
      * @param uri String
+     * @param group String
      * @return RDFObject, null if not found
      */
     public RDFObject getObjectByUriRegexMatch(String uri, String group){
@@ -310,7 +311,7 @@ public class RDFObjectContainer{
         }
 
         o.setRdfType(RDFObject.supportedTemplateTypesRdf.get(index));
-        String objTTL = o.createTTL();
+        String objTTL = o.  createTTL();
 
         InputStream is = new ByteArrayInputStream(objTTL.getBytes());
         Model model = ModelFactory.createDefaultModel();

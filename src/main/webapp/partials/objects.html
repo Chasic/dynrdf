@@ -7,7 +7,7 @@
     <tr ng-repeat="RDFobject in rdfobjects">
         <td>{{RDFobject.group}}/{{RDFobject.name}}</td>
         <td>
-            <a class="btn btn-primary" ui-sref="viewObject({id:RDFobject.fullName})">View</a>
+            <a class="btn btn-primary" ui-sref="viewObject({id:RDFobject.fullName})">Edit</a>
             <a class="btn btn-danger"  ng-click="deleteRDFObject(RDFobject)">Delete</a>
         </td>
     </tr>

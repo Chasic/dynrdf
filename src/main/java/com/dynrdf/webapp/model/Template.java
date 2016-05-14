@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 public class Template {
 
     private String template;
-    private List<TemplatePlaceholder> records;
+    private List<TemplatePlaceholder> placeholders;
 
 
     /**
@@ -40,7 +40,7 @@ public class Template {
 
     public Template(String template){
         this.template = template;
-        records = new ArrayList<>();
+        placeholders = new ArrayList<>();
     }
 
     /**
@@ -62,7 +62,7 @@ public class Template {
             int uriParameter = Integer.parseInt(matcher.group(1));
 
             TemplatePlaceholder record = new TemplatePlaceholder(start, end, uriParameter, regex);
-            records.add(record);
+            placeholders.add(record);
 
             Log.debug("Found template record: " + record);
         }
@@ -82,7 +82,7 @@ public class Template {
 
         StringBuilder data = new StringBuilder();
         int leftBoundary = 0;
-        for( TemplatePlaceholder record : records ){
+        for( TemplatePlaceholder record : placeholders){
             // check if parameter exists
             if( record.getUriParameterNumber() < 0 || record.getUriParameterNumber() -1 >= uriParameters.size() ){
                 return null;
@@ -140,7 +140,7 @@ public class Template {
         return template;
     }
 
-    public List<TemplatePlaceholder> getRecords() {
-        return records;
+    public List<TemplatePlaceholder> getPlaceholders() {
+        return placeholders;
     }
 }
