@@ -135,6 +135,9 @@ Server bude splňovat následující požadavky:
  \end{itemize}
 \chapter{Analýza}
 
+Tato kapitola se zabývá analýzou vyvíjené aplikace. Zmíněn je účel aplikace, analýza již existujících řešení a analýza požadavků kladených na tuto aplikaci.
+Cílem analýzy je stanovit základní funkce aplikace a zjistit možné konkurující aplikace, analyzovat je a navrhnout vylepšení, které bude později implementováno.
+
 \section{Účel aplikace}
 Webový server bude poskytovat uživatelům funkci pro dynamické generování objektů ve formátech RDF.
 Uživatel si bude moci nadefinovat vlastní typy objektů pomocí šablony včetně URL, na které budou dané objekty přístupné.
@@ -182,8 +185,10 @@ není veřejný, ale je velmi pravděpodobné, že je použit minimálně jeden 
  
 
 \section{Požadavky}
+Tato kapitola obsahuje výčet funkčních a nefunkčních požadavků, které budou na výslednou aplikaci kladeny.
 
 \subsection{Funkční požadavky}
+Funkční požadavky jsou:
  \begin{itemize}
   \item přístup k administraci objektů přes více rozhraní
   \item podpora více formátů pro definice a zobrazení objektů
@@ -262,14 +267,22 @@ není veřejný, ale je velmi pravděpodobné, že je použit minimálně jeden 
   Content Negotiation.
 
 \subsection{Nefunkční požadavky}
+Nefunkční požadavky jsou:
 \begin{itemize}
     \item server bude implementován v jazyce Java
     \item celá aplikace bude uložena ve WAR souboru pro zjednodušené nasazení
+    \item aplikace bude spustitelná v Javě verze 8
+    \item k aplikaci budou přiloženy ukázkové objekty
  \end{itemize}
  
  \chapter{Návrh}
+ Tato kapitola se zabývá návrhem výsledné aplikace. První část je věnována použitým technologiím. Poté následuje návrh celkové architektury.
+ Převážná část této kapitoly je věnována návrhu konkrétních komponent, jako je například API a administrace definic objektů.
+ 
  
  \section{Použité technologie}
+ Cílem této kapitoly je vymezit technologie, které se v této práci budou vyskytovat. Vzhledem k méně znamým technologiím, jako jsou Linked Data,
+ jsou tyto technologie i krátce popsány.
  
  \subsection{Resource Description Framework (RDF)}
  Resource Description Framework je rodina specifikací, která se používá jako metoda pro modelování informací - RDF entit.
@@ -363,8 +376,8 @@ není veřejný, ale je velmi pravděpodobné, že je použit minimálně jeden 
    než by tomu bylo při použití například PHP nebo podobných jazyků.
    
    \subsection{Apache Jena}
-   Pro práci s RDF daty byla zvolena knihovna Apache Jena. Tato knihovna podporuje práci přímo s RDF serializacemi a díky procesoru ARQ také práci se SPARQL
-   dotazy. Další možností pro použití byla knihovna Sesame. Knihovny si jsou velice podobné. Obě mají dobrou dokumentaci i velmi dobře zpracované 
+   Pro práci s RDF daty byla zvolena knihovna Apache Jena \cite{jena}. Tato knihovna podporuje práci přímo s RDF serializacemi a díky procesoru ARQ také práci se SPARQL
+   dotazy. Další možností pro použití byla knihovna Sesame \cite{sesame}. Knihovny si jsou velice podobné. Obě mají dobrou dokumentaci i velmi dobře zpracované 
    ukázky, jak lze knihovny využívat. Rozhodujícím faktorem při výběru byl výkon.
    
    Při výkonostním srovnání byl zohledněn publikovaný test \textit{The Berlin\\ SPARQL Benchmark} \cite{sparql_benchmark}.
@@ -378,10 +391,18 @@ není veřejný, ale je velmi pravděpodobné, že je použit minimálně jeden 
    
    \subsection{Další Java knihovny}
    \begin{itemize}
-    \item Jersey, GSON - pro práci s definicemi objektů v rámci API
-    \item Log4j - logovací systém
-    \item Typesafe - konfigurace
-    \item JUnit - testování
+    \item Jersey \cite{jersey}, GSON \cite{gson}
+    \subitem Tyto knihovny slouží pro práci s definicemi objektů v rámci API. Konkrétní objekty tříd jsou těmito knihovnami serializovány
+      do JSON formátu.
+    \item Log4j \cite{log4j} 
+    \subitem Log4j je logovací systém, který je hojně využívaný v mnoha aplikacích. Jedná se o spolehlivý a jednoduše nastavitelný logovací systém.
+    \item Typesafe \cite{typesafe}
+    \subitem Typesafe je knihovna pro konfiguraci aplikací. Umožňuje snadnou konfiguraci přes konfigurační soubor a nahrání konfigurace do aplikace.	
+    \item JUnit \cite{junit}
+    \subitem JUnit je testovací framework pro aplikce v Javě. Jedná se o nejpoužívanější testovací framework v Java komunitě.
+    \item Jersey Test \cite{jersey_test}
+    \subitem Tato knihovna podporuje testování webových služeb. Umožňuje spustit webovou aplikaci v lokálně vytvořeném prostředí, ve kterém se poté
+    dají testovat HTTP požadavky.
    \end{itemize}
    
    \subsection{Maven}
@@ -431,7 +452,7 @@ není veřejný, ale je velmi pravděpodobné, že je použit minimálně jeden 
  	\caption[Model tříd API]{Třídy reprezentují služby, které mají metody vystavené pro API}\label{api_class}
     \end{figure}
     
-    \subsubsection{Komponenta Model}
+    \subsubsection{Komponenta Model}\label{component_model}
     Tato komponenta obsahuje tři základní třídy, které jsou využívány zbytkem aplikace. Jedná se o třídy RDFObject, Template a TemplatePlaceholder, které jsou zobrazeny
     na obrázku \ref{model_class}.
     
@@ -450,14 +471,14 @@ není veřejný, ale je velmi pravděpodobné, že je použit minimálně jeden 
     pro pozdější vyplnění. Předzpracování probíhá pouze jendou při nahrání definic (při startu serveru nebo znovunačtení definic). Cílem takto
     předzpracované šablony je urychlení generování objektů tak, aby se pouze dosazovaly hodnoty a případně aplikovaly podporované regulární výrazy.
  
- \subsubsection{Komponenta Container}
+ \subsubsection{Komponenta Container} \label{component_container}
  O správu nahraných definic se stará komponenta Container. Z obrázku \ref{container_class} je patrné, že obsahuje 2 třídy.
  
  Třída RDFLoader se stará
  o čtení jednotlivých definic z file systému a následnou transformaci definice v Turtle formátu do objektu RDFObject,
  který reprezentuje konkrétní definice.
  
- Třída RDFContainer slouží jako kontejner (malá databáze) všech nahraných objektů. Objekty si drží jak podle celého jména definice pro rychlý přístup
+ Třída RDFObjectContainer slouží jako kontejner (malá databáze) všech nahraných objektů. Objekty si drží jak podle celého jména definice pro rychlý přístup
  k definicím pro API, tak i podle priorit, podle kterých dochází k vyhledávání definic při požadavku klienta.
  Kontejner se v aplikaci vyskytuje díky použití singleton patternu
  pouze jeden a je nejvytíženějším objektem v celé aplikaci, protože je využíván všemi komponentami.
@@ -561,7 +582,8 @@ není veřejný, ale je velmi pravděpodobné, že je použit minimálně jeden 
       \subitem Skupina zde označuje například název společnosti, jméno autora, nebo jiný identifikátor autora dané definice objektu. 
       Společně s názvem tvoří plně kvalifikované jméno definice.
     \item URL regex
-      \subitem Tento regulární výraz slouží k identifikaci konkrétní definice.
+      \subitem Tento regulární výraz slouží k identifikaci konkrétní definice. Regulární výraz by měl popisovat URL adresy, pod kterými bude výsledná RDF entita
+      dostupná.
     \item priorita objektu
       \subitem Priorita ovlivňuje pořadí definic, v jakém se pokouší systém najít shodu regulárního výrazu s příchozí URL. Některé regulární
       výrazy moho popisovat více objektů. Pokud je nějaký výraz více specifičtější než jiný, tak se zvýšením priority dané definice dosáhne k požadované shodě.
@@ -612,7 +634,7 @@ není veřejný, ale je velmi pravděpodobné, že je použit minimálně jeden 
     \subitem Příchozí URL s informacemi o objektu je také přeposlána na danou službu. Názvem GET paramteru se rozumí parametr, do kterého se dosadí tato URL.
  \end{itemize}
  
- \section{Šablonovací systém}
+ \section{Šablonovací systém}\label{template_system}
  Šablonovací systém je jedním ze stavebních kamenů této práce. Vyplněním šablony vzniká buď už konkrétní objekt, nebo SPARQL dotaz pro vygenerování objektu.
  Cílem návrhu tohoto systému je jednoduchost, ale zároveň dostatečná funkcionalita pro generování objektů různými způsoby.
  
@@ -656,7 +678,7 @@ není veřejný, ale je velmi pravděpodobné, že je použit minimálně jeden 
   použil by jako placeholdery \texttt{[@5, ``(\textbackslash d+)-'']} pro \textit{2013}, resp. \texttt{[@5, ``-(\textbackslash d+)'']} pro \textit{2016}.
   Autoři šablon nebudou tedy nuceni používat SPARQL pro případy, kdy by potřebovali získat pouze část atributu, případně část z celé URL.
   
-  \section{API}
+  \section{API}\label{api}
   API je další důležitou komponentou v aplikaci. Slouží pro ulehčení administrace definic a zároveň otevírá možnosti pro napojení externích
   aplikací do systému. 
   
@@ -773,7 +795,7 @@ není veřejný, ale je velmi pravděpodobné, že je použit minimálně jeden 
   Třídy RDFObject se změna ukládání definic dotkla nejméně. Z projektu byl odstraněn framework Hibernate a s ním také
   anotace v této třídě, které mapovaly definice a jejich atributy do databázové tabulky.  
   
-  \subsection{RDFObjectContainer}
+  \subsection{RDFObjectContainer}\label{rdf_object_container}
   Tato třída byla implementována od začátku jako jedináček (Singleton). Vzhledem k tomu, že se jedná o databázi zpracovaných definic, tak zde dává smysl mít pouze
   jednu instanci této třídy v celém systému. Bylo by zbytečně paměťově náročné, aby systém obsahoval více instancí.
   
@@ -880,45 +902,183 @@ není veřejný, ale je velmi pravděpodobné, že je použit minimálně jeden 
   
   
   \chapter{Testování}  
-  Cílem testování této aplikace je zajistit celkovou funkčnost před nasazením a případně po provedených změnách v kódu.
+  Cílem testování této aplikace je ověřit celkovou funkčnost systému.  
+  Při úpravách zdrojových kódů může dojít k ovlivnění chování již implementovaných metod
+  a tudíž k neočekávanému chování celé aplikace. Nestandartní chování může také ovlivnit prostředí (např. jiná verze Javy), ve kterém je aplikace spuštěna.
+  Cílem testů je toto nestandartní chování odhalit a upozornit na něj vývojáře s cílem aby toto chování analyzoval a opravil.
   
-  Aplikace je testována dvěma způsoby. Ke zdrojovým kódům byly nap
-  
-  Pro téměř každou netriviální metodu, které jsou klíčové pro běh systému, byly vytvořeny testy. Jedná se jak o klasické unit testy, které testují pouze chování konkrétních
-  metod, tak i o integrační testy, které testují chování aplikace jako celku.  
-  Pro tento typ testování byl použit framework JUnit a Jersey Test.
-  
-  Aplikace byla také testována na výkon pomocí aplikace JMeter. Více o testování výkonu je uvedeno dále.
-  
+  Jedním typem testování jsou testy implementovaných funkcí přes \textbf{unit testy} a \textbf{integrační testy}.
+  Druhým typem testů je \textbf{testování výkonu}. Testování aplikace dle těchto typů je popsáno v následujících kapitolách.
+    
   \section{Unit testy}
   Unit testy slouží k otestování správné funkčnosti jednotlivých částí systému. 
+  V této aplikaci jsou tímto způsobem testovány nejvíce metody tříd \texttt{Template} \ref{component_model} a \texttt{RDFObjectContainer} \ref{component_container}.
+  Ostatní třídy jsou testovány na úrovni integračních testů.
   
+  \subsection{Testy třídy Template}
+  Třída Template pracuje s šablonami jednotlivých definic. Nerozlišuje přitom, zda se jedná o HTML šablonu nebo například o šablonu v Turtle serializaci.
+  Tato třída obsahuje 2 metody - \texttt{preprocess()}, která vyhledává a ukládá si pro další použití informace o placeholderech v šabloně a metoda
+  \texttt{fillTemplate()}, která vyplňuje šablonu při požadavku klienta.
   
-  Několik tříd v této aplikaci obsahuje snadno testovatelné metody. Jedná se hlavně o třídu Template, kde je testováno správné dosazování parametrů
-  do šablony. Také třída RDFContainer obsahuje několik podobných testů na validaci definic, které se do kontejneru ukládají. 
+  Testy těchto metod jsou obsaženy ve třídě \texttt{TemplateTest}. Příkladem jednoho z testů je test na vyplnění šablony včetně extrahování
+  části URL adresy díky regulárnímu výrazu.
+  V tomto testu \ref{list:test_template} je vytvořena šablona obsahující pouze jeden placeholder s regulárním výrazem, který z 
+  URL adresy extrahuje část za řetězcem \texttt{http://}.
+  Testovanou URL adresou je zde \texttt{http://test.com/a/b/c} a výsledný řetezec po vyplnění šablony je testován na obsah \texttt{test.com/a/b/c}.
   
-  RDFContainer obsahuje kromě lehčích testů na validaci definic také složitější testy metod, které komunikují převážně s knihovou Apache Jena.
-  Jedná se o testy vytváření, aktualizace a mazání definic. Ačkoliv je implementace těchto metod komplikovanější, tak testování probíhá lehce přes dotazy na definici,
-  která je testována. Pokud kontejner na dotaz odpoví neočekávaně (například vytvořená definice neexistuje, aktualizovaná definice obsahuje nesprávné atributy, \ldots), je
-  tato chyba odchycena a test je neúspěšný.
+  \begin{lstlisting}[float=htb,caption={Unit test na vyplnění placeholderu v šabloně s regulárním výrazem},label=list:test_template]
+  @Test
+  public void testRegexTemplate(){
+      String plainTemplate = "[@0, \"http://(.*)\"]";
+      Template template = new Template(plainTemplate);
+      template.preprocess();
+      Assert.assertEquals(1, template.getPlaceholders().size());
+      String testUrl = "http://test.com/a/b/c";
+      String filledTemplate = template.fillTemplate(testUrl,
+	Arrays.asList(testUrl.split("/")));
+
+      String expected = "test.com/a/b/c";
+      Assert.assertEquals(expected, filledTemplate);
+  }
+\end{lstlisting}
   
-  Další vyšší úrovní testování jsou testy třídy Request. Tato třída obsahuje metody, které ze vstupních parametrů generují výslednou RDF entitu. Jedná se o metody
-  pro všechny podporované typy definic - $executeRDFTemplate()$, $executeProxy()$ a další. Pro tyto požadavky jsou předpřipraveny definice určené pro tyto testy.
-  Před samotným testováním se inicializuje kontejner s těmito definicemi. Nad objekty definic jsou poté spouštěny metody pro generování a výsledné
-  objekty jsou poté porovnány vůči vstupním parametrům.
+  \subsection{Testy třídy RDFObjectContainer}
+  Třída RDFObjectContainer \ref{component_container} obsahuje metody pro manipulaci s definicemi objektů, jako je přidání, smazání,
+  aktualizace a také validaci těchto definic.
+  Ke každé z těchto metod jsou napsány testy ve třídě\\
+  \texttt{RDFObjectContainerTest}, které ověřují jejich funkcionalitu. Validační testy pokrývají všechny typy nevalidních definic, jako jsou duplicitní
+  celé názvy definic (stejná skupina a název), chybějící parametry, nevalidní URL například pro Proxy objekt aj.  
+  Pro testování těchto funkcionalit jsou předpřipravené definice v adresáři \texttt{textObjects}.
   
-  \section{Testování požadavků klienta a API}
-  Nejvyšší úrovní testování jsou testy samotných HTTP požadavků. Pro tento typ testování je použit framework Jersey Test a celá aplikace je spuštěna v kontejneru
-  pomocí knihovny Jersey Container Grizzly2. 
+  Příkladem těchto testů je například validační test na špatnou strukturu URL adresy \ref{list:test_url}, která v tomto případě neobsahuje protokol, nebo test
+  pro přidání definice do kontejneru \ref{list:test_create}, který definici vytvoří a přidá do kontejneru a poté se ho snaží získat zpět.
   
-  Testování API probíhá pro všechny typy požadavků, včetně všech podporovaných serializací. Stejně je tomu i u požadavků klienta na vygenerování RDF entity.
-  Ty jsou testovány na všechny testovací definice přes všechny podporované serializace.
+    \begin{lstlisting}[float=htb,caption={Unit test třídy RDFObjectContainer: Malformed URL},label=list:test_url]
+  @Test(expected = ContainerException.class)
+  public void validateProxyMalformedUrl() throws ContainerException{
+     RDFObjectContainer container = RDFObjectContainer.getInstance();
+     // missing protocol - URL validator is set to check protocol
+     RDFObject o = new RDFObject("name", "tests", "validations",
+       "PROXY", "empty template", 1, "test.com", "param", "html", null);
+
+     container.validateObject(o, false, null);
+  }
+    
+\end{lstlisting}
+
+\begin{lstlisting}[float=htb,caption={Unit test třídy RDFObjectContainer: Vytvoření a vložení definice},label=list:test_create]
+  @Test
+  public void testCreate(){
+      RDFObjectContainer container = RDFObjectContainer.getInstance();
+      RDFObject o = new RDFObject("createTestContainer", "tests",
+	"createTestContainer", "TURTLE", "empty template", 1,
+	"", "", "html", null);
+      boolean ok = true;
+      try{
+	  container.createObject(o);
+      }
+      catch(Exception ex){
+	  ok = false;
+      }
+      Assert.assertTrue(ok);
+      Assert.assertNotNull(container.getObject(o.getFullName()));
+  }
+    
+\end{lstlisting}
   
-  V těchto testech bylo potřeba se vypořádat s nekompatibilitou některých knihoven. Jednalo se hlavně o injektování objektu $HttpServletRequest$ do parametrů
-  metod přes anotaci @Context. Provider Jersey frameworku Grizzly musel být zaměněn za InMemory pro úspěšné spuštění testů.
+    
+  
+  \section{Integrační testy}
+  Integrační testy slouží k testování funkčnosti více komponent dohromady. V rámci této aplikace se jedná o komponenty dle návrhu \ref{packages_core} 
+  (komponenty API, Model, Container a Publisher). Pro úspěšné spuštění integračních testů je potřeba připojení k internetu, protože se testuje i generování
+  RDF entit u definic typů Proxy a SPARQL Endpoint, které se připojují ke SAPRQL Endpointu portálu DBPedia na adrese \url{http://dbpedia.org/sparql}.
+  Pro tyto testy se používají testovací definice dostupné v příloze v adresáři \texttt{testObjects}.
+  
+  \subsection{Testy třídy Request}
+  Třída \texttt{Request} \ref{publisher_class} má na starost zpracování požadavku klienta na vygenerování už konkrétní RDF entity. Obsahuje metody
+  pro vygenerování entit, jako jsou
+  \texttt{executeProxy()}, \texttt{executeRDFTemplate()} a další dle typů definice. Cílem testů pro tuto třídu je ověřit integraci s ostatními komponentami
+  pro generování RDF entit.   
+  Každý typ definice je testován na všechny podporované výstupní serializace.
+  
+  Jako příklad \ref{list:test_execute_endpoint} je zde uveden test metody \texttt{executeSparqlEndpoint()}, který ověřuje funkčnost generování objektu typu SPARQL Endpoint.
+  Při tomto testu dochází uvnitř aplikace ke komunikaci se serverem DBPedia, což je určeno testovanou definicí \texttt{loggerEndpoint}, která je k dispozici v příloze
+  v adresáři \texttt{testObjects/logger\_endpoint.ttl}. Před provedením tohoto testu je inicializován kontejner a jsou do něj nahrány testovací definice. 
+  V rámci tohoto testu se ověřuje, zda kontejner obsahuje danou definici a IRI vygenerované entity se shoduje s očekávaným identifikátorem nastavený v dané definici.
+  Testování ostatních metod je velice podobné tomuto testu.
+  
+  \begin{lstlisting}[float=htb,caption={Test metody executeSparqlEndpoint()},label=list:test_execute_endpoint]
+@Test
+public void testRequestExecuteSparqlEndpoint(){
+    RDFObject o = RDFObjectContainer.getInstance()
+		  .getObject("dynrdf/loggerEndpoint");
+    Assert.assertNotNull(o);
+
+    String uri = "http://logservice.com/data/loggerEndpoint/" + 
+		  "42/2016-05-01/10:00:23/org.dynrdf.Request/" +
+		  "some exception msg";
+    List<String> params = new ArrayList<String>(
+	    Arrays.asList(uri.split("/")));
+    Request request = new Request(o, uri, params, "TURTLE");
+    Response r = request.execute();
+
+    Assert.assertEquals(200, r.getStatus());
+    String result = (String)r.getEntity();
+
+    StringReader sr = new StringReader(result);
+    Model model = ModelFactory.createDefaultModel();
+    model.read(sr, null, "TURTLE");
+
+    String res = selectresource(model);
+    Assert.assertEquals("http://logservice.com/data/loggerEndpoint#42",
+			res);
+}
+    
+\end{lstlisting}
+
+\subsection{Testy komponent API a Publisher}
+Cílem testů těchto komponent je ověřit funkčnost samotných HTTP požadavků pro administraci objektů a požadavky na RDF entity.
+Testování těchto komponent je prováděno we webovém kontejneru, který je spuštěn díky
+testovacímu frameworku Jersey Test \cite{jersey_test} před každým testem.
+
+Komponenta API \ref{api_class} obsahuje třídy \texttt{RDFObjectService}, která se stará o zpracování HTTP požadavků administrace definic,
+a třídu \texttt{ServerService} která obsahuje zatím pouze metodu \texttt{reloadDefinitions()} pro znovu nahrání definic do systému.
+Všechny metody, respektive všechny požadavky, které jsou na tyto metody mapovány, jsou testovány vůči testovacím definicím dostupných v příloze
+v adresáři \texttt{testObjects}. 
+
+Příkladem testu API je test \ref{list:test_api_create_json} na vytvoření definice, který posílá
+informace o definici v JSON formátu. Otestováním tohoto požadavku je ověřena funkčnost požadavku na vytvoření definice z webové aplikace,
+ta odesílá data v JSON formátech. V tomto testu je neprve vytvořen z objektu definice požadavek na vytvoření, který je poté odeslán. Následuje požadavek
+na získání definice tohoto objektu ze serveru, který je kontrolován na úspěch (status kód 200).
+  \begin{lstlisting}[float=htb,caption={Test vytvoření definice přes API v JSON formátu},label=list:test_api_create_json]
+@Test
+public void testCreateJson() {
+    RDFObject o = new RDFObject("testobj1", "tests", "testobj1","
+				"TURTLE", "empty template", 1,
+				"", "", "html", null);
+
+    final Response res = target("objects").request()
+	      .post(Entity.entity(o, MediaType.APPLICATION_JSON_TYPE));
+    Assert.assertEquals(200, res.getStatusInfo().getStatusCode());
+    // get object
+    final Response resGet = target("objects/" + o.getFullName())
+	      .request(MediaType.APPLICATION_JSON_TYPE).get();
+    Assert.assertEquals(200, resGet.getStatusInfo().getStatusCode());
+}
+    
+\end{lstlisting}
+
+V rámci komponenty Publisher jsou testovány metody třídy \\ \texttt{RDFObjectPublisherService}. Ty zpracovávají požadavky na konkrétní RDF entity.
+Testování této třídy má za cíl ověřit funkčnost generování entit všech typů pro všechny podporované výstupní RDF serializace.
+
   
   \section{Testování výkonu}
-  Součástí testů je i základní test výkonu aplikací JMeter. Aplikace byla pro tyto účely nasazena do webového kontejneru Glassfish 4.1.1 na VPS s těmito parametry:
+  Cílem testování výkonu je zjistit, kolik požadavků za sekundu je tato aplikace schopna odbavit a s jakou dobou odpovědi.
+  Na tyto hodnoty není předem kladen požadavek, který by aplikace
+  musela splňovat. Jedná se o orientační test.
+  
+  Testování výkonu bylo provedeno aplikací Apache JMeter \cite{jmeter}. Aplikace byla pro tyto účely nasazena do webového kontejneru Glassfish 4.1.1 \cite{glassfish}
+  na VPS s těmito parametry:
   \begin{itemize}
    \item Kontejnerová virtualizace OpenVZ
    \item CPU Intel(R) Xeon(R) E5-2630 @2.30GHz (8 virt. jader)
@@ -935,16 +1095,24 @@ není veřejný, ale je velmi pravděpodobné, že je použit minimálně jeden 
   \end{itemize}
   
   Sledovaným parametrem byla převážně propustnost (throughput). U ostatních parametrů, jako jsou například průměrná doba odpovědi, mohlo docházet ke zkreslení
-  testu. Throughput je oproti těmto atributům testu více imunní na výkyvy, protože je vypočítáván algoritmicky.
-  Testovací případy byly spouštěny na osobním PC s cílem zjistit pouze přibližný počet dotazů, které je aplikace shopna odbavit. Tento počet je nicméně
-  omezen výkonem tohoto PC a také připojením k internetu. Předpokládá se, že aplikace je na dané konfiguraci výkonější, než ukazují tabulky \ref{performance1} a \ref{performance2}.
+  testu. Throughput je oproti těmto atributům testu více imunní na výkyvy, protože je vypočítáván algoritmicky a je brán v potaz například počet spuštěných
+  testů na testovacím stroji.
   
-  Tyto tabulky ukazují výsledky testů, u kterých je znázorněna také výhoda používání parametru $group$ v URL adrese požadavku. 
-  V prvním případě parametr group je uveden 
-  a tudíž není potřeba v nejhorším případě prohledávat celý seznam definic. Pro testovací účely bylo do kontejneru nahráno 300 definic s rozdílnými prioritami a implementován testovací parametr
-  do URL adresy, který definoval prioritu testované definice. Tímto byly nasimulovány požadavky na definice s rozdílnou prioritou. V aplikaci JMeter toho bylo
-  dosaženo implementací jednoduchého scriptu pro náhodné generování díky komponentě BeanShell.
   
+  Při testování výkonu byly testovány všechny typy definic. Poměr definic typů RDF serializací vůči ostatním typům byl trojnásobný, protože se předpokládá
+  s větším využitím definic tohoto typu.
+  
+  Těmito testy se ověřovalo také efektivnější vyhledávání při použití parametru \texttt{group} v URL adrese. 
+  Tato optimalizace je popsána v kapitole implementace - RDFObjectContainer \ref{rdf_object_container}.
+  Testovány byly dva případy. 
+  V prvním případě, jehož výsledky jsou uvedeny v tabulce \ref{performance1}, byly testovány dotazy včetně parametru \texttt{group}
+  v URL adrese. Při druhém testu, jehož výsledky ukazuje tabulka \ref{performance2}, byl tento parametr vynechán.
+  
+  Testy výkonu ukázaly poměrně velký rozdíl mezi testovanými případy. Tím bylo ověřeno, že zmíněná optimalizace byla poměrně důležitým optimalizačním krokem.
+  Při předpokladu, že některé požadavky na vygenerování RDF entit nebudou obsahovat zmiňovaný parametr \texttt{group}, je výsledný počet požadavků za sekundu
+  větší než 100. Tento výsledek je na dané konfiguraci vyhodnocen jako postačující.
+  
+    
   \begin{table}\centering
  	\caption[Test výkonu - s parametrem group]{Test výkonu s parametrem group. Celková propustnost při tomto testu byla 147 požadavků za sekundu. Sloupce average, median, min a max označují trvání požadavku v ms po připojení.}\label{performance1}
  	\begin{tabular}{|l|r|r|r|r|r|r|r|}\hline
@@ -953,10 +1121,10 @@ není veřejný, ale je velmi pravděpodobné, že je použit minimálně jeden 
  RDF/XML 		&	300	&			19&	9&	991	&	56.3\tabularnewline \hline
  NTriples 		&	300	&			24&	9&	5132 	&	31.6\tabularnewline \hline
  JSON-LD 		&	300	&			87&	9&	5141 	&	33.8\tabularnewline \hline
- SPARQL Construct 	&	99	&			36&	13&	950 	&	32.3\tabularnewline \hline
- SPARQL Endpoint 	&	99	&			315&	89&	5190 	&	13.5\tabularnewline \hline
- Proxy 			&	99	&			765&	325&	5212 	&	13.1\tabularnewline \hline
-TOTAL			&	1497	&			29&	9&	5212 	&	147\tabularnewline \hline
+ SPARQL Construct 	&	100	&			36&	13&	950 	&	32.3\tabularnewline \hline
+ SPARQL Endpoint 	&	100	&			315&	89&	5190 	&	13.5\tabularnewline \hline
+ Proxy 			&	100	&			765&	325&	5212 	&	13.1\tabularnewline \hline
+TOTAL			&	1500	&			29&	9&	5212 	&	147\tabularnewline \hline
  	\end{tabular}
  \end{table}
  
@@ -968,34 +1136,46 @@ TOTAL			&	1497	&			29&	9&	5212 	&	147\tabularnewline \hline
  RDF/XML 			&300		&922	&134	&5419	&21.2\tabularnewline \hline
  NTriples 			&300		&3539	&232	&5527	&19.4\tabularnewline \hline
  JSON-LD 			&300		&4063	&970	&5503	&20.4\tabularnewline \hline
- SPARQL Construct 		&99		&3979	&1829	&5467	&8.4\tabularnewline \hline
- SPARQL Endpoint 		&99		&3936	&3490	&4518	&8\tabularnewline \hline
- Proxy 				&999		&4306	&3244	&5159	&7.5\tabularnewline \hline
-TOTAL				&1497		&3596	&98	&5527	&91.4\tabularnewline \hline
+ SPARQL Construct 		&100		&3979	&1829	&5467	&8.4\tabularnewline \hline
+ SPARQL Endpoint 		&100		&3936	&3490	&4518	&8\tabularnewline \hline
+ Proxy 				&100		&4306	&3244	&5159	&7.5\tabularnewline \hline
+TOTAL				&1500		&3596	&98	&5527	&91.4\tabularnewline \hline
  	\end{tabular}
  \end{table}
   
   
   \chapter{Uživatelská dokumentace}
+  Tato kapitola obsahuje dokumentaci k vyvíjené aplikaci. Touto aplikací je webový server pro poskytování dynamicky generovanýcý objektů v RDF \cite{rdf} formátech.	
   
-  Tento webový server slouží pro dynamické generování RDF entit v několika RDF serializacích. Uživateli je umožněno nadefinovat si vlastní RDF entity a vytvořit si
-  k nim
+  Cílem této aplikace je uživatelům usnadnit tvorbu objektů v RDF formátech pomocí jednotných šablon pro výsledné RDF entity.
+  Generování RDF entit přes tuto aplikaci má tyto výhody:
+  \begin{itemize}
+   \item \textbf{Jedna šablona pro mnoho objektů} 
+   
+   Uživatel může vytvořit jednu definici s šablonou pro mnoho (až nekonečně mnoho) podobných RDF entit, které se liší pouze v hodnotách atributů,
+   ale strukturu mají stejnou (nebo velmi podobnou).
+   
+   \item \textbf{Malá kapacita uložišť}   
+   
+   Díky jednotné šabloně pro mnoho RDF entit není potřeba investovat do velkých úložných prostorů. Zapotřebí je mít pouze kapacity pro uložení
+   definic těchto objektů, které jsou v porovnání s ukládáním všech RDF entit minimální.
+   
+   \item \textbf{Čas pro údržbu}
+   
+   Tato aplikace také šetří čas uživatelů při údržbě již publikovaných RDF entit. Pokud chce uživatel něco změnit v publikovaných RDF entitách, nemusí tak dělat
+   pro každou entitu zvlášť, ale stačí pouze změnit šablonu na jednom místě a tato změna se automaticky promítne do všech výsledných RDF entit při
+   dalším požadavku klienta.
+      
+  \end{itemize}
+
+  V této aplikaci je uživateli umožněno nadefinovat si vlastní RDF entity a vytvořit si k nim
   šablony, ze kterých jsou následně dynamicky generovány dle příchozí URL. K administraci definic slouží webová aplikace a API.
   Klientovi jsou výsledné entity dostupné v několika RDF serializacích (Turtle, N-Triples, JSON-LD a RDF/XML) a jako webová stránka (HTML dokument).
   
-  Cílem tohoto systému je uživatelům usnadnit tvorbu objektů v RDF formátech pomocí jednotných šablon a zároveň šetřit zdroje za ukládání jejich serializací. 
-  Tento server 
-  je vhodný například pro časové objekty, kterých může být nekonečně mnoho, nebo pro ty objekty, u kterých se mění pouze pár atributů, které mohou být součásti
-  identifikátoru výsledné RDF entity (IRI).
-  
-  Příkladem takového časového objektu je například interval v rozmezí let. Identifikátorem tohoto objektu může být URL, které obsahuje na konci konkrétní 
-  roky - \url{http://obj.com/objects/time-interval/year/2015/2016}. Klientovi je po přístupu na tuto adresu vygenerována výsledná RDF entita, která reprezentuje
-  časový interval v rozmezí let 2015-2016. Pokud chce klient interval v jiném rozmezí, může poslední dva parametry (roky 2015 a 2016) změnit a systém vygeneruje
-  jinou RDF entitu intervalu v daném rozmezí, přičemž je použita stále stejná šablona.
+   
   
   
-  
-  \section{Webová aplikace}
+  \section{Webová aplikace}\label{web_app}
   Pro administraci definic může uživatel využít webovou aplikaci. V této aplikaci je mu umožněno zobrazit si
   seznam definic, vytvářet, upravovat nebo smazat tyto definice.
   
@@ -1009,7 +1189,7 @@ TOTAL				&1497		&3596	&98	&5527	&91.4\tabularnewline \hline
  	\caption[Přehled definic ve webové aplikaci - hlavní stránka]{Přehled definic ve webové aplikaci - hlavní stránka}\label{web_overview}		
   \end{figure}
     
-    \subsection{Vytvoření nové definice}
+    \subsection{Vytvoření nové definice}\label{def_create}
     Po kliknutí na tlačítko \uv{Add new object definition} je uživatel přesměrován na formulář pro založení nové definice. Tento formulář je zobrazen na obrázku
     \ref{web_create}.
     Uživatel zde nastavuje všechny atributy pro generování objektů.
@@ -1068,6 +1248,10 @@ TOTAL				&1497		&3596	&98	&5527	&91.4\tabularnewline \hline
     \subsection{Mazání definic}
     Uživatel může smazat konkrétní definici přes webovou aplikaci kliknutím na tlačítka \uv{Delete} a následním potvrzením.
     Smazanou definici již nejde žádným způsobem znovu obnovit.    
+    
+    \section{API}
+    Administrace definic je také možná přes API. API podporuje všechny operace, které jsou popsány v kapitole \ref{web_app}. Struktura API včetně dotazů je
+    popsána v návrhu v kapitole API \ref{api}.
     
     \section{Typy definic}\label{def_types}
     U každé následující definice jsou uvedeny příklady pro stejný typ objektu - logovací systém, který je také
@@ -1129,7 +1313,6 @@ WHERE {
       na endpointu dostupné. Tento typ podporuje dva typy dotazů - Construct a Describe a narozdíl od předchozího typu může obsahovat komplikovanější
       dotazy právě nad zmíněnými datasety.
       
-      \newpage
       
     \item \textbf{Proxy}
     
@@ -1139,11 +1322,127 @@ WHERE {
     
     \end{itemize}
     
-    \section{Šablonovací systém}\label{template_system}
-    // TODO
+    \section{Struktura šablony}\label{template_system}
+    Strukturou šablony se rozumí text, který uživatel vyplní jako atribut \uv{šablona definice} nebo \uv{HTML šablona}. Do šablon jsou při přístupu klienta 
+    doplněny informace z URL adresy a následně je za použití této šablony vygenerována výsledná HTML stránka nebo RDF entita.
+    Struktura šablon je popsána v kapitole Šablonovací systém \ref{template_system}.
     
-    \section{Přístup k objektům}\label{obj_access}
-    // TODO
+    
+    \section{Vygenerování RDF entity na žádost klienta}\label{obj_access}
+    Pro vygenerování RDF entity klient přistupuje na URL adresu ve formátu \texttt{http://example.com/data/?group=<group>\&url=<url>}, kde:
+    \begin{itemize}
+     \item \texttt{example.com} označuje adresu serveru
+     \item \texttt{<group>} označuje skupinu, ve které se nachází požadovaná definice. Jedná se o nepovinný parametr, ale je doporučeno využívat ho při 
+     každém požadavku. Vyhledávání konkrétní definice je s tímto parametrem rychlejší a tedy i klientovi je rychleji poskytnuta výsledná vygenerovaná entita.
+     Jedná se o parametr \uv{skupina}, který uživatel zadává při tvorbě definice objektu, více je uvedeno v kapitole Definice objektů \ref{obj_def}.
+     \item Parametr \texttt{<url>} identifikuje konkrétní definici objektu a je zároveň identifikátorem výsledné vygenerované RDF entity (IRI).
+     Definice objektů obsahuje parametr \uv{regex} - regulární výraz, který uživatel nastavuje tak, aby mu odpovídaly URL adresy, které mají identifikovat
+     konkrétní definici a entitu. Tento regulární výraz je popsán v kapitole \ref{def_create}
+    \end{itemize}
+    
+    \subsection{Příklad definice a výsledné RDF entity}
+    Pro shrnutí informací o generování a definic objektů bude sloužit příklad definice objektu \texttt{loggerTurtle}, který je dostupný v příloze
+    ve složce ukázkových objektů \texttt{objects}, jedná se o soubor \texttt{logger\_turtle.ttl}.
+    
+    \subsubsection{Definice objektu} \label{example_def}
+    Objekt \texttt{loggerTurtle} je definován těmito parametry:
+    \begin{itemize}
+     \item \textbf{název}: loggerTurtle
+     \item \textbf{skupina}: dynrdf
+     \item \textbf{regulární výraz}: \texttt{loggerTurtle}
+     \item \textbf{priorita}: 1
+     \item \textbf{typ definice}: TURTLE
+     \item \textbf{šablona definice}: šablona definice je uvedena v kódu \ref{list:turtle}
+          \begin{lstlisting}[float=htb,caption={Šablona RDF entity v Turtle formátu pro objekt loggerTurtle},label={list:turtle}]
+@base <[@0, "^([^/]*\/[^/]*\/[^/]*\/[^/]*\/[^/]*)\/"]> .
+@prefix rlog: 
+<http://persistence.unileipzig.org/nlp2rdf/ontologies/rlog#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<#[@6]> # log id 
+	a rlog:Entry ;
+  	rlog:level rlog:WARN ;
+	rlog:date "[@7]T[@8]Z"^^xsd:dateTime ;
+	rlog:className "[@9]";
+	rlog:message "[@10]".
+\end{lstlisting}
+     \item \textbf{HTML šablona}: HTML šablona je uvedena v kódu \ref{list:html}
+               \begin{lstlisting}[float=htb,caption={HTML šablona pro objekt loggerTurtle},label={list:html}]
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Logger</title>
+    <meta name="description" content="Dynrdf logger example">
+  </head>
+
+  <body>
+    Log record: [@10] <br />
+    Log ID: #[@6] <br />
+    Level: Warn <br />
+    Time: [@7] [@8] <br />
+    Class name: [@9]
+  </body>
+</html>
+\end{lstlisting}
+    \end{itemize}
+    
+    Regulární výraz \texttt{loggerTurtle} a struktura šablon předepisují očekávanou strukturu URL adresy. Tou může být URL adresa  \\
+    \texttt{http://example.com/data/?group=<group>\&url=<url>}, kde parametry \\ \texttt{group} a \texttt{url} obsahují hodnoty:
+    \begin{itemize}
+     \item \texttt{<group>}: dynrdf
+     \item \texttt{<url>}: \texttt{http://logservice.com/data/loggerTurtle/42/2016-05-01/\\10:00:23/org.dynrdf.Request/some exception msg}
+    \end{itemize}
+
+    V této URL adrese parametr \texttt{group} odpovídá parametru definice (\texttt{dynrdf}) a URL adresa v parametru \texttt{url} odpovídá regulárnímu výrazu
+    \texttt{loggerTurtle}, protože je přímo v URL uveden text \texttt{../loggerTurtle/..}. Vztah mezi URL adresou a regulárním výrazem je možné
+    ověřit si online na adrese \url{http://regexr.com/3ddne}.
+    
+    URL adresa se v šablonovacím systému dělí na následující atributy mezi lomítky, které může uživatel použít v šablonách:
+    \begin{itemize}
+     \item \textbf{@0}: celá URL adresa
+     \item \textbf{@1}: http:
+     \item \textbf{@2}: prázdný řetězec (mezi //)
+     \item \textbf{@3}: logservice.com
+     \item \textbf{@4}: data
+     \item \textbf{@5}: loggerTurtle
+     \item \textbf{@6}: 42
+     \item \textbf{@7}: 2016-05-01
+     \item \textbf{@8}: 10:00:23
+     \item \textbf{@9}: org.dynrdf.Request
+     \item \textbf{@10}: some exception msg
+    \end{itemize}
+    Pokud je v šabloně uvedeno záporné číslo parametru, nebo URL adresa po zpracování neobsahuje dostatečný počet parametrů, je uživateli vrácena
+    odpověď s kódem \texttt{400 - Bad Request}. Pokud by v tomto příkladě URL adresa neobsahovala poslední parametr (zprávu výjimky \uv{some exception msg}, nebo jinou zprávu),
+    parametr \texttt{@10} by tedy nebyl nalezen a klientovi by byla odeslána odpověď se zmíněným kódem.
+
+    
+    \subsubsection{Výsledná RDF entita}
+    Uživateli je přístupem na URL adrese uvedené v kapitole \ref{example_def} vygenerována výsledná entita. Typ serializace si vždy určuje klient technikou
+    Content Negotioation \cite{content_negotiation}. V tomto příkladě je uveden výsledek ve formátu Turtle v kódu \ref{list:example_entity_turtle}
+                   \begin{lstlisting}[float=htb,caption={Výsledná entita ve formátu Turtle pro příklad objektu loggerTurtle},label={list:example_entity_turtle}]
+@prefix rlog:  
+<http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog/rlog.ttl> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+<http://logservice.com/data/loggerTurtle#42>
+        a               rlog:Entry ;
+        rlog:className  "org.dynrdf.Request" ;
+        rlog:date       "2016-05-01T10:00:23Z"^^xsd:dateTime ;
+        rlog:level      rlog:WARN ;
+        rlog:message    "some exception msg" .
+\end{lstlisting}
+
+Přístupem klienta přes webový prohlížeč je vygenerována HTML stránka dle HTML šablony \label{list:html}. HTML šablona v tomto příkladu
+obsahuje jen přehled atributů ekvivalentní RDF entity. Vzhled a obsah výsledné stránky si definuje každý uživatel při tvorbě definic sám.
+Tato stránka je zobrazena na obrázku \ref{example_html_output}.
+    \begin{figure}\centering
+ 	\includegraphics[width=\textwidth]{example_html_output}
+ 	\caption[Vygenerovaná HTML stránka pro příklad loggerTurtle]{Vygenerovaná HTML stránka pro příklad loggerTurtle}\label{example_html_output}		
+  \end{figure}
+
+
     
   \section{Instalace serveru}
   Instalaci serveru je možné provést s již vytvořeným webovým archivem, který je k dispozici v příloze k práci (soubor \texttt{dynrdf.war}), nebo ze zdrojových kódů serveru,
@@ -1151,11 +1450,12 @@ WHERE {
   
   \subsection{Systémové požadavky}
   \begin{itemize}
-   \item Webový server pro webové aplikace v Javě Tomcat nebo Glassfish
-   \item Java 1.8
+   \item Webový server pro webové aplikace v Javě Tomcat \cite{tomcat_web} nebo Glassfish \cite{glassfish}
+   \item Java 8 \cite{java8}
+   \item Maven \cite{maven}
   \end{itemize}
     
-  \subsection{Instalace přes webový archiv}
+  \subsection{Instalace přes webový archiv}\label{war_install}
   Instalace serveru přes přiložený webový archiv je nejjednodušší variantou. Pro správný chod celého serveru je potřeba před nasazením nastavit konfiguraci serveru.
   Celá instalace má následující kroky:
   \begin{itemize}
@@ -1179,7 +1479,7 @@ WHERE {
     \texttt{dynrdf.rdfs.ttl}. Ten je v základu aplikace dostupný z kořene webové aplikace na adrese \url{http://<host>/dynrdf.rdfs.ttl}, kde \texttt{<host>} 
     je adresa serveru. Pro udržení konzistence v URL adresách je potřeba změnit tuto URL také v tomto souboru. Jedná se o řádek na začátku souboru:
     \\
-      \texttt{{@}prefix dynrdf: <http://dynrdf.com/dynrdf.rdfs.ttl#>}
+      \texttt{ @prefix dynrdf: <http://dynrdf.com/dynrdf.rdfs.ttl\#>}
       \\	
       Na tomto řádku změnte URL ve špičatých závorkách na stejnou adresu, na které je tento soubor dostupný.
     
@@ -1214,10 +1514,61 @@ WHERE {
    \item Nastavte parametry v konfiguračních souborech podobně jako při instalaci z připraveného war souboru. Konfigurační soubory se
    nacházejí ve složce \texttt{src/main/resources}.
    \item Vytvořte ze zdrojových kódů webový archiv pomocí příkazu \texttt{mvn package} v kořenu zdrojových kódu (tam kde je uložen soubor \texttt{pom.xml}).
-   \item Webový archiv, který najdete ve složce \texttt{target}, která se po provedení příkazu vytvořila, nahrajte na aplikační server stejně jako 
-   v případě instalace serveru z war souboru.
-  \end{itemize}
+   \item Webový archiv \texttt{dynrdf.war}, který najdete ve složce \texttt{target}, která se po provedení příkazu vytvořila, nahrajte na aplikační server stejně jako 
+   v případě instalace serveru z war souboru \ref{war_install}.
 
+  \end{itemize}
+  
+  \section{Nastavení serveru pro původ dat}
+  Struktura URL adresy tak, jak je popsána v kapitole \ref{sec:identifikace}, podporuje možnosti pro nastavení webových serverů tak, aby 
+  vůči klientům vystupovaly jako servery, na kterých jsou data uložena, ikdyž jsou generované touto aplikací na jiném serveru (na jiné URL adrese). Tímto chováním je docíleno konzistence
+  mezi URL adresou, na které je RDF entita dostupná a IRI této entity ve vygenerovaném souboru.
+  
+  Pro demonstraci slouží následující příklad. Ten popisuje chování pro už dříve zmiňovanou definici RDF entity logovací služby. Předpokládejme, že webový server
+  pro dynamické generování je v tomto příkladu dostupný na adrese \url{http://dynrdf.com} a server pro původ dat je dostupný na adrese\\ 
+  \url{http://logservice.com}. 
+  
+  Ze šablony pro RDF entitu \ref{list:example_template} je důležitý řádek s identifikátorem entity, 
+  konkrétně jde o placeholder v \texttt{<[@0]>}. Za placeholder \texttt{[@0]} se dosazuje celá URL adresa. Za URL adresu, kde má být přístupná požadovaná RDF entita
+  nadále považujme URL \url{http://logservice.com/data/loggerTurtle/42/2016-05-01/10:00:23/org.dynrdf.Request/msg}. 
+  
+
+\begin{lstlisting}[float=htb,caption={Šablona RDF entity v Turtle formátu},label=list:example_template]
+@prefix rlog: 
+<http://persistence.unileipzig.org/nlp2rdf/ontologies/rlog#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<[@0]> 
+	a rlog:Entry ;
+  	rlog:level rlog:WARN ;
+	rlog:date "[@7]T[@8]Z"^^xsd:dateTime ;
+	rlog:className "[@9]";
+	rlog:message "[@10]".
+\end{lstlisting}
+  
+  K nekonzistenci mezi URL adresou, kde je RDF entita dostupná a její IRI dochází v případě, kdy klient přistoupí přímo na URL adresu 
+  \url{http://dynrdf.com/data/?url=http://logservice.com/data/loggerTurtle/4111/2016-05-01/10:00:23/org.dynrdf.Request/msg}.
+  V tomto případě je výsledná RDF entita vygenerována na dané URL, ale její IRI je rovno hodnotě parametru \texttt{url}.
+  
+  Toto chování lze opravit pomocí nastavení webového serveru, kde je aplikace \url{http://logservice.com} spuštěna.
+  Toto nastavení musí zařídit přeposílání požadavků na RDF entitu přes proxy na server pro generování. 
+  Například ve webovém serveru Apache \cite{apache_httpd} se dá toto přeposílání nastavit
+  s použitím modulu \texttt{mod\_rewrite} \cite{mod_rewrite}, jak je uvedeno v ukázce konfigurace \ref{list:apache_config}.
+  
+  Klíčový je zde řádek s \texttt{RewriteRule}, který ve volném překladu znamená: \uv{Pro všechny požadavky na data přesměruj tyto požadavky na adresu 
+  serveru pro dynamické generování. Jako \texttt{url} parametr nastav adresu požadavku.}.  Parametrem \texttt{[P]} je docíleno toho, že je použit modul 
+  \texttt{mod\_proxy} \cite{mod_proxy} a nedochází tedy k přímému přesměrování, ale klientovi se jeví výsledná data tak, že pocházejí z dané URL adresy.
+  
+  Pokud tedy klient přistoupí na URL adresu \url{http://logservice.com/data/loggerTurtle/42/2016-05-01/10:00:23/org.dynrdf.Request/msg},\\ získá výslednou RDF entitu
+  a URL adresa i IRI entity se budou shodovat. 
+  
+  \begin{lstlisting}[float=htb,caption={Část konfigurace webového serveru Apache sloužící k přeposílání požadavků přes proxy},label=list:apache_config]
+RewriteEngine  on
+RewriteRule    /data/(.*)  
+  http://dynrdf.com/data/?url=http://%{REMOTE_HOST}%{SCRIPT_FILENAME}  
+  [P]
+
+\end{lstlisting}
   
   
 \begin{conclusion}
@@ -1267,6 +1618,7 @@ S využitím této práce se počítá pro datasety otevřené datové infrastru
 	\item[IP] Internet Protocol 
 	\item[MVC] Model–view–controller
 	\item[JSON] JavaScript Object Notation
+	\item[VPS] Virtual private server
 \end{description}
 
 

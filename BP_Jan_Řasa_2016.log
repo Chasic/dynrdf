@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.23)  12 MAY 2016 01:26
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.23)  14 MAY 2016 02:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -842,6 +842,12 @@ LaTeX Warning: Label `list:spage' multiply defined.
 
 LaTeX Warning: Label `list:spage' multiply defined.
 
+
+LaTeX Warning: Label `template_system' multiply defined.
+
+
+LaTeX Warning: Label `list:html' multiply defined.
+
 )
 \openout1 = `BP_Jan_≈òasa_2016.aux'.
 
@@ -935,7 +941,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 95.
 
-<cvut-logo-bw.pdf, id=141, 91.34125pt x 69.25874pt>
+<cvut-logo-bw.pdf, id=149, 91.34125pt x 69.25874pt>
 File: cvut-logo-bw.pdf Graphic file (type pdf)
  <use cvut-logo-bw.pdf>
 Package pdftex.def Info: cvut-logo-bw.pdf used on input line 95.
@@ -1001,340 +1007,361 @@ LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10.95> not available
 
 Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 138.
+(hyperref)                removing `\textasciicaron' on input line 141.
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 151.
+(Font)              <9> on input line 154.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 151.
+(Font)              <5> on input line 154.
 
 Package hyperref Warning: Composite letter `\textasciicaron+r'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 156.
+(hyperref)                removing `\textasciicaron' on input line 159.
 
 [5] [6] [7] [8] [9] [10
 
 ] [11]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 303.
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 303.
+nput line 316.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 316.
 
  (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-Overfull \hbox (20.54356pt too wide) in paragraph at lines 321--328
+Overfull \hbox (20.54356pt too wide) in paragraph at lines 334--341
 \T1/lmr/m/n/10.95 sky-tuje in-for-maci, ∫e ob-jekt na danÈ IRI je ne-p∞Ì-te-lem
  Spi-der-mana. \T1/lmtt/m/n/10.95 a foaf:Person
  []
 
 
-Overfull \hbox (8.4998pt too wide) in paragraph at lines 321--328
+Overfull \hbox (8.4998pt too wide) in paragraph at lines 334--341
 \T1/lmr/m/n/10.95 ∫e jeho jmÈno je Green Go-b-lin. TÌmto je tedy de-fi-no-v·n o
 b-jekt \T1/lmtt/m/n/10.95 <#green-goblin>
  []
 
 [12] [13] [14]
+Overfull \hbox (3.19424pt too wide) in paragraph at lines 404--406
+[]| \T1/lmr/m/n/10.95 Tato knihovna pod-po-ruje tes-to-v·nÌ webo-v˝ch slu-∫eb. 
+Umo∫-¨uje spus-
+ []
+
+[15]
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Component_Model.pdf): PDF inclusion: 
 found PDF version <1.5>, but at most version <1.4> allowed
-<Component_Model.pdf, id=405, 377.32677pt x 234.22704pt>
+<Component_Model.pdf, id=438, 377.32677pt x 234.22704pt>
 File: Component_Model.pdf Graphic file (type pdf)
 
 <use Component_Model.pdf>
-Package pdftex.def Info: Component_Model.pdf used on input line 408.
+Package pdftex.def Info: Component_Model.pdf used on input line 429.
 (pdftex.def)             Requested size: 369.0pt x 229.06557pt.
- [15pdfTeX warning (ext4): destination with the same identifier (name{figure.3.
+ [16pdfTeX warning (ext4): destination with the same identifier (name{figure.3.
 1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.416 
+l.437 
        <./Component_Model.pdf>]
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Components.pdf): PDF inclusion: found
  PDF version <1.5>, but at most version <1.4> allowed
-<Components.pdf, id=428, 294.2448pt x 185.8816pt>
+<Components.pdf, id=460, 294.2448pt x 185.8816pt>
 File: Components.pdf Graphic file (type pdf)
  <use Components.pdf>
-Package pdftex.def Info: Components.pdf used on input line 419.
+Package pdftex.def Info: Components.pdf used on input line 440.
 (pdftex.def)             Requested size: 295.20113pt x 186.49947pt.
 
 
 pdfTeX warning: /usr/bin/pdflatex (file ./API.pdf): PDF inclusion: found PDF ve
 rsion <1.5>, but at most version <1.4> allowed
-<API.pdf, id=430, 307.9734pt x 90.4925pt>
+<API.pdf, id=462, 307.9734pt x 90.4925pt>
 File: API.pdf Graphic file (type pdf)
  <use API.pdf>
-Package pdftex.def Info: API.pdf used on input line 430.
+Package pdftex.def Info: API.pdf used on input line 451.
 (pdftex.def)             Requested size: 295.20113pt x 86.74062pt.
 
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Model.pdf): PDF inclusion: found PDF 
 version <1.5>, but at most version <1.4> allowed
-<Model.pdf, id=432, 393.95772pt x 218.40063pt>
+<Model.pdf, id=464, 393.95772pt x 218.40063pt>
 File: Model.pdf Graphic file (type pdf)
  <use Model.pdf>
-Package pdftex.def Info: Model.pdf used on input line 439.
+Package pdftex.def Info: Model.pdf used on input line 460.
 (pdftex.def)             Requested size: 369.0pt x 204.57346pt.
- [16pdfTeX warning (ext4): destination with the same identifier (name{figure.3.
+ [17pdfTeX warning (ext4): destination with the same identifier (name{figure.3.
 2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.447 
+l.468 
       pdfTeX warning (ext4): destination with the same identifier (name{figure.
 3.3}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.447 
+l.468 
        <./Components.pdf> <./API.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./API.pdf): PDF inclusion: multiple pdf
 s with page group included in a single page
->] [17pdfTeX warning (ext4): destination with the same identifier (name{figure.
+>] [18pdfTeX warning (ext4): destination with the same identifier (name{figure.
 3.4}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.460  T
-        ≈ô√≠da RDFContainer slou≈æ√≠ jako kontejner (mal√° datab√°ze) v≈°ech...
+l.481  T
+        ≈ô√≠da RDFObjectContainer slou≈æ√≠ jako kontejner (mal√° datab√°ze) ...
  <./Model.pdf>]
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Container.pdf): PDF inclusion: found 
 PDF version <1.5>, but at most version <1.4> allowed
-<Container.pdf, id=536, 409.13138pt x 171.42874pt>
+<Container.pdf, id=568, 409.13138pt x 171.42874pt>
 File: Container.pdf Graphic file (type pdf)
  <use Container.pdf>
-Package pdftex.def Info: Container.pdf used on input line 466.
+Package pdftex.def Info: Container.pdf used on input line 487.
 (pdftex.def)             Requested size: 369.0pt x 154.614pt.
 
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Publisher.pdf): PDF inclusion: found 
 PDF version <1.5>, but at most version <1.4> allowed
-<Publisher.pdf, id=538, 268.23262pt x 245.86116pt>
+<Publisher.pdf, id=570, 268.23262pt x 245.86116pt>
 File: Publisher.pdf Graphic file (type pdf)
  <use Publisher.pdf>
-Package pdftex.def Info: Publisher.pdf used on input line 479.
+Package pdftex.def Info: Publisher.pdf used on input line 500.
 (pdftex.def)             Requested size: 295.20113pt x 270.59065pt.
- [18pdfTeX warning (ext4): destination with the same identifier (name{figure.3.
+ [19pdfTeX warning (ext4): destination with the same identifier (name{figure.3.
 5}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.484    \newpage
+l.505    \newpage
                   <./Container.pdf>]
 
 Package hyperref Warning: Composite letter `\textring+u'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textring' on input line 488.
+(hyperref)                removing `\textring' on input line 509.
 
-[19pdfTeX warning (ext4): destination with the same identifier (name{figure.3.6
+[20pdfTeX warning (ext4): destination with the same identifier (name{figure.3.6
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.503 
+l.524 
        <./Publisher.pdf>]
 
 pdfTeX warning: /usr/bin/pdflatex (file ./request_flow.pdf): PDF inclusion: fou
 nd PDF version <1.5>, but at most version <1.4> allowed
-<request_flow.pdf, id=586, 504.50902pt x 360.03911pt>
+<request_flow.pdf, id=618, 504.50902pt x 360.03911pt>
 File: request_flow.pdf Graphic file (type pdf)
  <use request_flow.pdf>
-Package pdftex.def Info: request_flow.pdf used on input line 525.
+Package pdftex.def Info: request_flow.pdf used on input line 546.
 (pdftex.def)             Requested size: 369.0pt x 263.33728pt.
 
-[20] [21pdfTeX warning (ext4): destination with the same identifier (name{figur
+[21] [22pdfTeX warning (ext4): destination with the same identifier (name{figur
 e.3.7}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.548    P
+l.569    P
           ≈ô√≠kladem m≈Ø≈æe b√Ωt nap≈ô√≠klad adresa \\ \textit{http://dynrdf...
  <./request_flow.pdf>]
-Overfull \hbox (8.10806pt too wide) in paragraph at lines 548--551
+Overfull \hbox (8.10806pt too wide) in paragraph at lines 569--572
 \T1/lmr/m/it/10.95 http://dynrdf.com/?url=http://dataowner.com/objects/year/201
 5\T1/lmr/m/n/10.95 . P∑-vodnÌ po-
  []
 
-[22]
+[23]
 
 Package hyperref Warning: Composite letter `\textring+u'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textring' on input line 554.
+(hyperref)                removing `\textring' on input line 575.
 
-[23]
-Overfull \hbox (18.56935pt too wide) in paragraph at lines 595--598
+[24]
+Overfull \hbox (18.56935pt too wide) in paragraph at lines 617--620
 \T1/lmr/m/n/10.95 kom-pli-ko-va-n•j-≤Ìch ob-jekt∑, je-jich∫ atri-buty mo-hou b˝
 t v˝-sled-kem dal-≤Ìch SPARQL
  []
 
-[24]
-
-Class memoir Warning: The material used in the headers is too large
-(13.69412pt) for the given head height (13.6pt), it is recommended to
-either increase the head height or redesign the header
-(in both cases you will find help in the memoir manual). on input line 650.
-
-[25] [26] [27]
-Overfull \hbox (30.46303pt too wide) in paragraph at lines 714--715
+[25] [26] [27] [28]
+Overfull \hbox (30.46303pt too wide) in paragraph at lines 736--737
 []\T1/lmr/m/n/10.95 Content type: li-bo-voln˝ z pod-po-ro-va-n˝ch (na-p∞Ì-klad 
 tex-t/turtle, application/n-
  []
 
-[28] [29
+[29] [30
 
-] [30] [31] [32] [33] [34] [35
+] [31] [32] [33] [34] [35] [36] [37
 
 ]
+Overfull \hbox (5.32373pt too wide) in paragraph at lines 962--964
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
 
-Package hyperref Warning: Composite letter `\textring+u'
+
+Package hyperref Warning: Composite letter `\textasciicaron+c'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textring' on input line 916.
+(hyperref)                removing `\textasciicaron' on input line 991.
 
-[36]
-Overfull \hbox (0.85623pt too wide) in paragraph at lines 956--967
+[38]
+Overfull \hbox (1.20071pt too wide) in paragraph at lines 1004--1009
+\T1/lmr/m/n/10.95 kter˝ ov•-∞uje funk£-nost ge-ne-ro-v·nÌ ob-jektu typu SPARQL 
+En-d-point. P∞i tomto
+ []
+
+[39]
+Overfull \hbox (1.64882pt too wide) in paragraph at lines 1033--1034
+[][][][][][][][][][][][][][][][][][] 
+ []
+
+[40] [41]
+Overfull \hbox (0.85623pt too wide) in paragraph at lines 1118--1129
  [][] 
  []
 
 
-Overfull \hbox (0.85623pt too wide) in paragraph at lines 971--982
+Overfull \hbox (0.85623pt too wide) in paragraph at lines 1133--1144
  [][] 
  []
 
-[37pdfTeX warning (ext4): destination with the same identifier (name{table.5.1}
-) has been already used, duplicate ignored
+[42] [43pdfTeX warning (ext4): destination with the same identifier (name{table
+.5.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.985   \chapter
-                {U≈æivatelsk√° dokumentace}] [38pdfTeX warning (ext4): destinat
-ion with the same identifier (name{table.5.2}) has been already used, duplicate
- ignored
+l.1147   \chapter
+                 {U≈æivatelsk√° dokumentace}pdfTeX warning (ext4): destination 
+with the same identifier (name{table.5.2}) has been already used, duplicate ign
+ored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.985   \chapter
-                {U≈æivatelsk√° dokumentace}]
-Overfull \hbox (6.29425pt too wide) in paragraph at lines 997--1001
-\T1/lmr/m/n/10.95 krÈtnÌ roky - []$\T1/lmtt/m/n/10.95 http : / / obj\OML/lmm/m/
-it/10.95 :\T1/lmtt/m/n/10.95 com / objects / time -[] interval / year / 2015 / 
-2016$[]\T1/lmr/m/n/10.95 . Kli-
- []
+l.1147   \chapter
+                 {U≈æivatelsk√° dokumentace}] [44
 
-<web_overview.png, id=723, 803.0pt x 602.25pt>
+] [45]
+<web_overview.png, id=885, 803.0pt x 538.01pt>
 File: web_overview.png Graphic file (type png)
  <use web_overview.png>
-Package pdftex.def Info: web_overview.png used on input line 1014.
-(pdftex.def)             Requested size: 369.0pt x 276.75348pt.
- [39
-
-]
-[40pdfTeX warning (ext4): destination with the same identifier (name{figure.6.1
-}) has been already used, duplicate ignored
+Package pdftex.def Info: web_overview.png used on input line 1188.
+(pdftex.def)             Requested size: 369.0pt x 247.23311pt.
+ [46pdfTeX warning (ext4): destination with the same identifier (name{figure.6.
+1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1031       \item R
-                    egul√°rn√≠ v√Ωraz <./web_overview.png>] [41]
-<web_create.png, id=747, 803.0pt x 585.18625pt>
+l.1200       \subitem
+                      N√°zev a skupina tvo≈ô√≠ dohromady cel√© jm√©no defini...
+ <./web_overview.png>] [47] <web_create.png, id=904, 803.0pt x 585.18625pt>
 File: web_create.png Graphic file (type png)
- <use web_create.png>
-Package pdftex.def Info: web_create.png used on input line 1065.
+
+<use web_create.png>
+Package pdftex.def Info: web_create.png used on input line 1239.
 (pdftex.def)             Requested size: 369.0pt x 268.91212pt.
 
-Underfull \vbox (badness 1383) has occurred while \output is active []
+Underfull \vbox (badness 1048) has occurred while \output is active []
 
- [42pdfTeX warning (ext4): destination with the same identifier (name{figure.6.
+ [48pdfTeX warning (ext4): destination with the same identifier (name{figure.6.
 2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1082 
+l.1251 
         <./web_create.png>]
-Overfull \hbox (1.90192pt too wide) in paragraph at lines 1108--1112
+Overfull \hbox (1.90192pt too wide) in paragraph at lines 1286--1290
 \T1/lmr/m/n/10.95 na-lity to-hoto do-ta-zo-va-cÌho ja-zyka. P∞Ì-klad stej-nÈho 
 ob-jektu pro SPARQL
  []
 
-[43]
-Overfull \hbox (0.83752pt too wide) in paragraph at lines 1142--1145
+[49]
+Overfull \hbox (0.83752pt too wide) in paragraph at lines 1319--1322
 []\T1/lmr/m/n/10.95 U∫ivatel m∑∫e na-kon-fi-gu-ro-vat p∞e-po-sÌ-l·nÌ po-∫a-davk
 ∑ na jin˝ ser-ver, kter˝
  []
 
+[50]
+Overfull \hbox (3.02531pt too wide) in paragraph at lines 1395--1396
+[]\T1/lmtt/m/n/10.95 <url>\T1/lmr/m/n/10.95 : \T1/lmtt/m/n/10.95 http://logserv
+ice.com/data/loggerTurtle/42/2016-05-01/ 
+ []
 
-Package hyperref Warning: Composite letter `\textasciicaron+r'
-(hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 1151.
+[51] [52]
+Overfull \hbox (3.74892pt too wide) in paragraph at lines 1426--1427
+[][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
 
+<example_html_output.png, id=1002, 521.95pt x 216.81pt>
+File: example_html_output.png Graphic file (type png)
 
-Package hyperref Warning: Composite letter `\textring+u'
-(hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textring' on input line 1151.
-
-[44]
-! Illegal parameter number in definition of \reserved@a.
-<to be read again> 
-                   >
-l.1188 ...f: <http://dynrdf.com/dynrdf.rdfs.ttl#>}
-                                                  
-You meant to type ## instead of #, right?
-Or maybe a } was forgotten somewhere earlier, and things
-are all screwed up? I'm going to assume that you meant ##.
-
-! You can't use `macro parameter character #' in horizontal mode.
-<argument> ...<http://dynrdf.com/dynrdf.rdfs.ttl##
-                                                  >
-l.1188 ...f: <http://dynrdf.com/dynrdf.rdfs.ttl#>}
-                                                  
-Sorry, but I'm not programmed to handle this case;
-I'll just pretend that you didn't ask for it.
-If you're in the wrong mode, you might be able to
-return to the right one by typing `I}' or `I$' or `I\par'.
-
-<config.png, id=797, 672.5125pt x 602.25pt>
-File: config.png Graphic file (type png)
- <use config.png>
-Package pdftex.def Info: config.png used on input line 1205.
-(pdftex.def)             Requested size: 369.0pt x 330.44821pt.
-
-<tomcat_deploy.png, id=798, 632.3625pt x 100.375pt>
-File: tomcat_deploy.png Graphic file (type png)
- <use tomcat_deploy.png>
-Package pdftex.def Info: tomcat_deploy.png used on input line 1210.
-(pdftex.def)             Requested size: 369.0pt x 58.57286pt.
-
-[45] [46pdfTeX warning (ext4): destination with the same identifier (name{figur
-e.6.3}) has been already used, duplicate ignored
+<use example_html_output.png>
+Package pdftex.def Info: example_html_output.png used on input line 1441.
+(pdftex.def)             Requested size: 369.0pt x 153.27783pt.
+ [53] [54pdfTeX warning (ext4): destination with the same identifier (name{figu
+re.6.3}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1220    \item N
-                 astavte parametry v konfiguraƒçn√≠ch souborech podobnƒõ jak...
-pdfTeX warning (ext4): destination with the same identifier (name{figure.6.4}) 
+l.1465    \item O
+                 tev≈ôte p≈ôilo≈æen√Ω soubor \texttt{dynrdf.war} v libovoln√...
+ <./example_html_output.png>] <config.png, id=1038, 672.5125pt x 602.25pt>
+File: config.png Graphic file (type png)
+
+<use config.png>
+Package pdftex.def Info: config.png used on input line 1499.
+(pdftex.def)             Requested size: 369.0pt x 330.44821pt.
+ <tomcat_deploy.png, id=1039, 632.3625pt x 100.375pt>
+File: tomcat_deploy.png Graphic file (type png)
+
+<use tomcat_deploy.png>
+Package pdftex.def Info: tomcat_deploy.png used on input line 1504.
+(pdftex.def)             Requested size: 369.0pt x 58.57286pt.
+ [55] [56pdfTeX warning (ext4): destination with the same identifier (name{figu
+re.6.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1516    \item V
+                 ytvo≈ôte ze zdrojov√Ωch k√≥d≈Ø webov√Ω archiv pomoc√≠ p≈ô√≠...
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6.5}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.1220    \item N
-                 astavte parametry v konfiguraƒçn√≠ch souborech podobnƒõ jak...
+l.1516    \item V
+                 ytvo≈ôte ze zdrojov√Ωch k√≥d≈Ø webov√Ω archiv pomoc√≠ p≈ô√≠...
  <./config.png> <./tomcat_deploy.png>]
-Overfull \hbox (2.86307pt too wide) in paragraph at lines 1222--1223
+Overfull \hbox (2.86307pt too wide) in paragraph at lines 1516--1517
 []\T1/lmr/m/n/10.95 Vytvo∞te ze zdro-jo-v˝ch kÛd∑ webov˝ ar-chiv po-mocÌ p∞Ì-ka
 zu \T1/lmtt/m/n/10.95 mvn package
  []
 
-[47] [48
 
-]
+Package hyperref Warning: Composite letter `\textring+u'
+(hyperref)                not defined in PD1 encoding,
+(hyperref)                removing `\textring' on input line 1522.
+
+
+Overfull \hbox (5.00229pt too wide) in paragraph at lines 1549--1552
+\T1/lmtt/m/n/10.95 dynrdf\OML/lmm/m/it/10.95 :\T1/lmtt/m/n/10.95 com / data/?ur
+l = http : / / logservice\OML/lmm/m/it/10.95 :\T1/lmtt/m/n/10.95 com / data / l
+oggerTurtle / 4111 /
+ []
+
+
+Overfull \hbox (5.30185pt too wide) in paragraph at lines 1549--1552
+\T1/lmtt/m/n/10.95 2016 -[] 05 -[] 01 / 10 : 00 : 23 / org\OML/lmm/m/it/10.95 :
+\T1/lmtt/m/n/10.95 dynrdf\OML/lmm/m/it/10.95 :\T1/lmtt/m/n/10.95 Request / msg$
+[]\T1/lmr/m/n/10.95 . V tomto p∞Ì-pad• je v˝-sledn·
+ []
+
+[57] [58]
 
 Package hyperref Warning: Composite letter `\textasciicaron+e'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 1229.
+(hyperref)                removing `\textasciicaron' on input line 1575.
 
-(./BP_Jan_≈òasa_2016.bbl [49] [50
+(./BP_Jan_≈òasa_2016.bbl [59
+
+] [60
 
 ]
 bibitemlist
@@ -1357,29 +1384,49 @@ Underfull \hbox (badness 1178) in paragraph at lines 25--28
 n Sta-tis-ti-cal Data [on-line]\T1/lmr/m/n/10.95 .
  []
 
-[51]
-Underfull \hbox (badness 4726) in paragraph at lines 64--67
+[61]
+Underfull \hbox (badness 3088) in paragraph at lines 63--65
+[]\T1/lmr/m/n/10.95 Sesame: \T1/lmr/m/it/10.95 Se-same [on-line]\T1/lmr/m/n/10.
+95 . [cit. 2016-05-08]. Do-stupnÈ z: []$\T1/lmtt/m/n/10.95 http : / /
+ []
+
+
+Underfull \hbox (badness 1019) in paragraph at lines 95--98
+\T1/lmr/m/n/10.95 2016-05-13]. Do-stupnÈ z: []$\T1/lmtt/m/n/10.95 https : / / j
+ersey\OML/lmm/m/it/10.95 :\T1/lmtt/m/n/10.95 java\OML/lmm/m/it/10.95 :\T1/lmtt/
+m/n/10.95 net / documentation /
+ []
+
+
+Underfull \hbox (badness 4726) in paragraph at lines 100--103
 []\T1/lmr/m/n/10.95 Jan Go-y-vaerts: \T1/lmr/m/it/10.95 Re-gu-lar Ex-pres-sion 
 Re-fe-rence: Cap-tu-ring Groups
  []
 
-) [52] [53
+[62]
+Underfull \hbox (badness 4927) in paragraph at lines 127--129
+[]\T1/lmr/m/n/10.95 Oracle: \T1/lmr/m/it/10.95 Java 8 Cen-t-ral [on-line]\T1/lm
+r/m/n/10.95 . [cit. 2016-05-08]. Do-stupnÈ z:
+ []
 
-] [54
+
+Underfull \hbox (badness 10000) in paragraph at lines 127--129
+[]$\T1/lmtt/m/n/10.95 http : / / www\OML/lmm/m/it/10.95 :\T1/lmtt/m/n/10.95 ora
+cle\OML/lmm/m/it/10.95 :\T1/lmtt/m/n/10.95 com / technetwork / java / javase / 
+overview / java8 -[]
+ []
+
+) [63] [64
+
+] [65] [66
 
 ]
 
 Package hyperref Warning: Composite letter `\textasciicaron+r'
 (hyperref)                not defined in PD1 encoding,
-(hyperref)                removing `\textasciicaron' on input line 1280.
+(hyperref)                removing `\textasciicaron' on input line 1627.
 
-
-Class memoir Warning: The material used in the headers is too large
-(13.69412pt) for the given head height (13.6pt), it is recommended to
-either increase the head height or redesign the header
-(in both cases you will find help in the memoir manual). on input line 1297.
-
-[55]
+[67]
 \tf@toc=\write5
 \openout5 = `BP_Jan_≈òasa_2016.toc'.
 
@@ -1389,14 +1436,14 @@ either increase the head height or redesign the header
 \tf@lot=\write7
 \openout7 = `BP_Jan_≈òasa_2016.lot'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1297.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1297.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1644.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1644.
  (./BP_Jan_≈òasa_2016.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1297.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1297.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1644.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1644.
 
 Package rerunfilecheck Info: File `BP_Jan_≈òasa_2016.out' has not changed.
-(rerunfilecheck)             Checksum: C1E8BA59FB6B04981D7961F37546CB9F;2008.
+(rerunfilecheck)             Checksum: D5A14640D8787C09762FAE4F29D90991;2141.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -1404,16 +1451,16 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1297.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1644.
  ) 
 Here is how much of TeX's memory you used:
- 11981 strings out of 494991
- 166056 string characters out of 6180090
- 316137 words of memory out of 5000000
- 14811 multiletter control sequences out of 15000+600000
+ 12199 strings out of 494991
+ 169224 string characters out of 6180090
+ 326683 words of memory out of 5000000
+ 14851 multiletter control sequences out of 15000+600000
  85585 words of font info for 56 fonts, out of 8000000 for 9000
  24 hyphenation exceptions out of 8191
- 38i,13n,32p,1101b,1196s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,13n,32p,1101b,1204s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
 ips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share
 /texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1/public/lm
@@ -1427,9 +1474,9 @@ re/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/
 lm/lmssbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/
 texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/lm/
 lmtti10.pfb>
-Output written on BP_Jan_≈òasa_2016.pdf (71 pages, 775544 bytes).
+Output written on BP_Jan_≈òasa_2016.pdf (83 pages, 857459 bytes).
 PDF statistics:
- 980 PDF objects out of 1000 (max. 8388607)
- 238 named destinations out of 1000 (max. 500000)
- 317 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1327 PDF objects out of 1440 (max. 8388607)
+ 415 named destinations out of 1000 (max. 500000)
+ 338 words of extra memory for PDF output out of 10000 (max. 10000000)
 

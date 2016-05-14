@@ -3,50 +3,45 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: BP_Jan_Řasa_2016.aux
 The style file: csn690.bst
 Database file #1: mybibliographyfile.bib
-Repeated entry---line 112 of file mybibliographyfile.bib
- : @book{british_ti
- :                 ,
-I'm skipping whatever remains of this entry
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 14 entries,
+You've used 30 entries,
             3151 wiz_defined-function locations,
-            710 strings with 7062 characters,
-and the built_in function-call counts, 3782 in all, are:
-= -- 290
-> -- 20
+            767 strings with 8467 characters,
+and the built_in function-call counts, 7982 in all, are:
+= -- 626
+> -- 36
 < -- 0
-+ -- 17
++ -- 37
 - -- 2
-* -- 185
-:= -- 336
-add.period$ -- 28
-call.type$ -- 14
-change.case$ -- 55
+* -- 393
+:= -- 688
+add.period$ -- 60
+call.type$ -- 30
+change.case$ -- 119
 chr.to.int$ -- 0
-cite$ -- 14
-duplicate$ -- 442
-empty$ -- 447
+cite$ -- 30
+duplicate$ -- 938
+empty$ -- 943
 format.name$ -- 2
-if$ -- 855
+if$ -- 1815
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 102
-newline$ -- 65
+int.to.str$ -- 30
+missing$ -- 214
+newline$ -- 129
 num.names$ -- 2
-pop$ -- 246
+pop$ -- 518
 preamble$ -- 1
-purify$ -- 42
+purify$ -- 90
 quote$ -- 0
-skip$ -- 129
+skip$ -- 273
 stack$ -- 0
-substring$ -- 110
-swap$ -- 171
+substring$ -- 242
+swap$ -- 363
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 54
+type$ -- 118
 warning$ -- 0
 while$ -- 2
-width$ -- 16
-write$ -- 121
-(There was 1 error message)
+width$ -- 32
+write$ -- 249

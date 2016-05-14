@@ -4,20 +4,21 @@
 \addvspace {10pt}
 \addvspace {10pt}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Z\IeC {\'a}kladn\IeC {\'\i } \IeC {\v c}\IeC {\'a}sti syst\IeC {\'e}mu}}{15}{figure.3.1}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Model komponent}}{16}{figure.3.2}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Model t\IeC {\v r}\IeC {\'\i }d API}}{16}{figure.3.3}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Model t\IeC {\v r}\IeC {\'\i }d komponenty model}}{17}{figure.3.4}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Model t\IeC {\v r}\IeC {\'\i }d komponenty container}}{18}{figure.3.5}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Model t\IeC {\v r}\IeC {\'\i }d komponenty publisher}}{19}{figure.3.6}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Po\IeC {\v z}adavek na objekt p\IeC {\v r}es server t\IeC {\v r}et\IeC {\'\i } strany}}{21}{figure.3.7}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Z\IeC {\'a}kladn\IeC {\'\i } \IeC {\v c}\IeC {\'a}sti syst\IeC {\'e}mu}}{16}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Model komponent}}{17}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Model t\IeC {\v r}\IeC {\'\i }d API}}{17}{figure.3.3}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Model t\IeC {\v r}\IeC {\'\i }d komponenty model}}{18}{figure.3.4}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Model t\IeC {\v r}\IeC {\'\i }d komponenty container}}{19}{figure.3.5}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Model t\IeC {\v r}\IeC {\'\i }d komponenty publisher}}{20}{figure.3.6}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Po\IeC {\v z}adavek na objekt p\IeC {\v r}es server t\IeC {\v r}et\IeC {\'\i } strany}}{22}{figure.3.7}
 \addvspace {10pt}
 \addvspace {10pt}
 \addvspace {10pt}
-\contentsline {figure}{\numberline {6.1}{\ignorespaces P\IeC {\v r}ehled definic ve webov\IeC {\'e} aplikaci - hlavn\IeC {\'\i } str\IeC {\'a}nka}}{40}{figure.6.1}
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Formul\IeC {\'a}\IeC {\v r} pro zalo\IeC {\v z}en\IeC {\'\i } a editaci definice}}{42}{figure.6.2}
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Nastaven\IeC {\'\i } parametr\IeC {\r u} v konfigura\IeC {\v c}n\IeC {\'\i }m souboru}}{46}{figure.6.3}
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Nahr\IeC {\'a}n\IeC {\'\i } webov\IeC {\'e}ho archivu na server Tomcat}}{46}{figure.6.4}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces P\IeC {\v r}ehled definic ve webov\IeC {\'e} aplikaci - hlavn\IeC {\'\i } str\IeC {\'a}nka}}{46}{figure.6.1}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Formul\IeC {\'a}\IeC {\v r} pro zalo\IeC {\v z}en\IeC {\'\i } a editaci definice}}{48}{figure.6.2}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Vygenerovan\IeC {\'a} HTML str\IeC {\'a}nka pro p\IeC {\v r}\IeC {\'\i }klad loggerTurtle}}{54}{figure.6.3}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Nastaven\IeC {\'\i } parametr\IeC {\r u} v konfigura\IeC {\v c}n\IeC {\'\i }m souboru}}{56}{figure.6.4}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Nahr\IeC {\'a}n\IeC {\'\i } webov\IeC {\'e}ho archivu na server Tomcat}}{56}{figure.6.5}
 \addvspace {10pt}
 \addvspace {10pt}
 \addvspace {10pt}

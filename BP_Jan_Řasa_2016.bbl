@@ -55,10 +55,46 @@ Tim Berners-Lee: \emph{Linked Data - Design Issues {[online]}}. [cit.
   2016-04-21].
 \urlprefix\biburl{https://www.w3.org/DesignIssues/LinkedData}
 
+\bibitem{jena}
+Apache Software Foundation: \emph{Apache Jena {[online]}}. [cit. 2016-05-08].
+\urlprefix\biburl{https://jena.apache.org/}
+
+\bibitem{sesame}
+Sesame: \emph{Sesame {[online]}}. [cit. 2016-05-08].
+\urlprefix\biburl{http://rdf4j.org/}
+
 \bibitem{sparql_benchmark}
 Christian Bizer, Andreas Schultz: \emph{The Berlin SPARQL Benchmark
   {[online]}}. [cit. 2016-04-22].
 \urlprefix\biburl{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.161.8030&rep=rep1&type=pdf}
+
+\bibitem{jersey}
+Oracle Corporation: \emph{Jersey {[online]}}. [cit. 2016-05-13].
+\urlprefix\biburl{https://jersey.java.net/}
+
+\bibitem{gson}
+Google: \emph{A Java serialization/deserialization library that can convert
+  Java Objects into JSON and back. {[online]}}. [cit. 2016-05-13].
+\urlprefix\biburl{https://github.com/google/gson}
+
+\bibitem{log4j}
+Apache Software Foundation: \emph{Apache log4j 1.2 {[online]}}. [cit.
+  2016-05-13].
+\urlprefix\biburl{https://logging.apache.org/log4j/1.2/}
+
+\bibitem{typesafe}
+Lightbend Inc.: \emph{typesafehub/config: Configuration library for JVM
+  languages {[online]}}. [cit. 2016-05-13].
+\urlprefix\biburl{https://github.com/typesafehub/config}
+
+\bibitem{junit}
+JUnit: \emph{JUnit - About {[online]}}. [cit. 2016-05-13].
+\urlprefix\biburl{http://junit.org/junit4/}
+
+\bibitem{jersey_test}
+Oracle Corporation: \emph{Chapter 7. Jersey Test Framework {[online]}}. [cit.
+  2016-05-13].
+\urlprefix\biburl{https://jersey.java.net/documentation/1.19.1/test-framework.html}
 
 \bibitem{capture_group}
 Jan Goyvaerts: \emph{Regular Expression Reference: Capturing Groups and
@@ -68,5 +104,42 @@ Jan Goyvaerts: \emph{Regular Expression Reference: Capturing Groups and
 \bibitem{glassfish}
 Oracle Corporation: \emph{GlassFish Server {[online]}}. [cit. 2016-04-25].
 \urlprefix\biburl{https://glassfish.java.net/}
+
+\bibitem{jmeter}
+Apache Software Foundation: \emph{Apache JMeter {[online]}}. [cit. 2016-05-13].
+\urlprefix\biburl{http://jmeter.apache.org/}
+
+\bibitem{rdf}
+W3C: \emph{RDF - Semantic Web Standards {[online]}}. [cit. 2016-05-08].
+\urlprefix\biburl{https://www.w3.org/RDF/}
+
+\bibitem{tomcat_web}
+The Apache Software Foundation: \emph{Apache Tomcat {[online]}}. [cit.
+  2016-05-12].
+\urlprefix\biburl{http://tomcat.apache.org/}
+
+\bibitem{java8}
+The Apache Software Foundation: \emph{Maven - Welcome to Apache Maven
+  {[online]}}. [cit. 2016-05-08].
+\urlprefix\biburl{https://maven.apache.org/}
+
+\bibitem{maven}
+Oracle: \emph{Java 8 Central {[online]}}. [cit. 2016-05-08].
+\urlprefix\biburl{http://www.oracle.com/technetwork/java/javase/overview/java8-2100321.html}
+
+\bibitem{apache_httpd}
+Apache Software Foundation: \emph{The Apache HTTP Server Project {[online]}}.
+  [cit. 2016-05-13].
+\urlprefix\biburl{https://httpd.apache.org/}
+
+\bibitem{mod_rewrite}
+Apache Software Foundation: \emph{mod\_rewrite - Apache HTTP Server
+  {[online]}}. [cit. 2016-05-13].
+\urlprefix\biburl{http://httpd.apache.org/docs/2.0/mod/mod_rewrite.html}
+
+\bibitem{mod_proxy}
+Apache Software Foundation: \emph{mod\_proxy - Apache HTTP Server {[online]}}.
+  [cit. 2016-05-13].
+\urlprefix\biburl{https://httpd.apache.org/docs/current/mod/mod_proxy.html}
 
 \end{thebibliography}
