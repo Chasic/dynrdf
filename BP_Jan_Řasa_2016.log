@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.23)  15 MAY 2016 00:05
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.23)  15 MAY 2016 01:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1199,14 +1199,14 @@ l.526 \newpage
 
 pdfTeX warning: /usr/bin/pdflatex (file ./request_flow.pdf): PDF inclusion: fou
 nd PDF version <1.5>, but at most version <1.4> allowed
-<request_flow.pdf, id=629, 504.50902pt x 360.03911pt>
+<request_flow.pdf, id=629, 528.35344pt x 360.03911pt>
 File: request_flow.pdf Graphic file (type pdf)
  <use request_flow.pdf>
 Package pdftex.def Info: request_flow.pdf used on input line 552.
-(pdftex.def)             Requested size: 369.0pt x 263.33728pt.
+(pdftex.def)             Requested size: 369.0pt x 251.4488pt.
 
 [21]
-Underfull \vbox (badness 1320) has occurred while \output is active []
+Underfull \vbox (badness 4229) has occurred while \output is active []
 
  [22pdfTeX warning (ext4): destination with the same identifier (name{figure.3.
 7}) has been already used, duplicate ignored
@@ -1576,7 +1576,7 @@ share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/publ
 ic/lm/lmssbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/sha
 re/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/
 lm/lmtt9.pfb></usr/share/texmf/fonts/type1/public/lm/lmtti10.pfb>
-Output written on BP_Jan_Řasa_2016.pdf (89 pages, 934956 bytes).
+Output written on BP_Jan_Řasa_2016.pdf (89 pages, 934928 bytes).
 PDF statistics:
  1621 PDF objects out of 1728 (max. 8388607)
  600 named destinations out of 1000 (max. 500000)
