@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  tomcat:
+    build: ./dynrdf
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./tomcat:/bitnami/tomcat
+    environment:
+      TOMCAT_USERNAME: 'root'
+      TOMCAT_PASSWORD: 'secret'
+      TOMCAT_ALLOW_REMOTE_MANAGEMENT: 1
