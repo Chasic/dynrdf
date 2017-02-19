@@ -1,8 +1,7 @@
 import com.dynrdf.webapp.Config;
 import com.dynrdf.webapp.logic.RDFObjectContainer;
-import com.dynrdf.webapp.model.RDFObject;
 import com.dynrdf.webapp.util.Log;
-import javax.ws.rs.client.Entity;
+
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -15,8 +14,6 @@ import org.junit.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
